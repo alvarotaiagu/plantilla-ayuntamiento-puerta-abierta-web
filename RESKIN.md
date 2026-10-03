@@ -130,6 +130,11 @@ Reglas que no se negocian:
 - `letra`: la pareja tipográfica. Si la cambias, ejecuta `node scripts/fuentes.mjs` y `node scripts/medir-letra.mjs`;
 - `giros_paleta`: cuántos grados giran las paletas B y C del mando;
 - `densidad`: `"puerta"` o `"sobria"`.
+- `cortina`: la de la portada.
+  - `"puerta"` (por defecto): un arco se traza, se abre y vuela al de la foto.
+  - `"escudo"`: el escudo aparece en el centro, la cal se abre en círculo y el escudo aterriza en la cabecera. La pidió Monesterio. Úsala solo si el escudo está confirmado: es lo primero que se ve.
+  
+  Las dos duran 1,2 s como mucho y cumplen lo mismo (una vez por sesión, se saltan, nada con movimiento reducido). `verificar.mjs` prueba la que esté puesta.
 
 ## 6. Fotos
 

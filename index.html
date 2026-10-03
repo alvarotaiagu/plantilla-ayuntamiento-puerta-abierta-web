@@ -20,7 +20,7 @@
 <link rel="preload" href="fonts/libre-franklin-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/fuentes.css?v=03f84dac">
 <link rel="stylesheet" href="css/marca.css?v=8d5db81a">
-<link rel="stylesheet" href="css/base.css?v=bca59f0b">
+<link rel="stylesheet" href="css/base.css?v=a90d0e1e">
 <script>
 /* Bloqueante a propósito: lo que cambia el aspecto se decide antes del primer
    pintado, o la página arranca de una forma y salta a otra. */
@@ -57,13 +57,14 @@
 
 </head>
 <body class="pagina-inicio">
-<div class="cortina" aria-hidden="true">
+<div class="cortina" data-tipo="puerta" aria-hidden="true">
   <div class="cortina__velo"></div>
   <svg class="cortina__trazo" width="100%" height="100%">
     <path class="cortina__muro" fill-rule="evenodd" d="M0 0"/>
     <path class="cortina__lado" pathLength="1" d="M0 0"/>
     <path class="cortina__lado" pathLength="1" d="M0 0"/>
     <path class="cortina__umbral" pathLength="1" d="M0 0"/>
+    
   </svg>
 </div>
 <svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
@@ -424,7 +425,7 @@
 <script src="js/vivo.js?v=2aa76ce9" defer></script>
 <script src="js/main.js?v=85569bbf" defer></script>
 <script src="js/vendor/gsap.min.js?v=3.12.5" defer></script>
-<script src="js/cortina.js?v=f97548eb" defer></script>
+<script src="js/cortina.js?v=46506a5b" defer></script>
 
 
 </body>

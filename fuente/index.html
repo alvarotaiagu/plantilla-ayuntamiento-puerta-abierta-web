@@ -5,13 +5,15 @@
 {{> cabeza}}
 </head>
 <body class="pagina-inicio">
-{{#pagina.cortina}}<div class="cortina" aria-hidden="true">
+{{#pagina.cortina}}<div class="cortina" data-tipo="{{marca.cortina}}" aria-hidden="true">
   <div class="cortina__velo"></div>
   <svg class="cortina__trazo" width="100%" height="100%">
     <path class="cortina__muro" fill-rule="evenodd" d="M0 0"/>
+    {{#marca.cortina_puerta}}<path class="cortina__lado" pathLength="1" d="M0 0"/>
     <path class="cortina__lado" pathLength="1" d="M0 0"/>
-    <path class="cortina__lado" pathLength="1" d="M0 0"/>
-    <path class="cortina__umbral" pathLength="1" d="M0 0"/>
+    <path class="cortina__umbral" pathLength="1" d="M0 0"/>{{/marca.cortina_puerta}}
+    {{#marca.cortina_escudo}}<circle class="cortina__anillo" cx="0" cy="0" r="0"/>
+    <image class="cortina__emblema" href="{{raiz}}marca/escudo-480.png" preserveAspectRatio="xMidYMid meet" x="0" y="0" width="0" height="0"/>{{/marca.cortina_escudo}}
   </svg>
 </div>{{/pagina.cortina}}
 {{> arriba}}

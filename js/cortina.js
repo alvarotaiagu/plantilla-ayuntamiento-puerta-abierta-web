@@ -1,4 +1,5 @@
-/* cortina.js — «la puerta que se abre». Solo en la portada, una vez por
+/* cortina.js — «la puerta que se abre» (por defecto) o «el escudo a su sitio»
+   (marca.json → "cortina": "escudo", más abajo). Solo en la portada, una vez por
    sesión, ≤ 1,2 s, nunca con movimiento reducido (lo decide el <head>).
 
    1. Sobre la cal en sombra se traza el contorno de un arco de medio punto en
@@ -29,7 +30,10 @@
   function saltar() { if (tl) tl.progress(1); else quitar(); }
   EVENTOS.forEach(function (e) { window.addEventListener(e, saltar, { capture: true, passive: true }); });
 
-  var destino = document.getElementById('arco-hero');
+  /* dos cortinas (marca.json → "cortina"): «puerta» aterriza en el arco del hero;
+     «escudo» aterriza en el escudo de la cabecera */
+  var tipo = cortina && cortina.getAttribute('data-tipo') === 'escudo' ? 'escudo' : 'puerta';
+  var destino = tipo === 'escudo' ? document.querySelector('.cabecera__escudo') : document.getElementById('arco-hero');
   if (!window.gsap || !cortina || !destino) { quitar(); return; }
 
   var muro = cortina.querySelector('.cortina__muro');
@@ -94,6 +98,54 @@
       .to(cortina, { opacity: 0, duration: 0.14, ease: 'power1.in' }, 1.06);
     window.__cortinaTl = tl;     /* para las pruebas (scripts/verificar.mjs) */
   }
+  /* «El escudo a su sitio» (marca.json → "cortina": "escudo"):
+     1. El escudo aparece en el centro, sobre la cal.                      0,00–0,30 s
+     2. La cal se abre en un círculo que crece desde el centro, con un anillo
+        de oro en el borde (muro SVG evenodd, como el arco).     0,40–1,00 s, expo.inOut
+     3. El escudo vuela y encoge hasta el de la cabecera, que se vuelve a medir
+        en cada fotograma: aterriza encima. La capa se funde.      0,48–1,18 s */
+  function arrancaEscudo() {
+    var W = window.innerWidth, H = window.innerHeight, D = Math.hypot(W, H);
+    var anillo = cortina.querySelector('.cortina__anillo'), emblema = cortina.querySelector('.cortina__emblema');
+    if (!anillo || !emblema) { quitar(); return; }
+    var n = function (v) { return Math.round(v * 10) / 10; };
+    function medir() { var b = destino.getBoundingClientRect(); return { x: b.left, y: b.top, w: b.width, h: b.height }; }
+    var f = medir();
+    var h0 = Math.min(H * 0.34, 260), w0 = h0 * f.w / f.h;
+    var ini = { x: (W - w0) / 2, y: (H - h0) / 2, w: w0, h: h0 }, cx = W / 2, cy = H / 2;
+    var e = { aparece: 0, r: 0, viaje: 0 };
+    function caja() {
+      var t = e.viaje;
+      if (t > 0) f = medir();
+      return { x: ini.x + (f.x - ini.x) * t, y: ini.y + (f.y - ini.y) * t, w: ini.w + (f.w - ini.w) * t, h: ini.h + (f.h - ini.h) * t };
+    }
+    function pinta() {
+      var c = caja(), r = e.r;
+      emblema.setAttribute('x', n(c.x)); emblema.setAttribute('y', n(c.y));
+      emblema.setAttribute('width', n(c.w)); emblema.setAttribute('height', n(c.h));
+      emblema.style.opacity = e.aparece;
+      anillo.setAttribute('cx', n(cx)); anillo.setAttribute('cy', n(cy)); anillo.setAttribute('r', n(r));
+      muro.setAttribute('d', 'M0 0H' + W + 'V' + H + 'H0Z' + (r > 0 ? 'M' + n(cx - r) + ' ' + n(cy) + 'A' + n(r) + ' ' + n(r) + ' 0 1 0 ' + n(cx + r) + ' ' + n(cy) +
+        'A' + n(r) + ' ' + n(r) + ' 0 1 0 ' + n(cx - r) + ' ' + n(cy) + 'Z' : ''));
+    }
+    pinta();
+    cortina.classList.add('con-muro');
+    tl = window.gsap.timeline({
+      onUpdate: pinta,
+      onComplete: function () {
+        var c = caja();
+        window.__cortinaFinal = { tipo: 'escudo', x: c.x, y: c.y, w: c.w, h: c.h, viaje: e.viaje };
+        quitar();
+      }
+    });
+    tl.to(e, { aparece: 1, duration: 0.3, ease: 'power2.out' }, 0)
+      .to(e, { r: D / 2 + 4, duration: 0.6, ease: 'expo.inOut' }, 0.4)
+      .to(anillo, { opacity: 0, duration: 0.2, ease: 'power1.in' }, 0.8)
+      .to(e, { viaje: 1, duration: 0.55, ease: 'expo.inOut' }, 0.48)
+      .to(cortina, { opacity: 0, duration: 0.12, ease: 'power1.in' }, 1.06);
+    window.__cortinaTl = tl;     /* para las pruebas (scripts/verificar.mjs) */
+  }
+
   /* medir después del primer pintado, con la cabecera y la foto ya colocadas */
-  window.requestAnimationFrame(function () { window.requestAnimationFrame(arranca); });
+  window.requestAnimationFrame(function () { window.requestAnimationFrame(tipo === 'escudo' ? arrancaEscudo : arranca); });
 })();

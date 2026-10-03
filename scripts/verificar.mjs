@@ -260,9 +260,11 @@ async function cortina() {
     let tl;
     Object.defineProperty(window, '__cortinaTl', { configurable: true, get() { return tl; }, set(v) {
       tl = v; window.__muestras = [];
-      const lado = document.querySelector('.cortina__lado'), muro = document.querySelector('.cortina__muro');
+      const lado = document.querySelector('.cortina__lado'), anillo = document.querySelector('.cortina__anillo'), muro = document.querySelector('.cortina__muro');
+      /* «puerta»: lo que falta por trazar del arco; «escudo»: lo que falta por abrir del círculo */
+      const falta = () => lado ? parseFloat(getComputedStyle(lado).strokeDashoffset) : 1 - parseFloat(anillo.getAttribute('r')) / (Math.hypot(innerWidth, innerHeight) / 2 + 4);
       (function paso() {
-        window.__muestras.push({ t: v.time(), dash: parseFloat(getComputedStyle(lado).strokeDashoffset), hueco: (muro.getAttribute('d').split('Z')[1] || '').length, duracion: v.duration() });
+        window.__muestras.push({ t: v.time(), dash: falta(), hueco: (muro.getAttribute('d').split('Z')[1] || '').length, duracion: v.duration() });
         if (document.documentElement.classList.contains('con-cortina') && window.__muestras.length < 600) requestAnimationFrame(paso);
       })();
       if (pausaEn) v.call(() => { v.pause(); window.__pausada = true; }, null, pausaEn);
@@ -276,8 +278,11 @@ async function cortina() {
   const sale = muestras.length > 0;
   const intermedios = new Set(muestras.filter(m => m.dash > 0.02 && m.dash < 0.98).map(m => m.dash.toFixed(2))).size;
   const duracion = muestras[0] ? muestras[0].duracion : 99;
+  const ESCUDO = marca.cortina === 'escudo';
   comprobar(sale && intermedios >= 3 && duracion <= 1.2001,
-    `cortina: sale en la portada, dura ${duracion.toFixed(2)} s (≤ 1,2) y el arco se traza de verdad (${intermedios} valores intermedios de stroke-dashoffset en ${muestras.length} fotogramas, no salta de 1 a 0)`);
+    `cortina «${ESCUDO ? 'escudo' : 'puerta'}»: sale en la portada, dura ${duracion.toFixed(2)} s (≤ 1,2) y ` +
+    (ESCUDO ? `la cal se abre de verdad (${intermedios} radios intermedios del círculo` : `el arco se traza de verdad (${intermedios} valores intermedios de stroke-dashoffset`) +
+    ` en ${muestras.length} fotogramas, no salta de 1 a 0)`);
   /* un fotograma a mitad: la propia línea de tiempo se para a 0,75 s */
   {
     const v = await nueva({ reducido: false, conCortina: true });
@@ -286,9 +291,13 @@ async function cortina() {
     const parada = await v.page.waitForFunction(() => window.__pausada, null, { timeout: 5000 }).then(() => true, () => false);
     let ok = false, detalle = 'no llegó a 0,75 s';
     if (parada) {
+      /* un punto que ya tiene que verse: dentro del hueco del arco, o bajo el centro del círculo
+         (el escudo vuela hacia arriba, no tapa ese punto) */
       const geo = await v.page.evaluate(() => {
-        const n = (document.querySelector('.cortina__muro').getAttribute('d').split('Z')[1] || '').match(/-?\d+(\.\d+)?/g).map(Number);
         const c = getComputedStyle(document.documentElement).getPropertyValue('--cortina').trim();
+        const anillo = document.querySelector('.cortina__anillo');
+        if (anillo) { const r = parseFloat(anillo.getAttribute('r')); return { x: parseFloat(anillo.getAttribute('cx')) - 20, base: parseFloat(anillo.getAttribute('cy')) + Math.min(r * 0.6, innerHeight * 0.3) + 12, cortina: c }; }
+        const n = (document.querySelector('.cortina__muro').getAttribute('d').split('Z')[1] || '').match(/-?\d+(\.\d+)?/g).map(Number);
         return { x: n[0], base: n[1], arriba: n[3], ancho: (n[6] || n[2]) - n[0], cortina: c };
       });
       const foto = await v.page.screenshot({ path: CAPTURAS ? captura('cortina-mitad.png') : undefined });
@@ -307,17 +316,26 @@ async function cortina() {
       await lector.close();
       await v.page.evaluate(() => window.__cortinaTl.play());
     }
-    comprobar(ok, 'cortina: un fotograma a mitad (0,75 s) demuestra que se abre: la esquina es cortina y por el hueco del arco ya se ve la página → ' + detalle);
+    comprobar(ok, 'cortina: un fotograma a mitad (0,75 s) demuestra que se abre: la esquina es cortina y por el hueco ' + (ESCUDO ? 'del círculo' : 'del arco') + ' ya se ve la página → ' + detalle);
     await v.ctx.close();
   }
   await page.waitForFunction(() => !document.documentElement.classList.contains('con-cortina'), null, { timeout: 3000 }).catch(() => {});
-  const aterriza = await page.evaluate(() => {
-    const f = window.__cortinaFinal || {};
-    const a = document.getElementById('arco-hero'), b = a.getBoundingClientRect(), borde = parseFloat(getComputedStyle(a).borderTopWidth);
-    return { x: f.x, base: f.base, r: f.r, ex: b.left + borde / 2, ebase: b.bottom, er: (b.width - borde) / 2 };
-  });
-  comprobar(Math.abs(aterriza.x - aterriza.ex) < 2 && Math.abs(aterriza.base - aterriza.ebase) < 2 && Math.abs(aterriza.r - aterriza.er) < 2,
-    `cortina: el hueco termina exactamente sobre el arco del hero (x ${(+aterriza.x).toFixed(1)}/${aterriza.ex.toFixed(1)}, base ${(+aterriza.base).toFixed(1)}/${aterriza.ebase.toFixed(1)}, radio ${(+aterriza.r).toFixed(1)}/${aterriza.er.toFixed(1)})`);
+  if (ESCUDO) {
+    const at = await page.evaluate(() => {
+      const f = window.__cortinaFinal || {}, b = document.querySelector('.cabecera__escudo').getBoundingClientRect();
+      return { x: f.x, y: f.y, w: f.w, h: f.h, ex: b.left, ey: b.top, ew: b.width, eh: b.height };
+    });
+    comprobar(['x', 'y', 'w', 'h'].every(k => Math.abs(at[k] - at['e' + k]) < 2),
+      `cortina: el escudo aterriza exactamente sobre el de la cabecera (x ${(+at.x).toFixed(1)}/${at.ex.toFixed(1)}, y ${(+at.y).toFixed(1)}/${at.ey.toFixed(1)}, ancho ${(+at.w).toFixed(1)}/${at.ew.toFixed(1)}, alto ${(+at.h).toFixed(1)}/${at.eh.toFixed(1)})`);
+  } else {
+    const aterriza = await page.evaluate(() => {
+      const f = window.__cortinaFinal || {};
+      const a = document.getElementById('arco-hero'), b = a.getBoundingClientRect(), borde = parseFloat(getComputedStyle(a).borderTopWidth);
+      return { x: f.x, base: f.base, r: f.r, ex: b.left + borde / 2, ebase: b.bottom, er: (b.width - borde) / 2 };
+    });
+    comprobar(Math.abs(aterriza.x - aterriza.ex) < 2 && Math.abs(aterriza.base - aterriza.ebase) < 2 && Math.abs(aterriza.r - aterriza.er) < 2,
+      `cortina: el hueco termina exactamente sobre el arco del hero (x ${(+aterriza.x).toFixed(1)}/${aterriza.ex.toFixed(1)}, base ${(+aterriza.base).toFixed(1)}/${aterriza.ebase.toFixed(1)}, radio ${(+aterriza.r).toFixed(1)}/${aterriza.er.toFixed(1)})`);
+  }
   const fin = await page.evaluate(() => ({ clase: document.documentElement.classList.contains('con-cortina'), display: getComputedStyle(document.querySelector('.cortina')).display }));
   comprobar(!fin.clase && fin.display === 'none', 'cortina: al terminar desaparece (display:none) y la página queda libre');
   await page.reload({ waitUntil: 'networkidle' });

@@ -45,6 +45,8 @@ const errores = [], avisos = [];
 /* ───────────────────────── datos ───────────────────────── */
 const M = leerJSON('municipio.json');
 const marcaConf = leerJSON('marca/marca.json');
+const cortinaTipo = marcaConf.cortina || 'puerta';
+if (!['puerta', 'escudo'].includes(cortinaTipo)) errores.push('marca.json: "cortina" es "puerta" (por defecto) o "escudo"');
 const C = {
   avisos: leerJSON('contenido/avisos.json', { avisos: [] }).avisos || [],
   agenda: leerJSON('contenido/agenda.json', { eventos: [] }).eventos || [],
@@ -482,7 +484,9 @@ const webActual = M.web_actual || null;
 const comun = {
   ...M, aviso_generado: 'GENERADO por scripts/aplicar.mjs desde fuente/ y los datos. No editar a mano.',
   raiz: '', base_404: null, url: M.url || null, robots_no: !M.indexar, propuesta: M.propuesta !== false,
-  marca: { slug: marcaConf.slug, densidad: marcaConf.densidad === 'sobria' ? 'sobria' : 'puerta' },
+  /* la cortina de la portada: «puerta» (el arco que vuela al de la foto) o «escudo» (el escudo aterriza en la cabecera) */
+  marca: { slug: marcaConf.slug, densidad: marcaConf.densidad === 'sobria' ? 'sobria' : 'puerta',
+    cortina: cortinaTipo, cortina_puerta: cortinaTipo === 'puerta', cortina_escudo: cortinaTipo === 'escudo' },
   og: {
     titulo: M.propuesta !== false ? `Propuesta de web · ${N}` : `Ayuntamiento de ${N}`,
     descripcion: M.propuesta !== false ? `Propuesta de diseño para la web del Ayuntamiento de ${N}. No es la web oficial.` : `Trámites, avisos, agenda y teléfonos del Ayuntamiento de ${N}.`,

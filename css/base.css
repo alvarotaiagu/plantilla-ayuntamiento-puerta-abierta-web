@@ -744,6 +744,8 @@ html.con-cortina { overflow: hidden; background: var(--cortina); }   /* también
 .cortina.con-muro .cortina__velo { display: none; }
 .cortina__lado { fill: none; stroke: var(--marca); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
 .cortina__umbral { fill: none; stroke: var(--oro); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+/* cortina «escudo»: el anillo de oro que abre la cal y el escudo que vuela a la cabecera */
+.cortina__anillo { fill: none; stroke: var(--oro); stroke-width: 3; }
 
 @media (prefers-reduced-motion: reduce) {
   .cortina { display: none !important; }
