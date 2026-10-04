@@ -1,0 +1,121 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   imprimir.css — la web en papel (se carga con media="print").
+
+   Todas las páginas: fuera la navegación, las bandas, el aviso de cookies, el
+   menú, los botones y el pie largo. Texto en --tinta sobre blanco, sin fondos
+   ni sombras, las direcciones de los enlaces externos escritas detrás del
+   enlace y nada de tarjetas o filas partidas entre dos hojas. Se queda arriba
+   el escudo con el nombre (de quién es el papel) y abajo la nota de propuesta.
+
+   «Teléfonos y servicios» (telefonos.html) sale como la hoja de la nevera: UNA
+   hoja A4 vertical con el escudo y «Teléfonos útiles de …», las urgencias
+   arriba y en grande, el resto del listín en dos columnas con los números
+   grandes, la fecha de los datos y de impresión, y la web. Lo comprueba
+   verificar.mjs → v3identidad (PDF A4 de una sola página).
+
+   Colores solo con tokens: en papel, --tinta es el negro y --superficie el blanco.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@page { size: A4 portrait; margin: 12mm 13mm 10mm; }
+
+html, body { background: var(--superficie) !important; }
+body { background-image: none !important; font-size: 11pt; line-height: 1.45; }
+*, *::before, *::after {
+  color: var(--tinta) !important;
+  box-shadow: none !important; text-shadow: none !important;
+  animation: none !important; transition: none !important;
+}
+main *, footer * { background: transparent !important; }
+
+/* fuera: navegación, bandas, cookies, menú, botones y el pie largo */
+.saltar, .propuesta, .franja-urgente, .menu, .cabecera__acciones, .buscador, .cookies, .mando, .cortina,
+.cabeza-pagina__puerta, .migas, .hero__botones, .hero__buscador, .filtros, .boton, .boton-icono, .boton-menu, button,
+.nevera-accion, .mapa, .sede-franja, .pie__perfil, .pie__rejilla, .pie__legal, .pie__creditos, .atajo__flecha,
+.linea::before, .seccion__titulo::before { display: none !important; }
+
+/* la cabecera se queda en el escudo y el nombre, sin el filete de oro a todo color */
+.cabecera__barra { border-bottom: 1.5pt solid var(--tinta) !important; background: transparent !important; }
+.cabecera__dentro { display: block !important; padding: 0 0 3mm !important; }
+.cabecera__escudo { height: 13mm !important; }
+.contenedor { max-width: none !important; padding-inline: 0 !important; }
+.seccion, .cabeza-pagina { padding-block: 4mm !important; border: 0 !important; }
+.pie__cuerpo { padding: 3mm 0 0 !important; border-top: .5pt solid var(--tinta); }
+.pie__base { margin: 0 !important; padding: 0 !important; border: 0 !important; }
+.pie__propuesta { font-size: 9pt !important; }
+
+/* enlaces: subrayados y, si van fuera de la web, con su dirección escrita */
+a { text-decoration: underline !important; }
+main a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8.5pt; font-weight: 400; overflow-wrap: anywhere; word-break: break-all; }
+main a[href^="http"] .icono { display: none; }
+
+/* nada partido entre dos hojas; los títulos, con lo que les sigue */
+h1, h2, h3, h4 { break-after: avoid; page-break-after: avoid; }
+p, li, dd { orphans: 3; widows: 3; }
+.tarjeta, .ficha, .momento, .evento, .grupo, .noticia, .mes, .tema, .atajo, .listin-corto, .listin__fila, .tablon__fila,
+.hoy__fila, .quien__fila, .patrimonio__fila, .lugar, figure, tr, img, svg, .listin-grupo, .instalacion, .visita {
+  break-inside: avoid; page-break-inside: avoid;
+}
+.tarjeta, .ficha, .momento, .evento, .grupo, .noticia, .mes, .tema, .atajo, .listin-corto { border-color: var(--tinta) !important; }
+img { max-width: 100% !important; }
+/* los desplegables salen abiertos (js/identidad.js los abre al imprimir) y sin la animación de altura */
+.tema::details-content { block-size: auto !important; content-visibility: visible !important; transition: none !important; }
+
+/* ═══ «Teléfonos y servicios»: la hoja de la nevera ═══ */
+.pagina-telefonos .cabecera, .pagina-telefonos .cabeza-pagina, .pagina-telefonos #instalaciones,
+.pagina-telefonos .nota-fuente, .pagina-telefonos .listin__estado, .pagina-telefonos footer { display: none !important; }
+.pagina-telefonos .seccion { padding: 0 !important; }
+.pagina-telefonos .nevera-cabeza { display: flex !important; align-items: center; gap: 5mm; margin: 0 0 4mm; padding-bottom: 3mm; border-bottom: 2pt solid var(--tinta); }
+.pagina-telefonos .nevera-cabeza img { height: 19mm; width: auto; }
+.pagina-telefonos .nevera-cabeza p { margin: 0; max-width: none; }
+.nevera-cabeza__titulo { font: 700 22pt/1.1 var(--f-titulo); }
+.nevera-cabeza__sub { font-size: 11pt; margin-top: 1.5mm !important; }
+.pagina-telefonos .nevera-pie { display: block !important; margin: 3mm 0 0; padding-top: 3mm; border-top: 1pt solid var(--tinta); font-size: 9.5pt; max-width: none; }
+
+/* el listín: urgencias a lo ancho y en grande; el resto en dos columnas */
+.pagina-telefonos .listin-completo { display: block !important; columns: 2; column-gap: 9mm; }
+.pagina-telefonos .listin-grupo { margin: 0 0 3.5mm; }
+.pagina-telefonos .listin li, .pagina-telefonos .nevera-pie { max-width: none; }
+.pagina-telefonos .listin-grupo:first-child { column-span: all; margin-bottom: 4.5mm; }
+.pagina-telefonos .listin-grupo__titulo { font-size: 12.5pt; padding-bottom: 1mm; margin: 0 0 1mm; border-bottom: 1.5pt solid var(--tinta); }
+.pagina-telefonos .listin__fila { padding-block: .8mm !important; border-bottom: .5pt solid var(--tinta); gap: 2mm; }
+.pagina-telefonos .listin__nombre { font-size: 10.5pt; line-height: 1.25; }
+.pagina-telefonos .listin__nombre small { font-size: 8.5pt; }
+.pagina-telefonos .listin__puntos { border-bottom: 1pt dotted var(--tinta); }
+.pagina-telefonos .listin__numero { font-size: 13.5pt; font-weight: 700; text-decoration: none !important; white-space: nowrap; padding: 0 !important; }
+.pagina-telefonos .listin-grupo:first-child .listin__nombre { font-size: 13pt; font-weight: 600; }
+.pagina-telefonos .listin-grupo:first-child .listin__numero { font-size: 18pt; }
+.pagina-telefonos .listin-grupo .listin__fila--urgente .listin__numero { font-size: 26pt; line-height: 1.1; border: 2pt solid var(--tinta); border-radius: 2mm; padding: 0 3mm !important; }
+
+/* ═══ v3c · guia: «Publicar en la web» (publicar.html) es la hoja para la mesa de la secretaría ═══
+   UNA hoja A4: el escudo con el nombre, los tres pasos y dónde están los formularios, qué sale dónde,
+   cuánto tarda, corregir o retirar, el buen título, lo que no se publica y lo que se le pide a quien
+   mantiene la web, en dos columnas. Fuera lo interactivo (los botones, el simulador y las muestras) y
+   el índice. Lo comprueba verificar.mjs → v3cguia (PDF A4 de una sola página). */
+.pie__personal { display: none !important; }
+.pagina-publicar .publicar-botones, .pagina-publicar .publicar-pruebelo, .pagina-publicar .publicar-muestras,
+.pagina-publicar .publicar-solo-pantalla, .pagina-publicar .indice, .pagina-publicar .pie__cuerpo .pie__base > :not(.pie__propuesta) { display: none !important; }
+.pagina-publicar .publicar-solo-papel { display: block !important; }
+.pagina-publicar .con-indice { display: block !important; }
+.pagina-publicar .cabeza-pagina { padding-block: 0 2mm !important; }
+.pagina-publicar .cabeza-pagina__titulo { font-size: 17pt; margin: 0; }
+.pagina-publicar .cabeza-pagina .entradilla { display: none; }
+.pagina-publicar .con-indice__cuerpo { columns: 2; column-gap: 8mm; }
+.pagina-publicar main { font-size: 8.4pt; line-height: 1.25; }
+.pagina-publicar .seccion { padding: 0 0 2.5mm !important; }
+.pagina-publicar .seccion__titulo { font-size: 11pt; margin: 0 0 1mm; }
+.pagina-publicar .publicar-sub { font-size: 9.5pt; margin: 1.5mm 0 .8mm; }
+.pagina-publicar p, .pagina-publicar li, .pagina-publicar dd { max-width: none; margin-bottom: .8mm; }
+.pagina-publicar .publicar-pasos, .pagina-publicar .publicar-lista { margin: 0 0 1mm; padding-left: 4.5mm; }
+.pagina-publicar .publicar-lista li + li, .pagina-publicar .publicar-pasos li + li { margin-top: .6mm; }
+.pagina-publicar .publicar-donde { gap: 1mm; margin: 0; }
+.pagina-publicar .publicar-donde__fila { padding: .6mm 0 .6mm 2mm; border-width: 0 0 0 2pt; border-color: var(--tinta); }
+.pagina-publicar .publicar-donde dd { margin: .3mm 0 0; }
+.pagina-publicar .chip { padding: 0 1.2mm; border: .5pt solid var(--tinta); font-size: 8pt; }
+.pagina-publicar .publicar-titulos { gap: 1mm; margin: 1mm 0; }
+.pagina-publicar .publicar-titulos li { padding: 0 0 0 2mm; border: 0; border-left: 1pt solid var(--tinta); }
+.pagina-publicar .publicar-solo-papel { border: 1pt solid var(--tinta); padding: 1.5mm 2mm; }
+.pagina-publicar .publicar-papel-pie { border: 0; padding: 0; font-size: 8.5pt; }
+.pagina-publicar .publicar-quien { padding: 0 0 0 2mm; border-left: 2pt solid var(--tinta); }
+/* en papel, de los títulos de ejemplo solo los buenos */
+.pagina-publicar .publicar-titulos__mal { display: none; }
+.pagina-publicar .pie__cuerpo { border-top: .5pt solid var(--tinta); padding-top: 1.5mm !important; }

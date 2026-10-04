@@ -1,10 +1,15 @@
 {{> documento_arriba}}
 <article class="seccion seccion--primera" aria-labelledby="titulo-pagina"{{#noticia.ejemplo}} data-dato-ejemplo="noticia:{{noticia.id}}"{{/noticia.ejemplo}}>
+  <!-- v3b · M10: la línea de oro que avanza con la lectura (css/movimiento.css, solo con soporte de
+       animation-timeline y con movimiento; si no, no sale). Decorativa: el tiempo de lectura va en texto -->
+  <div class="lectura-progreso" aria-hidden="true"></div>
   <div class="contenedor articulo">
-    <p class="articulo__meta"><time datetime="{{noticia.fecha}}">{{noticia.fecha_texto}}</time>{{#noticia.fecha_aproximada}} · fecha aproximada{{/noticia.fecha_aproximada}}{{#noticia.ejemplo}} <span class="ejemplo">Ejemplo</span>{{/noticia.ejemplo}}</p>
-    {{#noticia.imagen}}<figure class="articulo__foto arco-opcional"><img src="media/{{noticia.imagen}}.jpg" srcset="media/{{noticia.imagen}}-800.jpg 800w, media/{{noticia.imagen}}.jpg {{noticia.imagen_ancho}}w" sizes="(min-width: 48em) 44rem, 92vw" width="{{noticia.imagen_ancho}}" height="{{noticia.imagen_alto}}" alt="{{noticia.imagen_alt}}" decoding="async"></figure>{{/noticia.imagen}}
+    <p class="articulo__meta"><time datetime="{{noticia.fecha}}">{{noticia.fecha_texto}}</time>{{#noticia.fecha_aproximada}} · fecha aproximada{{/noticia.fecha_aproximada}} · <span class="articulo__lectura" data-palabras="{{noticia.palabras}}">{{noticia.lectura_min}} min de lectura</span>{{#noticia.ejemplo}} <span class="ejemplo">Ejemplo</span>{{/noticia.ejemplo}}</p>
+    {{#noticia.imagen}}<figure class="articulo__foto arco-opcional" style="view-transition-name: noticia-{{noticia.id}}"><img src="media/{{noticia.imagen}}.jpg" srcset="media/{{noticia.imagen}}-800.jpg 800w, media/{{noticia.imagen}}.jpg {{noticia.imagen_ancho}}w" sizes="(min-width: 48em) 44rem, 92vw" width="{{noticia.imagen_ancho}}" height="{{noticia.imagen_alto}}" alt="{{noticia.imagen_alt}}" decoding="async"></figure>{{/noticia.imagen}}
+    <div class="articulo__cuerpo">
     {{#noticia.cuerpo}}<p>{{.}}</p>
     {{/noticia.cuerpo}}
+    </div>
     {{#noticia.fuente}}<p class="articulo__fuente">Fuente: <a href="{{url}}">{{nombre}}</a>{{#noticia.relacionado}} · Más información: <a href="{{url}}">{{nombre}}</a>{{/noticia.relacionado}}</p>{{/noticia.fuente}}
     <p><a class="ver-todo" href="noticias.html"><svg class="icono icono--volver" aria-hidden="true"><use href="#i-flecha"/></svg>Todas las noticias</a></p>
   </div>

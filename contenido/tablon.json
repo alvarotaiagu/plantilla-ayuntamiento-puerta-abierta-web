@@ -1,5 +1,5 @@
 {
-  "_leeme": "GENERADO por scripts/tablon.mjs. Se puede editar a mano titulo_claro (título en lenguaje claro), tema (+ \"tema_manual\": true) y oculto. Lo demás se pisa al refrescar.",
+  "_leeme": "GENERADO por scripts/tablon.mjs. Se puede editar a mano titulo_claro (título en lenguaje claro), tema (+ \"tema_manual\": true), oculto y el plazo (plazo_inicio, plazo_fin: AAAA-MM-DD; plazo_ejemplo: true si la fecha no consta en el anuncio). Lo demás se pisa al refrescar.",
   "fuente": "https://riberadelfresno.sedelectronica.es/board (copia del 02/10/2026)",
   "actualizado": "2026-10-02T16:14:39.116Z",
   "excluidas": 2,
@@ -19,7 +19,9 @@
       "tema": "Ayudas",
       "tema_manual": false,
       "titulo_claro": "Convocatoria 2026 de ayudas a la natalidad",
-      "oculto": false
+      "oculto": false,
+      "plazo_fin": "2026-10-31",
+      "plazo_ejemplo": true
     },
     {
       "titulo": "ANUNCIO PREVIO A LA CONSTRUCCIÓN DE INSTALACIÓN ELÉCTRICAS ANILLO NORTE",
@@ -58,7 +60,10 @@
       "tema": "Impuestos",
       "tema_manual": false,
       "titulo_claro": "Periodo de cobro del IAE 2026",
-      "oculto": false
+      "oculto": false,
+      "plazo_inicio": "2026-09-01",
+      "plazo_fin": "2026-11-02",
+      "plazo_ejemplo": true
     },
     {
       "titulo": "Anuncio celebración sesión Extraordinaria Pleno 06 de agosto 2026",

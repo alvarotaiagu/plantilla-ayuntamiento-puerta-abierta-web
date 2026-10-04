@@ -3,24 +3,21 @@
   <div class="contenedor">
     <h2 class="seccion__titulo" id="t-canal">Reciba los avisos en el móvil</h2>
     <p>{{#texto}}{{texto}} {{/texto}}<a class="boton boton--marca" href="{{url}}"><svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg>{{nombre}}<span class="sr">, se abre otra web</span></a></p>
+    {{#pasos.length}}<h3 class="canal-avisos__como" id="t-canal-como">Cómo apuntarse</h3>
+    <ol class="canal-avisos__pasos">{{#pasos}}<li>{{.}}</li>{{/pasos}}</ol>{{/pasos.length}}
     {{#otros.length}}<p class="canal-avisos__otros">También en:</p>
     <ul class="lista-enlaces">{{#otros}}<li><a href="{{url}}">{{nombre}}<span class="sr">, se abre otra web</span></a></li>{{/otros}}</ul>{{/otros.length}}
   </div>
 </section>{{/canal_avisos}}
-{{#avisos.length}}<section class="seccion{{^canal_avisos}} seccion--primera{{/canal_avisos}}" aria-labelledby="t-avisos">
+{{! v3c · F16: la lista la pinta js/vivo.js (bloque «avisos»): aplicar.mjs al montar (lo que se ve sin
+     JavaScript) y main.js con lo que llegue de la hoja. Sin ningún aviso, la sección va oculta y sale
+     sola si la hoja trae uno }}
+<section class="seccion{{^canal_avisos}} seccion--primera{{/canal_avisos}}" aria-labelledby="t-avisos"{{^vivo.avisos}} hidden{{/vivo.avisos}}>
   <div class="contenedor">
     <h2 class="seccion__titulo" id="t-avisos">Avisos del Ayuntamiento</h2>
-    <ol class="avisos">
-      {{#avisos}}<li class="aviso{{#urgente}} aviso--urgente{{/urgente}}" id="aviso-{{id}}"{{#ejemplo}} data-dato-ejemplo="aviso:{{id}}"{{/ejemplo}}>
-        <p class="aviso__meta"><span class="chip">{{tema}}</span><time datetime="{{fecha}}">{{fecha_texto}}</time>{{#urgente}}<span class="chip chip--urgente">Urgente</span>{{/urgente}}{{#ejemplo}}<span class="ejemplo">Ejemplo</span>{{/ejemplo}}</p>
-        <h3 class="aviso__titulo">{{titulo}}</h3>
-        <p class="aviso__texto">{{texto}}</p>
-        {{#enlace}}<p><a href="{{enlace}}">Más información<span class="sr"> sobre {{titulo}}</span></a></p>{{/enlace}}
-      </li>
-      {{/avisos}}
-    </ol>
+    <div class="avisos-lista" data-vivo="avisos">{{{vivo.avisos}}}</div>
   </div>
-</section>{{/avisos.length}}
+</section>
 
 <section class="seccion" aria-labelledby="t-tablon-todo">
   <div class="contenedor">

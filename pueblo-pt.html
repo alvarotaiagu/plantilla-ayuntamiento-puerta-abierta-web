@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<!-- GENERADO por scripts/aplicar.mjs desde fuente/ y los datos. No editar a mano. -->
+<html lang="pt" class="sin-js densidad-puerta">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A vila · Ribera del Fresno</title>
+<meta name="description" content="História, património, festas e gastronomia de Ribera del Fresno (Badajoz, Espanha).">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_PT">
+<link rel="alternate" hreflang="es" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/pueblo.html">
+<link rel="alternate" hreflang="en" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/pueblo-en.html">
+<link rel="alternate" hreflang="pt" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/pueblo-pt.html">
+<link rel="alternate" hreflang="x-default" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/pueblo.html">
+
+<meta property="og:title" content="Propuesta de web · Ribera del Fresno">
+<meta property="og:description" content="Propuesta de diseño para la web del Ayuntamiento de Ribera del Fresno. No es la web oficial.">
+<meta property="og:image" content="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/assets/og.jpg">
+<meta name="theme-color" content="#FAF9F5">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.png" type="image/png" sizes="64x64">
+<link rel="manifest" href="manifest.json">
+<link rel="preload" href="fonts/besley-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/libre-franklin-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fuentes.css?v=03f84dac">
+<link rel="stylesheet" href="css/marca.css?v=5abdee72">
+<link rel="stylesheet" href="css/base.css?v=9bcd9cef">
+<link rel="stylesheet" href="css/movimiento.css?v=f4ef5a0d">
+<link rel="stylesheet" href="css/imprimir.css?v=ebacf0af" media="print">
+<link rel="alternate" type="application/atom+xml" title="Avisos y noticias · Ayuntamiento de Ribera del Fresno" href="feed.xml">
+<link rel="alternate" type="text/calendar" title="Agenda de Ribera del Fresno" href="agenda.ics">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/index.html"},{"@type":"ListItem","position":2,"name":"A vila","item":"https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/pueblo-pt.html"}]}]}</script>
+<script>/* el listín sin cobertura (sw.js, v3b): se registra al terminar de cargar; si no hay service worker o falla, todo sigue igual */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });</script>
+<script>
+/* Bloqueante a propósito: lo que cambia el aspecto se decide antes del primer
+   pintado, o la página arranca de una forma y salta a otra. */
+(function () {
+  var h = document.documentElement;
+  h.className = h.className.replace('sin-js', 'con-js');
+
+
+  /* [MANDO DE MAQUETA] inicio */
+  /* Solo con ?revision: lo guardado no cuenta fuera de la reunión, o un móvil
+     donde se probó la versión sobria la seguiría viendo sin mando para volver. */
+  if (!/[?&]revision\b/.test(location.search)) return;
+  h.classList.add('en-revision');
+  try {
+    var d = localStorage.getItem('ribera-del-fresno-densidad');
+    if (d === 'sobria' || d === 'puerta') { h.classList.remove('densidad-puerta', 'densidad-sobria'); h.classList.add('densidad-' + d); }
+    var p = localStorage.getItem('ribera-del-fresno-paleta');
+    if (p === 'a' || p === 'b' || p === 'c') h.setAttribute('data-paleta', p);
+  } catch (e) {}
+  /* [MANDO DE MAQUETA] fin */
+})();
+</script>
+
+</head>
+<body class="pagina-pueblo">
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-calendario" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-aviso" viewBox="0 0 24 24"><path d="M12 3.5 2.8 19.5h18.4L12 3.5Z"/><path d="M12 10v4.5M12 17.2v.1"/></symbol>
+  <symbol id="i-sede" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/></symbol>
+  <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M5 12h13M13 6.5l5.5 5.5-5.5 5.5"/></symbol>
+  <symbol id="i-salida" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+  <symbol id="i-lupa" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-cerrar" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+  <symbol id="i-telefono" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2Z"/></symbol>
+  <symbol id="i-casa" viewBox="0 0 24 24"><path d="M3.5 11 12 4l8.5 7M6 9.5V20h12V9.5M10 20v-5.5h4V20"/></symbol>
+  <symbol id="i-obra" viewBox="0 0 24 24"><path d="M3 20h18M5 20V10l4-3 4 3v10M13 13h6v7M8 13h2"/><path d="M15 4h5v4"/></symbol>
+  <symbol id="i-recibo" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+  <symbol id="i-familia" viewBox="0 0 24 24"><circle cx="8" cy="7" r="2.5"/><circle cx="16.5" cy="8.5" r="2"/><path d="M3.5 20v-3.5a4.5 4.5 0 0 1 9 0V20M13 20v-2.5a3.5 3.5 0 0 1 7 0V20"/></symbol>
+  <symbol id="i-mensaje" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 9.5h8M8 12.5h5"/></symbol>
+  <symbol id="i-tablon" viewBox="0 0 24 24"><rect x="3.5" y="4" width="17" height="13" rx="1.5"/><path d="M7 21l2-4M17 21l-2-4M7.5 8h9M7.5 11.5h6"/></symbol>
+  <symbol id="i-ojo" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-contrato" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v4h4M9 12h6M9 15.5h6M9 19h3"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></symbol>
+  <symbol id="i-correo" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.5"/><path d="m3.5 6.5 8.5 7 8.5-7"/></symbol>
+  <symbol id="i-documento" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v4h4"/></symbol>
+  <symbol id="i-abajo" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-farmacia" viewBox="0 0 24 24"><path d="M9 3.5h6v5.5h5.5v6H15v5.5H9V15H3.5V9H9V3.5Z"/></symbol>
+  <symbol id="i-mas" viewBox="0 0 24 24"><path d="M4 6.5h16M4 12h16M4 17.5h10"/><path d="M18 15v5M15.5 17.5h5"/></symbol>
+  <symbol id="i-movil" viewBox="0 0 24 24"><rect x="6.5" y="2.5" width="11" height="19" rx="2"/><path d="M10.5 18.5h3"/><path d="M12 7v3.5M12 12.8v.1"/></symbol>
+  <symbol id="i-padron" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1.5"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16.5a3 3 0 0 1 6 0M14 10h4M14 13.5h4"/></symbol>
+  <symbol id="i-carrito" viewBox="0 0 24 24"><path d="M3 5h2.5l1.2 3M11 4v6H6.7M6.7 8h11.8a3.5 3.5 0 0 1-3.5 4.5H9a2.5 2.5 0 0 1-2.3-1.6"/><circle cx="8" cy="18" r="2"/><circle cx="16" cy="18" r="2"/><path d="M9.5 12.5 8.3 16M14.5 12.5l1 3.5"/></symbol>
+  <symbol id="i-volante" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v4h4"/><circle cx="12" cy="13.5" r="2.5"/><path d="m10.6 15.6-1 3.4 2.4-1.2 2.4 1.2-1-3.4"/></symbol>
+  <symbol id="i-incidencia" viewBox="0 0 24 24"><path d="M5 21h6M8 21V7.5A4.5 4.5 0 0 1 12.5 3H15"/><path d="M13 7.5h6L17.5 4h-3L13 7.5Z"/><path d="M16 10.5v1.5M19.5 9.5l1 1M12.5 9.5l-1 1"/></symbol>
+  <!-- v3c · transparencia: el maletín del empleo (chip y ficha de «Hoy») -->
+  <symbol id="i-empleo" viewBox="0 0 24 24"><rect x="3" y="7.5" width="18" height="12" rx="1.5"/><path d="M9 7.5V5.5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 12.5h18M10.5 12.5v1.5h3v-1.5"/></symbol>
+</svg>
+
+<a class="saltar" lang="es" href="#contenido">Saltar al contenido</a>
+<header class="cabecera" lang="es">
+  <!-- arriba, un solo bloque: la banda de propuesta (en todas las páginas) y la franja del aviso
+       destacado, que en escritorio comparten fila y en móvil se apilan sin recortar el texto -->
+  <div class="bandas con-propuesta">
+    <div class="propuesta" data-propuesta>
+      <p class="propuesta__texto"><b>Propuesta de diseño</b><span class="propuesta__largo"> para el Ayuntamiento de Ribera del Fresno</span> · no es la web oficial</p>
+    </div>
+    <div class="franja-urgente" data-vivo="franja"><div class="franja-urgente__fondo es-programado"><a class="franja-urgente__enlace" href="avisos.html#aviso-corte-agua-ejemplo" data-dato-ejemplo="aviso:corte-agua-ejemplo"><span class="contenedor franja-urgente__dentro"><svg class="icono" aria-hidden="true"><use href="#i-calendario"/></svg><span class="franja-urgente__texto"><b>Programado:</b> Corte de agua programado en varias calles, de 9:00 a 13:00 <span class="ejemplo">Ejemplo</span></span> <span class="franja-urgente__ver"><span class="franja-urgente__ver-texto">Ver aviso</span><svg class="icono" aria-hidden="true"><use href="#i-flecha"/></svg></span></span></a></div></div>
+  </div>
+  <div class="cabecera__barra">
+    <div class="contenedor cabecera__dentro">
+      <a class="cabecera__marca" href="index.html">
+        <img class="cabecera__escudo" src="marca/escudo-160.png" width="91" height="160" alt="">
+        <span class="cabecera__nombre"><span class="cabecera__ante">Ayuntamiento de</span> Ribera del Fresno</span>
+      </a>
+      <nav class="menu" id="menu" aria-label="Principal">
+        <div class="menu__cabeza">
+          <p class="menu__titulo">Menú</p>
+          <button class="boton-icono menu__cerrar" type="button" data-cerrar-menu><svg class="icono" aria-hidden="true"><use href="#i-cerrar"/></svg><span class="sr">Cerrar el menú</span></button>
+        </div>
+        <ul class="menu__lista">
+          <li><a class="menu__enlace" href="ayuntamiento.html">El Ayuntamiento</a></li>
+          <li><a class="menu__enlace" href="tramites.html">Trámites</a></li>
+          <li><a class="menu__enlace" href="avisos.html">Avisos</a></li>
+          <li><a class="menu__enlace" href="noticias.html">Noticias</a></li>
+          <li><a class="menu__enlace" href="agenda.html">Agenda</a></li>
+          <li><a class="menu__enlace" href="pueblo.html" aria-current="page">El pueblo</a></li>
+          <li><a class="menu__enlace" href="telefonos.html">Teléfonos</a></li>
+          <li><a class="menu__enlace" href="contacto.html">Contacto</a></li>
+          
+        </ul>
+        <a class="boton boton--marca menu__sede" href="https://riberadelfresno.sedelectronica.es"><svg class="icono" aria-hidden="true"><use href="#i-sede"/></svg>Sede electrónica</a>
+      </nav>
+      <div class="cabecera__acciones">
+        <a class="boton boton--marca cabecera__sede" href="https://riberadelfresno.sedelectronica.es"><svg class="icono" aria-hidden="true"><use href="#i-sede"/></svg>Sede electrónica</a>
+        <a class="boton-icono" href="tramites.html#buscar" data-abrir-buscador><svg class="icono" aria-hidden="true"><use href="#i-lupa"/></svg><span class="sr">Buscar un trámite</span></a>
+        <button class="boton-menu" type="button" aria-expanded="false" aria-controls="menu" data-boton-menu hidden><svg class="icono" aria-hidden="true"><use href="#i-menu"/></svg>Menú</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<dialog class="buscador" lang="es" id="buscador" aria-labelledby="buscador-titulo">
+  <div class="buscador__cabeza">
+    <h2 class="buscador__titulo" id="buscador-titulo">Buscar en la web</h2>
+    <form method="dialog"><button class="boton-icono" type="submit"><svg class="icono" aria-hidden="true"><use href="#i-cerrar"/></svg><span class="sr">Cerrar el buscador</span></button></form>
+  </div>
+  <div class="campo" role="search">
+    <label class="campo__etiqueta" for="buscador-campo">¿Qué necesita hacer?</label>
+    <input class="campo__entrada" id="buscador-campo" type="search" autocomplete="off" spellcheck="false" placeholder="Padrón, recibos, obras…" aria-describedby="buscador-ayuda" data-buscador-campo>
+  </div>
+  <p class="campo__ayuda" id="buscador-ayuda">Escríbalo con sus palabras: trámites (en la sede electrónica), avisos, noticias, teléfonos y lugares del pueblo.</p>
+  <p class="buscador__cuenta" role="status" data-buscador-cuenta></p>
+  <div class="resultados" data-buscador-resultados data-buscador-nivel="3"></div>
+  <p class="buscador__pie"><a href="tramites.html#todos">Ver la lista de todos los trámites</a></p>
+</dialog>
+
+<main id="contenido" tabindex="-1">
+<div class="cabeza-pagina cabeza-pagina--foto cabeza-pagina--grande">
+  <div class="contenedor cabeza-pagina__rejilla">
+    <nav class="migas" aria-label="Está aqui">
+      <ol>
+        <li><a href="index.html" hreflang="es">Início (em espanhol)</a></li>
+        
+        <li><span aria-current="page">A vila</span></li>
+      </ol>
+    </nav>
+    <h1 class="cabeza-pagina__titulo" id="titulo-pagina">A vila</h1>
+    <p class="entradilla">Uma vila caiada da Tierra de Barros, com uma igreja de duas torres, um povoado pré-romano no alto de um cerro e um poeta do Iluminismo.</p>
+    <figure class="cabeza-pagina__puerta">
+      <div class="cabeza-pagina__arco arco-opcional"><img src="media/iglesia-torres.jpg" srcset="media/iglesia-torres-800.jpg 800w, media/iglesia-torres.jpg 728w" sizes="(min-width: 64em) 34rem, (min-width: 48em) 16rem, 92vw" width="728" height="400" alt="As duas torres brancas da igreja sobre os telhados da vila, com a serra ao fundo" style="object-position: 70% 55%" fetchpriority="high" decoding="async"></div>
+      <span class="cabeza-pagina__umbral" aria-hidden="true"></span>
+      <figcaption class="credito">Foto: cartaz da DEMA e da Junta de Extremadura (2014), sítio da Câmara Municipal</figcaption>
+    </figure>
+    
+  </div>
+</div>
+<div class="contenedor con-indice">
+  <nav class="indice indice--movil" aria-label="Nesta página">
+    <details class="indice__plegable" open><summary class="indice__resumen">Nesta página</summary>
+      <ol class="indice__lista"><li><a href="#t-lugares">O que ver</a></li><li><a href="#t-termino">O concelho num mapa</a></li><li><a href="#t-placa">A casa do poeta</a></li><li><a href="#t-historia">História</a></li><li><a href="#t-patrimonio">Património</a></li><li><a href="#t-anio">Festas</a></li><li><a href="#t-gastronomia">Gastronomia</a></li><li><a href="#t-personajes">Personalidades</a></li><li><a href="#t-rutas">Percursos pedestres</a></li><li><a href="#t-creditos">Créditos das fotografias</a></li></ol>
+    </details>
+    <script>/* plegado en el móvil antes de pintarse (sin JavaScript, abierto: se ve la lista) */ (function (d) { if (window.matchMedia && matchMedia('(max-width: 63.99em)').matches) d.open = false; })(document.currentScript.previousElementSibling);</script>
+  </nav>
+  <nav class="indice indice--lateral" aria-labelledby="indice-titulo">
+    <p class="indice__titulo" id="indice-titulo">Nesta página</p>
+    <ol class="indice__lista"><li><a href="#t-lugares">O que ver</a></li><li><a href="#t-termino">O concelho num mapa</a></li><li><a href="#t-placa">A casa do poeta</a></li><li><a href="#t-historia">História</a></li><li><a href="#t-patrimonio">Património</a></li><li><a href="#t-anio">Festas</a></li><li><a href="#t-gastronomia">Gastronomia</a></li><li><a href="#t-personajes">Personalidades</a></li><li><a href="#t-rutas">Percursos pedestres</a></li><li><a href="#t-creditos">Créditos das fotografias</a></li></ol>
+  </nav>
+  <div class="con-indice__cuerpo">
+
+
+
+<nav class="contenedor idiomas" aria-label="Idiomas desta página">
+  <ul class="idiomas__lista">
+    <li><a class="idiomas__enlace" href="pueblo.html" hreflang="es" lang="es">Español</a></li><li><a class="idiomas__enlace" href="pueblo-en.html" hreflang="en" lang="en">English</a></li><li><a class="idiomas__enlace" href="pueblo-pt.html" hreflang="pt" lang="pt" aria-current="page">Português</a></li>
+  </ul>
+  <p class="idiomas__aviso">O resto do sítio está em espanhol.</p>
+</nav>
+<section class="seccion seccion--primera con-paralaje" aria-labelledby="t-lugares">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-lugares">O que ver</h2>
+    <div class="carril" data-desborda role="group" aria-labelledby="t-lugares">
+      <ul class="carril__lista">
+        <li class="lugar" id="lugar-monumento-a-melendez-valdes">
+          <figure class="lugar__foto arco-opcional paralaje"><img src="media/monumento-melendez-800.jpg" width="1024" height="768" alt="Busto de bronze de Meléndez Valdés sobre um pedestal" loading="lazy" decoding="async"></figure>
+          
+          <h3 class="lugar__nombre">Monumento a Meléndez Valdés</h3>
+          <p class="lugar__texto">O poeta do Iluminismo nasceu na Calle Larga em 1754. O seu busto de bronze é de 1985.</p>
+          <p class="credito">Foto: F. Enrique Suárez · CC BY-SA 3.0</p>
+        </li>
+        <li class="lugar" id="lugar-casa-de-vargas-zuniga">
+          <figure class="lugar__foto arco-opcional paralaje"><img src="media/casa-cultura-800.jpg" width="1024" height="709" alt="Fachada caiada da Casa de la Cultura, com grades e varandas" loading="lazy" decoding="async"></figure>
+          
+          <h3 class="lugar__nombre">Casa de Vargas-Zúñiga</h3>
+          <p class="lugar__texto">Casa senhorial dos séculos XVII e XVIII, hoje Casa de la Cultura (centro cultural) e biblioteca.</p>
+          <p class="credito">Foto: sítio da Câmara Municipal</p>
+        </li>
+        <li class="lugar" id="lugar-oppidum-de-hornachuelos">
+          <figure class="lugar__foto arco-opcional paralaje"><img src="media/oppidum-800.jpg" width="1600" height="1161" alt="Restos de muros de pedra do povoado entre a erva" loading="lazy" decoding="async"></figure>
+          
+          <h3 class="lugar__nombre">Oppidum de Hornachuelos</h3>
+          <p class="lugar__texto">Povoado fortificado pré-romano de cerca de cinco hectares, com centro de interpretação na Casa de la Cultura.</p>
+          <p class="credito">Foto: Ángel M. Felicísimo · CC BY 2.0</p>
+        </li>
+        <li class="lugar" id="lugar-los-pozos-rojos-y-blancos">
+          <figure class="lugar__foto arco-opcional paralaje"><img src="media/pozo-tinajona-800.jpg" width="1600" height="1228" alt="Poço de corpo vermelho e bocal branco com o seu arco de ferro, no campo" loading="lazy" decoding="async"></figure>
+          
+          <h3 class="lugar__nombre">Os poços vermelhos e brancos</h3>
+          <p class="lugar__texto">Os poços do concelho pintam-se de vermelho no corpo e de branco no bocal.</p>
+          <p class="credito">Foto: Diegui57 · CC BY 4.0</p>
+        </li>
+        <li class="lugar" id="lugar-lavadero-de-lanas">
+          <figure class="lugar__foto arco-opcional paralaje"><img src="media/lavadero-800.jpg" width="1600" height="1228" alt="Arcos de tijolo em ruínas do antigo lavadouro de lãs" loading="lazy" decoding="async"></figure>
+          
+          <h3 class="lugar__nombre">Lavadouro de lãs</h3>
+          <p class="lugar__texto">As ruínas dos seus arcos, junto ao ribeiro Valdemedel.</p>
+          <p class="credito">Foto: Diegui57 · CC BY-SA 4.0</p>
+        </li>
+        <li class="lugar" id="lugar-iglesia-de-nuestra-senora-de-gracia">
+          <figure class="lugar__foto arco-opcional paralaje"><img src="media/iglesia-torres-800.jpg" width="728" height="400" alt="As duas torres da igreja sobre os telhados, com a serra ao fundo" loading="lazy" decoding="async"></figure>
+          
+          <h3 class="lugar__nombre">Iglesia de Nuestra Señora de Gracia</h3>
+          <p class="lugar__texto">Duas torres gémeas, um retábulo barroco e um púlpito de mármore de Estremoz. Nos seus telhados nidifica o francelho.</p>
+          <p class="credito">Foto: cartaz da DEMA e da Junta de Extremadura (2014), sítio da Câmara Municipal</p>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-termino">
+  <div class="contenedor termino">
+    <h2 class="seccion__titulo" id="t-termino">O concelho num mapa</h2>
+    <figure class="termino__figura">
+      <svg class="termino__mapa" viewBox="0 0 600 952" aria-hidden="true" focusable="false"><rect class="termino-fondo" width="600" height="952"/><path class="termino-area" d="M385.3 18L380.6 21.1L359.2 29.7L346.7 36.4L343.7 41.7L332.4 50.8L321.6 56L306.7 73L298.2 79.3L273.1 89.7L267.3 89.4L263.8 90.6L239.2 104.6L233 107.3L229 108.2L221.5 108.4L209.6 107.1L198.2 108.7L192.6 112.8L185.9 115L177.2 120.1L163.4 122.8L157.7 122.2L150.4 123.2L140 120.7L130 120.5L107.2 114.7L95.2 113.9L81.8 115.9L79.4 116.9L79.1 123L74.8 124.4L56.6 126L55.4 129.8L60 187.6L65.4 199.3L81.1 231.6L84.9 235L85.9 239.4L90.3 239.9L92.5 242.5L93.6 245.8L95.6 247.3L100.4 247.4L106 245L119.2 269L118.7 271.6L116.4 275.8L115.7 281.8L116.3 290.2L113.7 298.9L114.1 301.7L117.3 307.2L116.8 313.2L112.2 343.4L104.8 377.2L121.1 430.4L114.3 437L129.8 442.2L124.5 457.4L132.5 464.5L139.2 478.5L123.4 488.1L130.9 509.9L115.2 560.2L105.7 586.2L99.5 592.1L106.1 633.7L97.8 652.3L97.6 653.4L101.3 660.1L87.2 666.3L76 679.1L61.7 686.8L45.9 697.5L36.4 712.6L18 725.2L23.2 730.1L27.4 735.7L29.8 741.7L30 749.4L33.3 759.6L36.9 766.8L39.1 773.7L43.8 778.1L47.8 783.5L61.4 806.3L70.7 818.1L85.7 830.4L88.9 831.5L92.8 831.4L98.9 832.5L109.9 835.6L116.4 835.5L120.7 836.5L121.8 837.3L121.7 841.2L119 855.7L119.1 858.4L121.8 860L125 864.5L130.9 868.2L132.4 871.6L134.5 873.6L137.5 874.2L140.8 876.1L148.8 885.3L149.8 884.6L151.6 887.7L153.4 887.7L157.8 891.1L160.4 892.1L166.7 892.6L174.3 898.4L178.7 900.4L185.6 901.2L190.3 904.3L199.1 908.1L214.6 905.4L214.4 903.2L219 901.9L220.1 898.6L223.1 895.4L224.1 892.1L229.5 884.4L233.5 886.9L239.9 877L237.3 875.2L237.8 873.7L236.5 872.4L239.3 864.9L243.4 858.8L246.3 846.8L254.2 830.5L256 830.5L260.1 828L262.7 831.6L268.1 834.9L276.7 838.3L284 845.3L290.2 846.3L295.2 848.9L300.6 852.7L306.1 859L312.7 861.2L315.4 860.8L317.6 861.6L318.4 863.4L324.2 865.7L330.8 870.2L331.8 862.9L336.2 857.2L338.5 851L342.6 845.6L346.9 843.1L349 836L358.1 838.5L363.5 838.7L363.6 835.6L374.5 835.3L378.7 834.3L382 832.4L380.7 830L380.9 828.7L382.5 826.4L389.9 821.4L393.9 811.1L390.9 809.8L395.3 798.7L397 792.7L397.1 787.8L432.5 806.3L447.4 815.7L462.8 815.3L466.9 813.7L469.9 811.4L473.1 806.4L480.1 802.1L507 789.8L511 782.9L510.9 771.8L514.5 766.5L535.2 752.3L538 749.1L542.6 740.7L552.9 728.5L558.3 719.2L569.6 706.6L574.7 705.6L575 687.1L579 661.4L578.9 647.6L581.9 628.9L581.2 624.6L577.3 618.1L568.5 598.5L563.7 592.5L558.7 583.6L552.8 570.7L552.7 562.7L551.6 555.9L543.1 558.4L540.2 558.2L521.9 563.8L506.5 561.2L499.8 563.4L486.9 562.3L459.9 557.6L439.5 558.2L435 562L430.3 562.4L424.1 561L419.7 558.8L412.5 549.5L403.3 549.5L393.7 548.3L379.9 542.7L378.1 540.9L375.1 535.2L369.7 523.4L368 516.5L366.2 512.5L355.6 502L350.2 491.3L347.3 482.8L341.2 479.1L327.7 465.8L311.8 454.6L308.6 445.9L304.1 440.9L295.5 426.3L287.8 420.6L286.6 417.8L286.8 415.1L285.2 412.9L282.3 412.5L277.7 414.4L276 411.2L275.5 407.8L276.1 405.1L277.7 403.5L280.7 401.9L281.9 405.2L287.1 401.5L287.9 398.9L288.8 398.5L293.8 400L297.5 400.2L299.5 396L309.2 390.4L311.6 386.9L315.2 378.6L319.5 374.6L320.1 371.9L320.1 362.8L325.7 344.3L328.8 338.8L331.5 328.2L328.5 303.1L336.4 305.5L342.1 298.9L342.1 300.5L345.2 295.9L347.1 289.3L354.1 280.4L364.4 276.6L376.1 267.9L384.6 274.5L402.7 274.8L405.3 273.6L407.2 270.9L408.7 270.3L415.8 275.3L423 278L426.9 282.1L439.1 286.5L446.8 285.6L451.8 281.5L455.8 284.2L458 281.4L462 279.5L465.6 275.9L469 270.7L468.9 264.5L470.8 262.5L474.7 260.9L476.8 259L477 255L478.4 253.1L482.5 251.1L484.2 248.7L504.6 247.3L504.4 244.1L499.3 225.7L497.8 221.8L493.6 215.1L491.7 208L484.2 193.1L480.9 183.4L491.4 175.3L496.8 169.3L508.3 160.6L502.1 155.3L499.6 144.9L499.1 139.4L491.6 130.9L480.2 113.6L465.7 98.6L455.9 86.6L452.2 83.4L451 84.1L445.3 71.1L437.9 63.7L428.1 51.5L424.4 48.3L414.7 42.4L410.8 38.1L403.7 26L400.2 23.6L391.2 24.3L388.1 22.3L385.3 18Z"/><path class="termino-casco" d="M287.7 583L286.1 583.8L274.8 584.8L273.5 588.1L279.5 589.9L279.8 590.5L276.2 593.6L295 599L297.7 594.7L302.6 595.7L306.1 597.8L305.9 603.4L303.4 602.5L303.2 604L302.7 604L303.8 605.5L306.2 606.6L306.3 610.4L308.2 610.5L308.3 612.2L309.8 613.5L311.6 614.7L312.7 613.5L313.7 614.1L313.4 614.7L315.3 616.1L323 608.6L321.9 605.8L327.6 600.4L326.6 598.7L329.1 596.7L329.9 595.1L328.6 592.1L330.9 591.2L329.7 585L327.9 583.7L325.3 584.6L324.1 579.7L329.1 576.1L327.2 570.2L325.1 569.7L319.1 564.4L318 564.1L317.4 564.6L314.7 561.3L309.7 566.2L306.9 562.5L304.9 563.6L302.6 566.1L299.3 564.2L297.2 568.6L299.4 569.7L297 570.9L294.9 570.9L292.4 573L289 571.2L287.7 572.3L290.8 575.8L287.6 577.5L289.3 580.3L287.7 583ZM290.8 606.3L289.4 609L291.7 610.3L296.4 610.6L296.9 607.2L290.8 606.3Z"/><path class="termino-carretera" d="M23.5 542L188.3 577.2L244.6 584.7L262.7 585L273.5 587.4M315.7 599.7L324.1 609.2M106 156.7L102.5 154.2L90 149.5L81.7 147.4L56.5 135.9L47.4 133.5L41.8 130.8L36.8 125.4L23.5 116.6L17.1 110.8L0 99.7M430 61.1L437.5 57.2M77.6 899.4L86.6 886L95.2 880.3L114 856L130.3 841.7L138.2 831.6L142.6 824.5L149.3 819.3L155.3 812.9L160.3 801.7L175.6 782.9L180.7 774.9L194.6 759.6L201.8 756.5L206.3 752.6L211.7 750.4L217.1 746.6L224.3 744.3L230.9 740.4L240.5 725.5L247 718.7L259 701.3L267.1 692L275.1 685L278.9 675.9L280.1 669.8L281.8 666L283.6 651.9L285.4 649.1L290.4 634.8L292.4 626.1L295.6 617.2L296.5 611.6M0 940.4L6.9 938.3L14.7 937.7L27.3 928.1L41.9 922.4L50.8 920.6L56.8 915.3L69.3 906.6L78.2 899.1L84.8 896.8L92.1 896.1L98.4 894.6L109.5 897.3L125.1 894.4L137.7 893.8L144.6 892.5L164.9 893.4L175.9 901L219.1 906.9L236 914.2L247.3 917.4L260.7 914.2L282.1 915.5L314.5 907.4L335.4 907.8L363.5 900.5M84.6 457L97.2 449.7L108.8 441.1L174.6 385.8L198.8 361.9L231.3 337.2L237.6 334.9L248.8 332.9L257.5 330.4L294.5 315.7L338.3 302.6L342.1 300.5L345.6 297.1L348.8 290.5L352.8 245.2L356.1 239.4L359 236.9L362.3 235.1L385.4 227.6L394.9 229.3L399.4 229.2L419.3 220.3L437.3 214.9L486.7 203.6L496.9 197.8L528.2 183.9M330.6 305L333.6 328.3L326.7 350.5L327.4 359.7L331.1 375.4L336.2 387.3L335.7 395.7L323.9 463.2L320 479.3L322.8 493.7L329.2 509.2L330.1 519.3L351.4 558.7M302.6 595.4L303.8 595.7M303.8 595.7L306.2 595.6L309.9 591M282.4 589.9L302.6 595.4M288.7 0L324.3 33.2L337.4 40.9L385.1 62.8L389.8 63.7L406.1 59.9L416 64.6L420.4 65.4L430 61.1M309.9 591L315.7 599.7M330.5 573.7L339.3 568.8L354.7 556.2L374.7 544L378.8 542.8L387.4 543L391.8 542.1L395.5 540.3L403.3 532.3L408.2 529.4L450.2 516.1M324.1 609.2L326.7 611.9L335 617.8L354.3 628.5L365 632.7L378.5 645.1L383.3 652.1L406.5 692.7L413 709.8L438.9 737.9L442.9 752.4L443.9 768.3L448.7 789.1L455.6 801.5L461.5 808.4L463.8 814.4L479.4 858.3L479.8 861.6L478.5 868.3L479.2 872.3M273.5 587.4L282.4 589.9M296.5 611.6L299 599.7L299.1 594.4M347.8 561.7L351.4 558.7M352.1 558.2L351.1 558.1M351.1 558.1L350.9 559.1M310.6 590.5L314.3 588.6L323.7 578.9L330.5 573.7M309.9 591L310.6 590.5M309.1 591.4L310.6 590.5"/><path class="termino-limite" d="M385.3 18L380.6 21.1L359.2 29.7L346.7 36.4L343.7 41.7L332.4 50.8L321.6 56L306.7 73L298.2 79.3L273.1 89.7L267.3 89.4L263.8 90.6L239.2 104.6L233 107.3L229 108.2L221.5 108.4L209.6 107.1L198.2 108.7L192.6 112.8L185.9 115L177.2 120.1L163.4 122.8L157.7 122.2L150.4 123.2L140 120.7L130 120.5L107.2 114.7L95.2 113.9L81.8 115.9L79.4 116.9L79.1 123L74.8 124.4L56.6 126L55.4 129.8L60 187.6L65.4 199.3L81.1 231.6L84.9 235L85.9 239.4L90.3 239.9L92.5 242.5L93.6 245.8L95.6 247.3L100.4 247.4L106 245L119.2 269L118.7 271.6L116.4 275.8L115.7 281.8L116.3 290.2L113.7 298.9L114.1 301.7L117.3 307.2L116.8 313.2L112.2 343.4L104.8 377.2L121.1 430.4L114.3 437L129.8 442.2L124.5 457.4L132.5 464.5L139.2 478.5L123.4 488.1L130.9 509.9L115.2 560.2L105.7 586.2L99.5 592.1L106.1 633.7L97.8 652.3L97.6 653.4L101.3 660.1L87.2 666.3L76 679.1L61.7 686.8L45.9 697.5L36.4 712.6L18 725.2L23.2 730.1L27.4 735.7L29.8 741.7L30 749.4L33.3 759.6L36.9 766.8L39.1 773.7L43.8 778.1L47.8 783.5L61.4 806.3L70.7 818.1L85.7 830.4L88.9 831.5L92.8 831.4L98.9 832.5L109.9 835.6L116.4 835.5L120.7 836.5L121.8 837.3L121.7 841.2L119 855.7L119.1 858.4L121.8 860L125 864.5L130.9 868.2L132.4 871.6L134.5 873.6L137.5 874.2L140.8 876.1L148.8 885.3L149.8 884.6L151.6 887.7L153.4 887.7L157.8 891.1L160.4 892.1L166.7 892.6L174.3 898.4L178.7 900.4L185.6 901.2L190.3 904.3L199.1 908.1L214.6 905.4L214.4 903.2L219 901.9L220.1 898.6L223.1 895.4L224.1 892.1L229.5 884.4L233.5 886.9L239.9 877L237.3 875.2L237.8 873.7L236.5 872.4L239.3 864.9L243.4 858.8L246.3 846.8L254.2 830.5L256 830.5L260.1 828L262.7 831.6L268.1 834.9L276.7 838.3L284 845.3L290.2 846.3L295.2 848.9L300.6 852.7L306.1 859L312.7 861.2L315.4 860.8L317.6 861.6L318.4 863.4L324.2 865.7L330.8 870.2L331.8 862.9L336.2 857.2L338.5 851L342.6 845.6L346.9 843.1L349 836L358.1 838.5L363.5 838.7L363.6 835.6L374.5 835.3L378.7 834.3L382 832.4L380.7 830L380.9 828.7L382.5 826.4L389.9 821.4L393.9 811.1L390.9 809.8L395.3 798.7L397 792.7L397.1 787.8L432.5 806.3L447.4 815.7L462.8 815.3L466.9 813.7L469.9 811.4L473.1 806.4L480.1 802.1L507 789.8L511 782.9L510.9 771.8L514.5 766.5L535.2 752.3L538 749.1L542.6 740.7L552.9 728.5L558.3 719.2L569.6 706.6L574.7 705.6L575 687.1L579 661.4L578.9 647.6L581.9 628.9L581.2 624.6L577.3 618.1L568.5 598.5L563.7 592.5L558.7 583.6L552.8 570.7L552.7 562.7L551.6 555.9L543.1 558.4L540.2 558.2L521.9 563.8L506.5 561.2L499.8 563.4L486.9 562.3L459.9 557.6L439.5 558.2L435 562L430.3 562.4L424.1 561L419.7 558.8L412.5 549.5L403.3 549.5L393.7 548.3L379.9 542.7L378.1 540.9L375.1 535.2L369.7 523.4L368 516.5L366.2 512.5L355.6 502L350.2 491.3L347.3 482.8L341.2 479.1L327.7 465.8L311.8 454.6L308.6 445.9L304.1 440.9L295.5 426.3L287.8 420.6L286.6 417.8L286.8 415.1L285.2 412.9L282.3 412.5L277.7 414.4L276 411.2L275.5 407.8L276.1 405.1L277.7 403.5L280.7 401.9L281.9 405.2L287.1 401.5L287.9 398.9L288.8 398.5L293.8 400L297.5 400.2L299.5 396L309.2 390.4L311.6 386.9L315.2 378.6L319.5 374.6L320.1 371.9L320.1 362.8L325.7 344.3L328.8 338.8L331.5 328.2L328.5 303.1L336.4 305.5L342.1 298.9L342.1 300.5L345.2 295.9L347.1 289.3L354.1 280.4L364.4 276.6L376.1 267.9L384.6 274.5L402.7 274.8L405.3 273.6L407.2 270.9L408.7 270.3L415.8 275.3L423 278L426.9 282.1L439.1 286.5L446.8 285.6L451.8 281.5L455.8 284.2L458 281.4L462 279.5L465.6 275.9L469 270.7L468.9 264.5L470.8 262.5L474.7 260.9L476.8 259L477 255L478.4 253.1L482.5 251.1L484.2 248.7L504.6 247.3L504.4 244.1L499.3 225.7L497.8 221.8L493.6 215.1L491.7 208L484.2 193.1L480.9 183.4L491.4 175.3L496.8 169.3L508.3 160.6L502.1 155.3L499.6 144.9L499.1 139.4L491.6 130.9L480.2 113.6L465.7 98.6L455.9 86.6L452.2 83.4L451 84.1L445.3 71.1L437.9 63.7L428.1 51.5L424.4 48.3L414.7 42.4L410.8 38.1L403.7 26L400.2 23.6L391.2 24.3L388.1 22.3L385.3 18Z"/><path class="termino-zona" d="M287.3 570.3H325.3V608.3H287.3Z"/><path class="termino-guia" d="M325.3 570.3L378 540"/><g class="termino-recuadro"><rect class="termino-fondo" x="378" y="330" width="210" height="210"/><path class="termino-area" d="M379 331L379 539L587 539L587 331L379 331Z"/><path class="termino-casco" d="M380.2 400.1L379 400.7L379 476.8L420.7 488.8L435.7 464.7L462.3 470.2L470.2 475.9L475.7 478.3L482 482.2L483.7 494.6L482.3 503.7L479.7 507.8L480.9 513.2L472.1 509.1L467 508L465.7 516.2L463.1 516.4L468.9 524.5L470.2 525.2L473.1 525L479.2 527.4L482.6 530.8L482.6 539L574.2 539L568.8 525.9L579 514L587 507.7L587 406.2L581 382L587 377.7L587 331L436.8 331L431.8 333.7L420.2 333.4L406.4 345L398.6 339.2L387.6 335.1L380.4 341.4L386.4 351.4L397.2 360.7L386.5 365.3L379.6 370.2L389.3 385.1L380.2 400.1ZM397.5 529L392.2 539L430.4 539L431.2 533.6L397.5 529Z"/><path class="termino-calle" d="M560 522.2L533.7 534.8L528.6 539M514.1 492.4L519.4 539M535.2 360.6L536.7 368L541.3 381.7L551.4 407.7M456.8 360.8L463.8 379.1M536.6 355.9L540.2 354.2L557.3 350.4L573.6 349.3L587 349.4M472.9 525.1L475.2 524L484.4 513.3L492.4 506.1L517.4 490.3M384.8 333.2L391.3 343.4L399.6 353.3L410.1 361.2L421.6 373.8L429 383.4M527 431.2L530.4 436.2L549.6 472.2M558.1 441L560.4 443.9L563.3 462.7L569.5 485M411.6 395.2L419.8 391.2L429 383.4M501.6 445.6L513.9 470.9L516.1 486.5L517.4 490.3M520.9 366L523.8 374.4L526.3 379.2L528.7 382.5L533.2 386.7L537 392.1L547 412.3M482.2 448.9L475.3 436.9L471.3 432.1L468.9 430.2L461.9 427.3L446.2 419L444.8 419M533.6 357.2L526.1 352.5M442.5 420.4L441.2 424.5M568.8 388.1L587 427.1M514.4 401.7L529.1 429.4M441.2 342.2L443.7 345.9L452.7 351.6M448.6 358.1L460.3 340.9L464.7 333.1M490.9 432.3L480.7 422.4L465.9 410.7M561.5 335.2L557.4 331M463.8 379.1L490.9 368.3M441.4 443.9L433.5 444.4L428.5 443.9L411.3 440.5L379 426.5M399.1 388L394 393.6L389.5 400.5L383.5 403.6M579.3 481.2L573.8 459.7M579.7 349.2L572.5 336L570.3 334.9M587 455.8L563.3 462.7M492.4 506.1L482.2 469.6M511.1 331L524.4 342.6L535.4 353.6L536.2 355.8M587 461L559.3 398.9M552.4 471.2L552 465.9L554.2 453.2L553.7 449.5L533.5 425.4M548.1 336.9L542.5 331M500.2 446.6L498.3 446.5L495.2 448.3L490.6 449.9L486.9 450.2L482.2 448.9L476.2 450.3M458.7 331L446.9 339.2L438.1 343.7L425.1 351.9L414.9 354.7L409.2 354.3L404.9 357.6M491.7 331L523.1 353.8M504.4 527.9L503.4 513.5L500.1 501.7M454.7 464L379 443.4M521.1 392.7L523.8 395.2L533.6 413.4L538.3 420.8M578.7 377.7L571.7 373L567 371L539.3 361.2L537.5 360M555.4 539L569.7 531.1M570.3 334.9L552 336.1L524.4 342.6M572.5 539L574.9 537.3M504.4 406.7L512.4 402.9L517.5 399.3L520.1 394L528.7 382.5M463.9 409L470.7 400.5L477.8 394.4M497.9 502.9L486.9 464.5M423.4 388L427.3 394.9L436.1 403.8L437.6 408.9L442.8 417.3M452.3 362L448.6 358.1M508.5 360.2L506.6 355.2L484.3 338.8M434.6 390.8L439.4 385.4L440.5 385L448.9 391.1M444.1 367.6L448.6 358.1M551.5 417.7L574 398.9M585.2 423.1L587 422.4M448.9 391.1L455.9 380.9L462.4 375.9M527.3 331L535.8 339.9M462.5 331L478.3 347.2M443.3 420.6L444.5 419.9L444.8 418.5L444.2 417.7L442.8 417.3L441.5 418.9L441.9 420L443.3 420.6M471.3 432.1L476.2 427.3M505 452.5L507.3 451.1M460.7 418.4L456.7 424.6M540.8 495.1L537.4 496.6M441.2 424.5L440.4 428.6M523 499.9L534.8 492.7M560.9 488.4L562.3 496.5L563.8 514.4L565.5 522.8L564.9 526.4M440.4 428.6L442 463.1M453.9 466.5L460.8 449.7L460.8 448.7L460.2 447.9L441.4 443.9M441.6 418.4L431.4 412.1L413.5 397.9L409.7 393.8L399.1 388M487.5 488.6L493.3 487M492.8 485.1L487 486.8M517.4 490.3L523 499.9L543.1 530.1M587 478L560.9 488.4L541.5 497.1L539 499M541.5 497.1L533.6 479.4L518.9 451.5L514.2 438.3M549.6 472.2L553.4 470.8M557 484.9L557.3 483.5L553.4 470.8M557 484.9L558.6 489.4M549.6 472.2L556 484.2L557 484.9M554.2 453.2L556.3 444.2L558.1 441L557.7 438.2L549.1 410.2M574.6 459.4L569.3 444.9M563.3 462.7L552 465.9M574 398.9L583.3 391M501.6 445.6L504.5 453.3L507.9 451.3L502.7 444.7L501.6 445.6M501.1 445L499.8 443.8M465.9 410.7L459.1 403.8L453.8 394.7L449.5 390.3M465.9 410.7L460.6 418.3M448.9 391.1L446.5 394.2L440.5 399.4M434.5 389.9L438.2 385.5L438.4 382.6L449.4 390.5L448.9 391.1L440.5 385L439.4 385.4L434.6 390.8L434.5 389.9M477.8 394.4L488.8 385.9L496.5 381.3M481.9 423.6L488 418.6L491.7 416.7M477.8 394.4L485.2 404.8L496.2 424.9L504 437.7M463.8 379.1L469.2 385.9L477.8 394.4M537.5 360L538.3 358.6L537.4 356.3L535.6 355.8L534 356.7L533.4 358.4L533.9 359.7L536 360.7L537.5 360M490.9 368.3L499 388L514.5 438.1M490.9 368.3L526.1 352.5M477.7 348L485 357.2L490.6 368.4M478.3 347.2L489.2 331M462.9 331.4L463.1 331M429 383.4L433.8 379.4L438.1 373.7L444.1 367.6L452.3 362L463.6 358.9L470.2 355.7L474.3 352.2L478.3 347.2M404.2 357.2L398.8 361L385.9 367.2M587 337.3L572.5 336M570.3 334.9L570.1 331M502.5 335.4L506 331M526.1 352.5L496.6 331M520.6 352L521.8 351.8L522.6 350M492.7 331L492.7 331.7M522.6 350L526.1 352.5L523.1 353.8L520.6 352L521.8 351.8L522.6 350M491.7 331L492.7 331.7L492.7 331M429 383.4L433.5 388L437 396.6L440.5 399.4M440.5 399.4L458.6 417L465.9 421.8L472.7 425.1L488.8 434.6M476.2 427.3L480.7 422.4M399.1 388L385.9 367.2M413.5 397.9L419.3 391.4L411.6 395.2L413.5 397.9M438.6 398L434.9 402.7M383.5 403.6L379.2 406.7M379.2 406.7L379 407M395 447.8L394.4 450M429.7 457.2L429.2 459.5M393.4 539L393.8 539M486.7 351.8L491.9 344.5M557.6 378.1L563.7 369.8M504.7 407.4L490.4 414.5M496.5 381.3L520.9 366L533.6 359.1M398.5 387.1L409.9 380.2L412.7 385M413 426L407.1 438.8M434.6 390.8L435.6 393.7L445 388.2L440.5 385L439.4 385.4L434.6 390.8M437.5 397L440.5 399.4L448.7 392L445.4 393.9L444.9 393L437.5 397M506.9 441.9L504 437.7M499.8 443.8L494.5 438.8L488.8 434.6M565.3 370.3L571.2 359.4M422.9 375.9L427.8 372.7L427.8 370.8L425.7 368.3L427.8 355.4L425.7 351.5M557.6 486.4L554.1 491.5"/><path class="termino-carretera" d="M534.8 492.7L545.5 507.6L552.1 515.6L564.9 526.4L569.7 531.1L576.3 539M462.5 468.7L469.4 470.7M469.4 470.7L476.2 471.7L482.2 469.6L484.8 467.2L499.5 447.7L502.7 444.7M379 445.9L462.5 468.7M502.7 444.7L508.2 452.6L517.8 469.4L534.8 492.7M431.8 539L439 511.4L442.7 492.4L443.3 463.5M506.9 441.9L523.9 433.3L531.4 427.5L549.1 410.2L578.7 377.7L587 371.2M502.7 444.7L506.9 441.9M498.3 446.5L506.9 441.9"/><path class="termino-guia" d="M441.5 393.5L414.2 381"/><path class="termino-sitio" d="M438.9 393.5a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0Z"/><path class="termino-guia" d="M465.1 385L476 357"/><path class="termino-sitio" d="M462.5 385a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0Z"/><path class="termino-guia" d="M524.5 489L553.7 496"/><path class="termino-sitio" d="M521.9 489a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0Z"/><path class="termino-guia" d="M496.4 418.7L523.6 431.3"/><path class="termino-sitio" d="M493.8 418.7a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0Z"/><path class="termino-guia" d="M468.8 387.8L466.4 417.7"/><path class="termino-sitio" d="M466.2 387.8a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0Z"/><path class="termino-guia" d="M458 381L411.5 431.2"/><path class="termino-sitio" d="M455.4 381a2.6 2.6 0 1 0 5.2 0a2.6 2.6 0 1 0 -5.2 0Z"/><path class="termino-escala" d="M386 528h53.4M386 524v8M439.4 524v8"/><text class="termino-escala-texto" x="445.4" y="528" dy=".35em">250 m</text><rect class="termino-marco" x="378" y="330" width="210" height="210"/></g><g class="termino-ref"><rect x="290.3" y="302.3" width="47.6" height="15" rx="3"/><text x="314.1" y="309.8" text-anchor="middle" dy=".35em">EX-334</text></g><g class="termino-ref"><rect x="152.3" y="893.5" width="47.6" height="15" rx="3"/><text x="176.1" y="901" text-anchor="middle" dy=".35em">BA-131</text></g><g class="termino-ref"><rect x="403.3" y="717.6" width="47.6" height="15" rx="3"/><text x="427.1" y="725.1" text-anchor="middle" dy=".35em">BA-122</text></g><g class="termino-ref"><rect x="305.2" y="426.6" width="47.6" height="15" rx="3"/><text x="329" y="434.1" text-anchor="middle" dy=".35em">BA-121</text></g><g class="termino-ref"><rect x="124.1" y="561.1" width="47.6" height="15" rx="3"/><text x="147.9" y="568.6" text-anchor="middle" dy=".35em">EX-342</text></g><g class="termino-ref"><rect x="330" y="40.9" width="47.6" height="15" rx="3"/><text x="353.8" y="48.4" text-anchor="middle" dy=".35em">EX-212</text></g><g class="termino-ref"><rect x="25.9" y="126.6" width="47.6" height="15" rx="3"/><text x="49.7" y="134.1" text-anchor="middle" dy=".35em">BA-013</text></g><path class="termino-escala" d="M18 940h193.6M18 936v8M211.6 936v8"/><text class="termino-escala-texto" x="217.6" y="940" dy=".35em">5 km</text><a class="termino-punto" href="#lugar-iglesia-de-nuestra-senora-de-gracia" tabindex="-1"><circle cx="414.2" cy="381" r="15"/><text x="414.2" y="381.5" text-anchor="middle" dy=".35em" font-size="15">1</text></a><a class="termino-punto" href="#lugar-casa-de-vargas-zuniga" tabindex="-1"><circle cx="476" cy="357" r="15"/><text x="476" y="357.5" text-anchor="middle" dy=".35em" font-size="15">2</text></a><a class="termino-punto" href="#lugar-ermita-del-cristo-de-la-misericordia" tabindex="-1"><circle cx="553.7" cy="496" r="15"/><text x="553.7" y="496.5" text-anchor="middle" dy=".35em" font-size="15">3</text></a><a class="termino-punto" href="#lugar-ermita-de-la-aurora" tabindex="-1"><circle cx="523.6" cy="431.3" r="15"/><text x="523.6" y="431.8" text-anchor="middle" dy=".35em" font-size="15">4</text></a><a class="termino-punto" href="#lugar-ermita-de-san-juan-macias" tabindex="-1"><circle cx="466.4" cy="417.7" r="15"/><text x="466.4" y="418.2" text-anchor="middle" dy=".35em" font-size="15">5</text></a><a class="termino-punto" href="#lugar-palacio-de-quintanilla" tabindex="-1"><circle cx="411.5" cy="431.2" r="15"/><text x="411.5" y="431.7" text-anchor="middle" dy=".35em" font-size="15">6</text></a><a class="termino-punto" href="#lugar-pozo-de-san-juan-macias" tabindex="-1"><circle cx="340.5" cy="734.2" r="15"/><text x="340.5" y="734.7" text-anchor="middle" dy=".35em" font-size="15">7</text></a></svg>
+      <figcaption class="termino__pie">Mapa do território municipal de Ribera del Fresno, desenhado com dados do OpenStreetMap a 4 de outubro de 2026. <a href="https://www.openstreetmap.org/copyright">© colaboradores de OpenStreetMap<span class="sr">, abre outro sítio</span></a>.</figcaption>
+    </figure>
+    <div class="termino__leyenda">
+      <h3 class="termino__titulo">Lugares do mapa</h3>
+      <ol class="termino__lugares">
+        <li><a href="#lugar-iglesia-de-nuestra-senora-de-gracia"><span class="termino__num" aria-hidden="true">1</span>Iglesia de Nuestra Señora de Gracia</a></li>
+        <li><a href="#lugar-casa-de-vargas-zuniga"><span class="termino__num" aria-hidden="true">2</span>Casa de Vargas-Zúñiga</a></li>
+        <li><a href="#lugar-ermita-del-cristo-de-la-misericordia"><span class="termino__num" aria-hidden="true">3</span>Ermita del Cristo de la Misericordia</a></li>
+        <li><a href="#lugar-ermita-de-la-aurora"><span class="termino__num" aria-hidden="true">4</span>Ermita de la Aurora</a></li>
+        <li><a href="#lugar-ermita-de-san-juan-macias"><span class="termino__num" aria-hidden="true">5</span>Ermita de San Juan Macías</a></li>
+        <li><a href="#lugar-palacio-de-quintanilla"><span class="termino__num" aria-hidden="true">6</span>Palacio de Quintanilla</a></li>
+        <li><a href="#lugar-pozo-de-san-juan-macias"><span class="termino__num" aria-hidden="true">7</span>Pozo de San Juan Macías</a></li>
+        
+      </ol>
+      <h3 class="termino__titulo">Como ler o mapa</h3>
+      <ul class="termino__claves">
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-limite" d="M2 8h28"/></svg>Limite do território municipal (linha tracejada)</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-casco" d="M6 3h20v10H6z"/></svg>A vila (área sombreada)</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-carretera" d="M2 8h28"/></svg>Estradas (linha grossa): BA-013, BA-121, BA-122, BA-131, EX-212, EX-334 y EX-342</li>
+        
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><circle class="termino-punto-clave" cx="16" cy="8" r="6"/></svg>Círculo com número: um lugar da lista</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-escala" d="M3 10h26M3 6v8M29 6v8"/></svg>Escala: a barra de baixo mede 5 km</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><rect class="termino-marco" x="5" y="1.5" width="22" height="13"/></svg>Detalhe: a vila ampliada; a sua barra mede 250 m</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-guia" d="M6 11L26 5"/><circle class="termino-sitio" cx="6" cy="11" r="2.6"/></svg>Linha fina com um ponto: o sítio exato, quando o número foi afastado para se poder ler</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="seccion seccion--placa" aria-labelledby="t-placa">
+  <div class="contenedor placa-rejilla">
+    <h2 class="seccion__titulo" id="t-placa">A casa do poeta</h2>
+    <figure class="placa">
+      <blockquote class="placa__texto"><p><span>En esta casa que ves</span> <span>nació el poeta admirable</span> <span>Don Juan Meléndez Valdés</span> </p></blockquote>
+      <figcaption class="placa__pie">Placa da casa natal do poeta, na Calle Larga</figcaption>
+    </figure>
+    <p class="placa__nota">A placa diz: «Nesta casa que vês nasceu o admirável poeta Dom Juan Meléndez Valdés». Juan Meléndez Valdés (1754-1817), poeta e magistrado do Iluminismo, nasceu nesta rua. O busto de bronze da vila é de 1985, obra de Luis Martínez Giraldo.</p>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-historia">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-historia">História</h2>
+    <p>No Oppidum de Hornachuelos, provavelmente a Fornacis de Ptolomeu, já vivia gente na Idade do Cobre, e a sua melhor época foi entre o século II antes de Cristo e o século I depois de Cristo.</p>
+    <p>A Ordem de Santiago repovoou a vila no século XIII, que chegou a ser sede de Comenda; a primeira referência escrita é de 1257. Segundo a tradição, o nome vem de um grande freixo (fresno) nas margens do ribeiro Valdemedel.</p>
+    <p>O centro histórico foi refeito nos séculos XVII e XVIII: casas caiadas com grades negras e casas senhoriais barrocas com brasões. A Câmara Municipal ocupa o antigo convento de Jesús y María, das clarissas, fundado em 1535.</p>
+    
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-patrimonio">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-patrimonio">Património</h2>
+    <div class="patrimonio-grupos">
+      <div class="patrimonio-grupo">
+        <h3 class="patrimonio-grupo__titulo">Igreja e ermidas</h3>
+        <ul class="patrimonio">
+          <li class="patrimonio__fila"><b class="patrimonio__nombre">Iglesia de Nuestra Señora de Gracia</b><span class="patrimonio__detalle">Dos séculos XIII-XIV, reconstruída em 1745 e 1859. Duas torres gémeas, um retábulo barroco de Alonso Rodríguez Lucas e um púlpito de mármore de Estremoz. C/ Iglesia, 2.</span></li>
+          <li class="patrimonio__fila" id="lugar-ermita-del-cristo-de-la-misericordia"><b class="patrimonio__nombre">Ermita del Cristo de la Misericordia</b><span class="patrimonio__detalle">Do século XVIII, com adro, arcada lateral e torre. Guarda a imagem do Cristo que a tradição atribui a Pedro Roldán.</span></li>
+          <li class="patrimonio__fila" id="lugar-ermita-de-la-aurora"><b class="patrimonio__nombre">Ermita de la Aurora</b><span class="patrimonio__detalle">Na Calle Meléndez Valdés. Conserva o cadeiral dos Treze da Ordem de Santiago e pedras visigóticas na soleira.</span></li>
+          <li class="patrimonio__fila" id="lugar-ermita-del-cristo-viejo"><b class="patrimonio__nombre">Ermita del Cristo Viejo</b><span class="patrimonio__detalle">Do século XVI, hoje em ruínas, com cúpula e uma torre de remate bolboso.</span></li>
+          <li class="patrimonio__fila" id="lugar-ermita-de-san-juan-macias"><b class="patrimonio__nombre">Ermita de San Juan Macías</b><span class="patrimonio__detalle">Construída em 1985 na casa natal do santo.</span></li>
+          <li class="patrimonio__fila" id="lugar-ermita-de-san-isidro"><b class="patrimonio__nombre">Ermita de San Isidro</b><span class="patrimonio__detalle">De 1998, a cerca de 4 km da vila.</span></li>
+          
+        </ul>
+      </div>
+      <div class="patrimonio-grupo">
+        <h3 class="patrimonio-grupo__titulo">Casas, palácios e monumentos</h3>
+        <ul class="patrimonio">
+          <li class="patrimonio__fila" id="lugar-casa-natal-de-juan-melendez-valdes"><b class="patrimonio__nombre">Casa natal de Juan Meléndez Valdés</b><span class="patrimonio__detalle">Na Calle Larga, com a placa que recorda o poeta.</span></li>
+          <li class="patrimonio__fila"><b class="patrimonio__nombre">Monumento a Meléndez Valdés</b><span class="patrimonio__detalle">Busto de bronze de 1985, obra do escultor de Badajoz Luis Martínez Giraldo.</span></li>
+          <li class="patrimonio__fila"><b class="patrimonio__nombre">Casa de Vargas-Zúñiga</b><span class="patrimonio__detalle">Casa senhorial dos séculos XVII e XVIII, com varanda, brasão com vieira e grades com a cruz de Santiago. Hoje é a Casa de la Cultura.</span></li>
+          <li class="patrimonio__fila" id="lugar-palacio-de-quintanilla"><b class="patrimonio__nombre">Palacio de Quintanilla</b><span class="patrimonio__detalle">Na Calle Ayuntamiento, com fachada barroca.</span></li>
+          <li class="patrimonio__fila" id="lugar-casa-de-bazo"><b class="patrimonio__nombre">Casa de Bazo</b><span class="patrimonio__detalle">Com uma varanda sob abóbada de vieira.</span></li>
+          <li class="patrimonio__fila" id="lugar-casas-de-los-olea-y-de-los-grajera"><b class="patrimonio__nombre">Casas de los Olea y de los Grajera</b><span class="patrimonio__detalle">Casas de esquina com brasões, dos séculos XVII e XVIII.</span></li>
+          <li class="patrimonio__fila" id="lugar-antiguo-convento-de-jesus-y-maria"><b class="patrimonio__nombre">Antigo convento de Jesús y María</b><span class="patrimonio__detalle">Convento de clarissas fundado em 1535. Hoje é a Câmara Municipal.</span></li>
+          
+        </ul>
+      </div>
+      <div class="patrimonio-grupo">
+        <h3 class="patrimonio-grupo__titulo">Arqueologia e campo</h3>
+        <ul class="patrimonio">
+          <li class="patrimonio__fila"><b class="patrimonio__nombre">Oppidum de Hornachuelos</b><span class="patrimonio__detalle">Povoado fortificado pré-romano de cerca de cinco hectares, escavado entre 1986 e 1997. Tem centro de interpretação na Casa de la Cultura.</span></li>
+          <li class="patrimonio__fila" id="lugar-pozo-de-san-juan-macias"><b class="patrimonio__nombre">Pozo de San Juan Macías</b><span class="patrimonio__detalle">Na herdade do Valle Garzón, a cerca de 4 km: o lugar do primeiro milagre do santo.</span></li>
+          <li class="patrimonio__fila" id="lugar-pilar-del-cano"><b class="patrimonio__nombre">Pilar del Caño</b><span class="patrimonio__detalle">Bebedouro tradicional, nos arredores da vila.</span></li>
+          <li class="patrimonio__fila"><b class="patrimonio__nombre">Os poços vermelhos e brancos</b><span class="patrimonio__detalle">Os poços do concelho pintam-se de vermelho no corpo e de branco no bocal.</span></li>
+          <li class="patrimonio__fila" id="lugar-ruinas-del-lavadero-de-lanas"><b class="patrimonio__nombre">Ruínas do lavadouro de lãs</b><span class="patrimonio__detalle">Arcos de tijolo junto ao ribeiro Valdemedel.</span></li>
+          
+        </ul>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-anio">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-anio">Festas</h2>
+    <ol class="anio"><li class="mes es-vacio"><p class="mes__nombre"><span class="mes__largo">Janeiro</span><span class="mes__corto" aria-hidden="true">Jan</span></p><p class="mes__vacio"><span class="mes__raya" aria-hidden="true"></span><span class="mes__vacio-texto">Sem festas neste mês</span></p></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Fevereiro</span><span class="mes__corto" aria-hidden="true">Fev</span></p><ul class="mes__fiestas"><li><b>Jueves de Compadres</b><span>Duas quintas-feiras antes da Quarta-feira de Cinzas</span></li><li><b>Muestra de Vinos de Pitarra y Matanza (mostra de vinho caseiro e da matança do porco)</b><span>Finais de fevereiro</span></li></ul></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Março</span><span class="mes__corto" aria-hidden="true">Mar</span></p><ul class="mes__fiestas"><li><b>Carnaval e Semana Santa</b><span>Data variável</span></li></ul></li><li class="mes es-vacio"><p class="mes__nombre"><span class="mes__largo">Abril</span><span class="mes__corto" aria-hidden="true">Abr</span></p><p class="mes__vacio"><span class="mes__raya" aria-hidden="true"></span><span class="mes__vacio-texto">Sem festas neste mês</span></p></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Maio</span><span class="mes__corto" aria-hidden="true">Mai</span></p><ul class="mes__fiestas"><li><b>San Isidro</b><span>15 de maio</span></li></ul></li><li class="mes es-vacio"><p class="mes__nombre"><span class="mes__largo">Junho</span><span class="mes__corto" aria-hidden="true">Jun</span></p><p class="mes__vacio"><span class="mes__raya" aria-hidden="true"></span><span class="mes__vacio-texto">Sem festas neste mês</span></p></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Julho</span><span class="mes__corto" aria-hidden="true">Jul</span></p><ul class="mes__fiestas"><li><b>Festival Folklórico Internacional de la Baja Extremadura (festival internacional de folclore)</b><span>Terceiro fim de semana de julho</span></li></ul></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Agosto</span><span class="mes__corto" aria-hidden="true">Ago</span></p><ul class="mes__fiestas"><li><b>Festival de Teatro «Meléndez Valdés»</b><span>No verão</span></li><li><b>Jornadas Gastronómicas e Artesanais</b><span>Primeiro fim de semana de agosto</span></li><li><b>Fiestas del Emigrante (festa dos emigrantes)</b><span>15 de agosto</span></li></ul></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Setembro</span><span class="mes__corto" aria-hidden="true">Set</span></p><ul class="mes__fiestas"><li><b>Dia da Estremadura</b><span>8 de setembro</span></li><li><b>Ferias y Fiestas del Cristo de la Misericordia</b> <span class="chip chip--mayor">Festa principal</span><span>A partir de 14 de setembro, quatro dias</span></li><li><b>Romaria ao Pozo de San Juan Macías</b><span>O domingo a seguir às festas do Cristo</span></li></ul></li><li class="mes es-vacio"><p class="mes__nombre"><span class="mes__largo">Outubro</span><span class="mes__corto" aria-hidden="true">Out</span></p><p class="mes__vacio"><span class="mes__raya" aria-hidden="true"></span><span class="mes__vacio-texto">Sem festas neste mês</span></p></li><li class="mes con-fiesta"><p class="mes__nombre"><span class="mes__largo">Novembro</span><span class="mes__corto" aria-hidden="true">Nov</span></p><ul class="mes__fiestas"><li><b>FEAVIR, Feira Avícola</b><span>Segunda semana de novembro</span></li></ul></li><li class="mes es-vacio"><p class="mes__nombre"><span class="mes__largo">Dezembro</span><span class="mes__corto" aria-hidden="true">Dez</span></p><p class="mes__vacio"><span class="mes__raya" aria-hidden="true"></span><span class="mes__vacio-texto">Sem festas neste mês</span></p></li></ol>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-gastronomia">
+  <div class="contenedor gastronomia gastronomia--con-foto">
+    <div>
+      <h2 class="seccion__titulo" id="t-gastronomia">Gastronomia</h2>
+      <div class="gastronomia__listas">
+        <div><h3 class="gastronomia__titulo">Pratos</h3><ul class="lista-coma"><li>Gazpacho (sopa fria de tomate)</li><li>Bacalao en cantina (bacalhau)</li><li>Escabeche</li><li>Caldereta de cordero (ensopado de borrego)</li><li>Pescadilla (pescada)</li><li>Tapas de guarrino (petiscos de porco)</li><li>Migas</li><li>Garbanzos con romazas (grão com labaças)</li><li>Repápalos de leche (bolinhos de pão em leite)</li></ul></div>
+        <div><h3 class="gastronomia__titulo">Doces</h3><ul class="lista-coma"><li>Roscas de candil (roscas de anis)</li><li>Flores (filhoses em forma de flor)</li><li>Prestines (fritos com mel)</li><li>Tirabuzones (espirais fritas)</li><li>Perrunillas (bolachas de banha)</li><li>Bollos de Pascua (bolos da Páscoa)</li><li>Coquillos</li><li>Hijuelas</li><li>Torrijas (rabanadas)</li></ul></div>
+        <div><h3 class="gastronomia__titulo">Para beber</h3><ul class="lista-coma"><li>Vino de pitarra (vinho caseiro)</li><li>Resóleo (licor de café e anis)</li><li>Vinho e azeite virgem extra da terra</li></ul></div>
+      </div>
+    </div>
+    <figure class="gastronomia__foto"><div class="gastronomia__marco arco-opcional"><img src="media/dulces-800.jpg" width="1600" height="1063" alt="Tabuleiro de doces típicos: flores, perrunillas e roscas" loading="lazy" decoding="async"></div><figcaption class="credito">Foto: sítio da Câmara Municipal</figcaption></figure>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-personajes">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-personajes">Personalidades</h2>
+    <ul class="fichas">
+      <li class="ficha"><h3 class="ficha__titulo">Juan Meléndez Valdés</h3><p class="ficha__fechas">1754-1817</p><p>Poeta e magistrado do Iluminismo. Nasceu na Calle Larga.</p></li>
+      <li class="ficha"><h3 class="ficha__titulo">San Juan Macías</h3><p class="ficha__fechas">1585-1645</p><p>Dominicano em Lima, canonizado em 1975. A sua casa natal é hoje uma ermida.</p></li>
+      <li class="ficha"><h3 class="ficha__titulo">Alonso García Bravo</h3><p class="ficha__fechas">c. 1490-1561</p><p>Alarife de Hernán Cortés: traçou a primeira planta da Cidade do México.</p></li>
+      <li class="ficha"><h3 class="ficha__titulo">José María Chacón Pachón</h3><p class="ficha__fechas">século XIX</p><p>Deputado na I República espanhola.</p></li>
+      
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-rutas">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-rutas">Percursos pedestres</h2>
+    <ul class="rutas">
+      <li class="ruta"><h3 class="ruta__nombre">Percurso ao Cerro de Hornachuelos</h3><p>Pelo caminho de Peñas del Agua até à Cañada Real Leonesa; vistas sobre cinco ou seis povoações e sobre a barragem de Los Molinos</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutacerrohornachuelos">Ver o percurso (em espanhol)<span class="sr">: Percurso ao Cerro de Hornachuelos</span></a></p></li>
+      <li class="ruta"><h3 class="ruta__nombre">Percurso ao Pozo de San Juan Macías</h3><p>Da Plaza de España pela C/ Sevilla; cerca de 4 km; regresso pela Vereda de la Tía Juana</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutapozosanjuanmacias">Ver o percurso (em espanhol)<span class="sr">: Percurso ao Pozo de San Juan Macías</span></a></p></li>
+      <li class="ruta"><h3 class="ruta__nombre">Percurso ao Cortijo de Siete Iglesias</h3><p>Monte do século XVIII do Marquês de Siete Iglesias, na Cañada Real Leonesa</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutacortijosieteiglesias">Ver o percurso (em espanhol)<span class="sr">: Percurso ao Cortijo de Siete Iglesias</span></a></p></li>
+      <li class="ruta"><h3 class="ruta__nombre">Percurso ao Cortijo de Quintana</h3><p>Monte do início do século XX com lagar de azeite e adega</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutacortijoquintana">Ver o percurso (em espanhol)<span class="sr">: Percurso ao Cortijo de Quintana</span></a></p></li>
+      <li class="ruta"><h3 class="ruta__nombre">Percurso à Bodega y Cortijo de Peñaovejera</h3><p>Adega histórica; povoados visigóticos e romanos nas proximidades</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutabodegacortijopenaovejera">Ver o percurso (em espanhol)<span class="sr">: Percurso à Bodega y Cortijo de Peñaovejera</span></a></p></li>
+      <li class="ruta"><h3 class="ruta__nombre">Percurso ao Punto de Mira de Las Cabezas</h3><p>Cerro com vistas sobre seis povoações e um povoado romano</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutapuntomiracabezas">Ver o percurso (em espanhol)<span class="sr">: Percurso ao Punto de Mira de Las Cabezas</span></a></p></li>
+      <li class="ruta"><h3 class="ruta__nombre">Percurso ao Cortijo Bonito</h3><p>Passa por Los Pilones (zona de merendas no ribeiro Valdemedel); abetardas e grous</p><p><a href="https://riberadelfresno.es/plantilla.php?enlace=rutacortijobonito">Ver o percurso (em espanhol)<span class="sr">: Percurso ao Cortijo Bonito</span></a></p></li>
+      
+    </ul>
+  </div>
+</section>
+
+
+
+<section class="seccion" id="creditos" aria-labelledby="t-creditos">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-creditos">Créditos das fotografias</h2>
+    <ul class="creditos">
+      <li><b>Casa de la Cultura</b>: sítio da Câmara Municipal. Só para esta proposta: para a publicar é precisa a autorização da Câmara</li>
+      <li><b>Avenida com torre (página inicial)</b>: sítio da Câmara Municipal. Só para esta proposta: para a publicar é precisa a autorização da Câmara</li>
+      <li><b>Monumento a Meléndez Valdés</b>: F. Enrique Suárez, CC BY-SA 3.0 (<a href="https://commons.wikimedia.org/wiki/File:Casaamarilla.jpg">ficha da fotografia</a>)</li>
+      <li><b>Poço de «La Tinajona»</b>: Diegui57, CC BY 4.0 (<a href="https://commons.wikimedia.org/wiki/File:Pozo_Rural_de_%22La_Tinajona%22_05.jpg">ficha da fotografia</a>)</li>
+      <li><b>As duas torres da igreja</b>: cartaz da DEMA e da Junta de Extremadura (2014), sítio da Câmara Municipal. Só para esta proposta: para a publicar é precisa a autorização da Câmara</li>
+      <li><b>Oppidum de Hornachuelos</b>: Ángel M. Felicísimo, CC BY 2.0 (<a href="https://commons.wikimedia.org/wiki/File:Oppidum_de_Hornachuelos_(33993657456).jpg">ficha da fotografia</a>)</li>
+      <li><b>Ruínas do lavadouro de lãs</b>: Diegui57, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/wiki/File:Ruinas_antiguo_lavadero_de_lanas_05.jpg">ficha da fotografia</a>)</li>
+      <li><b>Doces típicos</b>: sítio da Câmara Municipal. Só para esta proposta: para a publicar é precisa a autorização da Câmara</li>
+      
+    </ul>
+  </div>
+</section>
+  </div>
+</div>
+</main>
+<footer class="pie" lang="es">
+  <div class="pie__perfil" data-perfil="ribera-del-fresno"><svg class="pie__perfil-dibujo" viewBox="0 0 1600 180" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false"><path pathLength="1" class="lejos" d="M-4 114L90 110L200 113L310 108L420 110L427 109.7"/><path pathLength="1" class="lejos" d="M434.9 109.4L500 107L535 105L561 100L601 89L634 79L660 73L678.2 71.9"/><path pathLength="1" class="lejos" d="M701.8 72.3L713 74L718.2 75.6"/><path pathLength="1" class="lejos" d="M771.5 90.9L772 91L799 91L825 94L828.4 93.7"/><path pathLength="1" class="lejos" d="M881.9 88.5L904 86L924 84L937 85L957 88L990 91L1015 92L1060 94L1140 100L1225 98.1"/><path pathLength="1" class="lejos" d="M1260.8 99.9L1330 104L1440 108L1520 111L1604 114"/><path pathLength="1" d="M-4 138L-4 123L-1.5 116L55.5 116L58 123L58 136L87.5 123L109.7 132.8"/><path pathLength="1" d="M117 134L117 129L117 129L134 129L134 122L132.5 122L132.5 119.5L141.5 119.5L141.5 122L140 122L140 129L180 129L180 129L180 114.7L223 122L223 137"/><path pathLength="1" d="M223.4 137.1L225.5 132L261.5 132"/><path pathLength="1" d="M283 128L283 120L285.5 114L327.5 114L330 120L330 150"/><path pathLength="1" d="M58 144.5L58 136"/><path pathLength="1" d="M180 141L180 129"/><path pathLength="1" d="M-4 123L58 123"/><path pathLength="1" d="M117 132L180 132"/><path pathLength="1" d="M228.5 138L247.5 138"/><path pathLength="1" d="M283 120L330 120"/><path pathLength="1" d="M535.9 137.2L547.1 131.9"/><path pathLength="1" d="M556.1 127.6L557.5 127L585 140L585 130L587.5 124L612 124L612 117L610.5 117L610.5 114.5L619.5 114.5L619.5 117L618 117L618 123"/><path pathLength="1" d="M585 130L597.5 130"/><path pathLength="1" d="M890 148L890 137L890 137L901 137"/><path pathLength="1" d="M924.6 126.6L926.5 122L983.5 122L986 128L986 133L1012.5 120L1039 133L1039 127L1041.5 121L1057 121L1057 114L1055.5 114L1055.5 111.5L1064.5 111.5L1064.5 114L1063 114L1063 121L1099.5 121L1102 127L1102 122L1104.5 117L1173.5 117L1176 122L1176 132"/><path pathLength="1" d="M986 150.5L986 133"/><path pathLength="1" d="M1039 135L1039 133"/><path pathLength="1" d="M1102 130L1102 127"/><path pathLength="1" d="M890 140L900 140"/><path pathLength="1" d="M925 128L986 128"/><path pathLength="1" d="M1039 127L1102 127"/><path pathLength="1" d="M1102 122L1176 122"/><path pathLength="1" d="M1300 127L1300 125L1302.5 118L1309 118L1309 111L1307.5 111L1307.5 108.5L1316.5 108.5L1316.5 111L1315 111L1315 118L1337.5 118L1340 125L1340 120L1342.5 113L1399.5 113L1402 120L1402 133L1409 130.3"/><path pathLength="1" d="M1417.4 127L1435.5 120L1469 133L1469 128L1471.5 122L1502.5 122L1505 128L1505 134L1507.5 128L1541 128L1541 121L1539.5 121L1539.5 118.5L1548.5 118.5L1548.5 121L1547 121L1547 128L1559.5 128L1562 134L1562 124L1564.5 117L1601.5 117L1604 124L1604 141"/><path pathLength="1" d="M1340 127L1340 125"/><path pathLength="1" d="M1402 144L1402 133"/><path pathLength="1" d="M1469 138L1469 133"/><path pathLength="1" d="M1505 138L1505 134"/><path pathLength="1" d="M1562 141L1562 134"/><path pathLength="1" d="M1300 125L1340 125"/><path pathLength="1" d="M1340 120L1344 120"/><path pathLength="1" d="M1354 120L1402 120"/><path pathLength="1" d="M1469 128L1505 128"/><path pathLength="1" d="M1505 134L1508.5 134"/><path pathLength="1" d="M1545.5 134L1562 134"/><path pathLength="1" d="M1562 124L1604 124"/><path pathLength="1" d="M598 141L598 126L718 108.6"/><path pathLength="1" d="M662 94L679.5 79L700.5 79L718 94"/><path pathLength="1" d="M662 94L718 94"/><path pathLength="1" d="M664 94L664 116.5"/><path pathLength="1" d="M716 94L716 109"/><path pathLength="1" d="M680.5 79L680.5 62.5L699.5 62.5L699.5 79"/><path pathLength="1" d="M678.3 62.5L701.7 62.5"/><path pathLength="1" d="M678.3 62.5L690 56L701.7 62.5"/><path pathLength="1" d="M687.5 75L687.5 69.5A2.5 2.5 0 0 1 692.5 69.5L692.5 75L687.5 75"/><path pathLength="1" d="M690 56L690 53"/><path pathLength="1" d="M690 53L690 41"/><path pathLength="1" d="M687.4 44.8L692.6 44.8"/><path pathLength="1" d="M721 148L721 61L718.5 61L718.5 56.6L771.5 56.6L771.5 61L769 61L769 158.5"/><path pathLength="1" d="M744.5 149L769 149"/><path pathLength="1" d="M721 116L769 116"/><path pathLength="1" d="M721 108.7L769 108.7"/><path pathLength="1" d="M721 99.3L769 99.3"/><path pathLength="1" d="M740 97.5L740 74A5 5 0 0 1 750 74L750 97.5L740 97.5"/><path pathLength="1" d="M751 130A6 6 0 0 1 739 130A6 6 0 0 1 751 130"/><path pathLength="1" d="M731 56.6L731 50L733 50A12 11.5 0 0 1 757 50L759 50L759 56.6"/><path pathLength="1" d="M731 50L759 50"/><path pathLength="1" d="M740 39.5L740 22.5L739.2 22.5A5.8 3 0 0 1 750.8 22.5L750 22.5L750 39.5"/><path pathLength="1" d="M743.3 36.5L743.3 29.2A1.7 1.7 0 0 1 746.7 29.2L746.7 36.5L743.3 36.5"/><path pathLength="1" d="M745 19.5L745 10.5"/><path pathLength="1" d="M742.4 13.4L747.6 13.4"/><path pathLength="1" d="M718.5 56.6L718.5 53.6L722.5 53.6L722.5 56.6L718.5 56.6"/><path pathLength="1" d="M718.7 53.6L718.7 51.1L720.5 45.6L722.3 51.1L722.3 53.6"/><path pathLength="1" d="M767.5 56.6L767.5 53.6L771.5 53.6L771.5 56.6L767.5 56.6"/><path pathLength="1" d="M767.7 53.6L767.7 51.1L769.5 45.6L771.3 51.1L771.3 53.6"/><path pathLength="1" d="M769 98.6L831 98.6"/><path pathLength="1" d="M769 149L831 149"/><path pathLength="1" d="M769 116L831 116"/><path pathLength="1" d="M769 114L831 114"/><path pathLength="1" d="M769 107.4L831 107.4"/><path pathLength="1" d="M798 107.4L798 98.6L802 98.6L802 107.4L798 107.4"/><path pathLength="1" d="M773.5 105.9L773.5 100.1"/><path pathLength="1" d="M777.6 105.9L777.6 100.1"/><path pathLength="1" d="M781.7 105.9L781.7 100.1"/><path pathLength="1" d="M785.8 105.9L785.8 100.1"/><path pathLength="1" d="M789.9 105.9L789.9 100.1"/><path pathLength="1" d="M794 105.9L794 100.1"/><path pathLength="1" d="M804 105.9L804 100.1"/><path pathLength="1" d="M808.1 105.9L808.1 100.1"/><path pathLength="1" d="M812.2 105.9L812.2 100.1"/><path pathLength="1" d="M816.3 105.9L816.3 100.1"/><path pathLength="1" d="M820.4 105.9L820.4 100.1"/><path pathLength="1" d="M824.5 105.9L824.5 100.1"/><path pathLength="1" d="M792 139L792 133A8 8 0 0 1 808 133L808 139L792 139"/><path pathLength="1" d="M831 158L831 61L828.5 61L828.5 56.6L881.5 56.6L881.5 61L879 61L879 149.5"/><path pathLength="1" d="M831 149L879 149"/><path pathLength="1" d="M831 116L879 116"/><path pathLength="1" d="M831 108.7L879 108.7"/><path pathLength="1" d="M831 99.3L879 99.3"/><path pathLength="1" d="M850 97.5L850 74A5 5 0 0 1 860 74L860 97.5L850 97.5"/><path pathLength="1" d="M861 130A6 6 0 0 1 849 130A6 6 0 0 1 861 130"/><path pathLength="1" d="M841 56.6L841 50L843 50A12 11.5 0 0 1 867 50L869 50L869 56.6"/><path pathLength="1" d="M841 50L869 50"/><path pathLength="1" d="M850 39.5L850 22.5L849.2 22.5A5.8 3 0 0 1 860.8 22.5L860 22.5L860 39.5"/><path pathLength="1" d="M853.3 36.5L853.3 29.2A1.7 1.7 0 0 1 856.7 29.2L856.7 36.5L853.3 36.5"/><path pathLength="1" d="M855 19.5L855 10.5"/><path pathLength="1" d="M852.4 13.4L857.6 13.4"/><path pathLength="1" d="M828.5 56.6L828.5 53.6L832.5 53.6L832.5 56.6L828.5 56.6"/><path pathLength="1" d="M828.7 53.6L828.7 51.1L830.5 45.6L832.3 51.1L832.3 53.6"/><path pathLength="1" d="M877.5 56.6L877.5 53.6L881.5 53.6L881.5 56.6L877.5 56.6"/><path pathLength="1" d="M877.7 53.6L877.7 51.1L879.5 45.6L881.3 51.1L881.3 53.6"/><path pathLength="1" d="M1184.8 134.5L1185.6 134L1192.1 134"/><path pathLength="1" d="M1210 134L1218.4 134L1225.5 138.4"/><path pathLength="1" d="M1186.5 140L1192 140"/><path pathLength="1" d="M1210 140L1225 140"/><path pathLength="1" d="M1192.5 134L1192.5 129A8.5 8 0 0 1 1209.5 129L1209.5 134"/><path pathLength="1" d="M1192.5 129L1209.5 129"/><path pathLength="1" d="M1198.5 122L1198.5 115L1197.7 115A3.3 2 0 0 1 1204.3 115L1203.5 115L1203.5 122"/><path pathLength="1" d="M1201 113L1201 106"/><path pathLength="1" d="M1198.4 108.2L1203.6 108.2"/><path pathLength="1" d="M1228 149L1228 90.5L1225.5 90.5L1225.5 86L1260.5 86L1260.5 90.5L1258 90.5L1258 149"/><path pathLength="1" d="M1228 124L1258 124"/><path pathLength="1" d="M1228 120L1258 120"/><path pathLength="1" d="M1239.3 116L1239.3 104.8A3.8 3.8 0 0 1 1246.8 104.8L1246.8 116L1239.3 116"/><path pathLength="1" d="M1246.6 95A3.6 3.6 0 0 1 1239.4 95A3.6 3.6 0 0 1 1246.6 95"/><path pathLength="1" d="M1243 92.8L1243 95L1244.6 95"/><path pathLength="1" d="M1232 86A22 22 0 0 1 1243 66.9A22 22 0 0 1 1254 86"/><path pathLength="1" d="M1244.6 65.3A1.6 1.6 0 0 1 1241.4 65.3A1.6 1.6 0 0 1 1244.6 65.3"/><path pathLength="1" d="M1243 63.7L1243 54.7"/><path pathLength="1" d="M1240.4 57.6L1245.6 57.6"/><path pathLength="1" d="M1225.5 86L1225.5 83L1229.5 83L1229.5 86L1225.5 86"/><path pathLength="1" d="M1225.7 83L1225.7 80.5L1227.5 76L1229.3 80.5L1229.3 83"/><path pathLength="1" d="M1256.5 86L1256.5 83L1260.5 83L1260.5 86L1256.5 86"/><path pathLength="1" d="M1256.7 83L1256.7 80.5L1258.5 76L1260.3 80.5L1260.3 83"/><path pathLength="1" d="M-4 180L-4 138L57 128L57 147L59.5 140L90.5 140L93 147L93 129.7L130 136L130 149L191 139L191 131.3L248 141L248 134L284 127.9L284 150L284 150L340 150L340 150L340 180"/><path pathLength="1" d="M57 180L57 147"/><path pathLength="1" d="M93 180L93 147"/><path pathLength="1" d="M130 180L130 149"/><path pathLength="1" d="M191 180L191 149"/><path pathLength="1" d="M248 180L248 141"/><path pathLength="1" d="M284 180L284 150"/><path pathLength="1" d="M57 147L93 147"/><path pathLength="1" d="M65.6 180L65.6 167L72.6 167L72.6 180"/><path pathLength="1" d="M109 151L109 142L114 142L114 151L109 151"/><path pathLength="1" d="M109 168L109 159L114 159L114 168L109 168"/><path pathLength="1" d="M231.3 156L231.3 147L236.3 147L236.3 156L231.3 156"/><path pathLength="1" d="M284 153L340 153"/><path pathLength="1" d="M340 180L340 130L389 130A8 8 0 0 0 397 122A9 9 0 0 1 406 113L456 113A9 9 0 0 1 465 122A8 8 0 0 0 473 130L522 130L522 180"/><path pathLength="1" d="M340 132.5L522 132.5"/><path pathLength="1" d="M431 113A3.9 5.5 0 0 1 431 102A3.9 5.5 0 0 1 431 113"/><path pathLength="1" d="M354.7 151L354.7 142.5A3.5 3.5 0 0 1 361.7 142.5L361.7 151L354.7 151"/><path pathLength="1" d="M352.2 151L364.2 151"/><path pathLength="1" d="M354.2 171L354.2 158L362.2 158L362.2 171L354.2 171"/><path pathLength="1" d="M391.1 151L391.1 142.5A3.5 3.5 0 0 1 398.1 142.5L398.1 151L391.1 151"/><path pathLength="1" d="M388.6 151L400.6 151"/><path pathLength="1" d="M390.6 171L390.6 158L398.6 158L398.6 171L390.6 171"/><path pathLength="1" d="M427.5 151L427.5 142.5A3.5 3.5 0 0 1 434.5 142.5L434.5 151L427.5 151"/><path pathLength="1" d="M425 151L437 151"/><path pathLength="1" d="M463.9 151L463.9 142.5A3.5 3.5 0 0 1 470.9 142.5L470.9 151L463.9 151"/><path pathLength="1" d="M461.4 151L473.4 151"/><path pathLength="1" d="M463.4 171L463.4 158L471.4 158L471.4 171L463.4 171"/><path pathLength="1" d="M500.3 151L500.3 142.5A3.5 3.5 0 0 1 507.3 142.5L507.3 151L500.3 151"/><path pathLength="1" d="M497.8 151L509.8 151"/><path pathLength="1" d="M499.8 171L499.8 158L507.8 158L507.8 171L499.8 171"/><path pathLength="1" d="M426 180L426 163L436 163L436 180"/><path pathLength="1" d="M423.5 160.5L438.5 160.5"/><path pathLength="1" d="M522 180L522 144L524.5 137L549 137L549 130L547.5 130L547.5 127.5L556.5 127.5L556.5 130L555 130L555 137L569.5 137L572 144L572 148L574.5 141L638.5 141L641 148L641 142L675 136.2L675 153L677.5 148L701.5 148L704 153L704 180"/><path pathLength="1" d="M572 180L572 148"/><path pathLength="1" d="M641 180L641 148"/><path pathLength="1" d="M675 180L675 153"/><path pathLength="1" d="M522 144L572 144"/><path pathLength="1" d="M537.9 180L537.9 167L544.9 167L544.9 180"/><path pathLength="1" d="M557 159L557 150L562 150L562 159L557 159"/><path pathLength="1" d="M572 148L641 148"/><path pathLength="1" d="M586.8 163L586.8 154L591.8 154L591.8 163L586.8 163"/><path pathLength="1" d="M621.3 163L621.3 154L626.3 154L626.3 163L621.3 163"/><path pathLength="1" d="M675 153L704 153"/><path pathLength="1" d="M687 168L687 159L692 159L692 168L687 168"/><path pathLength="1" d="M704 180L704 156L732 143L760 156L760 160L795 154.1L795 164L840 156.4L840 156L900 146L900 180"/><path pathLength="1" d="M760 180L760 160"/><path pathLength="1" d="M795 180L795 164"/><path pathLength="1" d="M840 180L840 164"/><path pathLength="1" d="M852.5 171L852.5 162L857.5 162L857.5 171L852.5 171"/><path pathLength="1" d="M882.5 171L882.5 162L887.5 162L887.5 171L882.5 171"/><path pathLength="1" d="M900 180L900 140L902.5 134L917 134L917 127L915.5 127L915.5 124.5L924.5 124.5L924.5 127L923 127L923 134L955.5 134L958 140L958 155L1007 146.7L1007 141L1009.5 135L1056.5 135L1059 141L1059 136L1061.5 130L1102.5 130L1105 136L1105 155L1107.5 149L1137.5 149L1140 155L1140 138L1142.5 132L1164 132L1164 125L1162.5 125L1162.5 122.5L1171.5 122.5L1171.5 125L1170 125L1170 132L1183.5 132L1186 138L1186 180"/><path pathLength="1" d="M958 180L958 155"/><path pathLength="1" d="M1007 180L1007 155"/><path pathLength="1" d="M1059 180L1059 141"/><path pathLength="1" d="M1105 180L1105 155"/><path pathLength="1" d="M1140 180L1140 155"/><path pathLength="1" d="M900 140L958 140"/><path pathLength="1" d="M912 155L912 146L917 146L917 155L912 155"/><path pathLength="1" d="M912 172L912 163L917 163L917 172L912 172"/><path pathLength="1" d="M940 180L940 166L947 166L947 180"/><path pathLength="1" d="M1007 141L1059 141"/><path pathLength="1" d="M1059 136L1105 136"/><path pathLength="1" d="M1079.5 151L1079.5 142L1084.5 142L1084.5 151L1079.5 151"/><path pathLength="1" d="M1079.5 168L1079.5 159L1084.5 159L1084.5 168L1079.5 168"/><path pathLength="1" d="M1105 155L1140 155"/><path pathLength="1" d="M1140 138L1186 138"/><path pathLength="1" d="M1186 180L1186 161L1220 155.2L1220 156L1222.5 149L1293.5 149L1296 156L1296 180"/><path pathLength="1" d="M1220 180L1220 161"/><path pathLength="1" d="M1220 156L1296 156"/><path pathLength="1" d="M1296 180L1296 135L1298.5 127L1346 127L1346 120L1344.5 120L1344.5 117.5L1353.5 117.5L1353.5 120L1352 120L1352 127L1365.5 127L1368 135L1368 144L1368 144L1389 144L1389 137L1387.5 137L1387.5 134.5L1396.5 134.5L1396.5 137L1395 137L1395 144L1409 144L1409 144L1409 125.3L1466 135L1466 145L1468.5 138L1505.5 138L1508 145L1508 135L1510.5 129L1543.5 129L1546 135L1546 141L1546 141L1580 141L1580 134L1578.5 134L1578.5 131.5L1587.5 131.5L1587.5 134L1586 134L1586 141L1604 141L1604 141L1604 180"/><path pathLength="1" d="M1368 180L1368 144"/><path pathLength="1" d="M1409 180L1409 144"/><path pathLength="1" d="M1466 180L1466 145"/><path pathLength="1" d="M1508 180L1508 145"/><path pathLength="1" d="M1546 180L1546 141"/><path pathLength="1" d="M1296 135L1368 135"/><path pathLength="1" d="M1305.5 150L1305.5 141L1310.5 141L1310.5 150L1305.5 150"/><path pathLength="1" d="M1353.5 150L1353.5 141L1358.5 141L1358.5 150L1353.5 150"/><path pathLength="1" d="M1305.5 167L1305.5 158L1310.5 158L1310.5 167L1305.5 167"/><path pathLength="1" d="M1353.5 167L1353.5 158L1358.5 158L1358.5 167L1353.5 167"/><path pathLength="1" d="M1368 147L1409 147"/><path pathLength="1" d="M1382.7 180L1382.7 167L1389.7 167L1389.7 180"/><path pathLength="1" d="M1420.8 150L1420.8 141L1425.8 141L1425.8 150L1420.8 150"/><path pathLength="1" d="M1449.3 150L1449.3 141L1454.3 141L1454.3 150L1449.3 150"/><path pathLength="1" d="M1420.8 167L1420.8 158L1425.8 158L1425.8 167L1420.8 167"/><path pathLength="1" d="M1466 145L1508 145"/><path pathLength="1" d="M1484.5 160L1484.5 151L1489.5 151L1489.5 160L1484.5 160"/><path pathLength="1" d="M1508 135L1546 135"/><path pathLength="1" d="M1546 144L1604 144"/><path pathLength="1" d="M699 30A2.4 2.4 0 0 1 703 30A2.4 2.4 0 0 1 707 30"/><path pathLength="1" d="M900 23A3.1 3.1 0 0 1 905 23A3.1 3.1 0 0 1 910 23"/><path pathLength="1" d="M944.4 38A2.2 2.2 0 0 1 948 38A2.2 2.2 0 0 1 951.6 38"/></svg></div>
+  <section class="sede-franja" aria-labelledby="t-sede">
+    <div class="contenedor">
+      <h2 class="sede-franja__titulo" id="t-sede">Sede electrónica e información pública</h2>
+      <ul class="sede-franja__lista">
+        <li><a class="sede-franja__enlace" href="https://riberadelfresno.sedelectronica.es"><svg class="icono" aria-hidden="true"><use href="#i-sede"/></svg><span><b>Sede electrónica</b><span>Trámites con certificado o Cl@ve</span></span></a></li>
+        <li><a class="sede-franja__enlace" href="https://riberadelfresno.sedelectronica.es/board"><svg class="icono" aria-hidden="true"><use href="#i-tablon"/></svg><span><b>Tablón de anuncios</b><span>Edictos y anuncios oficiales</span></span></a></li>
+        <!-- v3c · transparencia: a la página que explica cada apartado y lleva al portal (lo haya o no) -->
+        <li><a class="sede-franja__enlace" href="transparencia.html"><svg class="icono" aria-hidden="true"><use href="#i-ojo"/></svg><span><b>Transparencia</b><span>Cuentas, contratos y acuerdos</span></span></a></li>
+        <li><a class="sede-franja__enlace" href="https://contrataciondelestado.es/wps/portal/!ut/p/b0/DcexDkAwEADQTzqLBImhmsYsBtx2ieKiTlPH4Ot52wOEEVDo4ZWUT6Hwf5q9j4Flr6JPCwd7iiZSEvUwAALy3ESYss5i6bY3uaK_10tN06bc1DXE4zAfE0Dcfg!!/"><svg class="icono" aria-hidden="true"><use href="#i-contrato"/></svg><span><b>Perfil del contratante</b><span>Licitaciones del Ayuntamiento</span></span></a></li>
+      </ul>
+      <p class="sede-franja__nota">«Transparencia» le explica en esta web qué se publica y dónde; los demás enlaces le llevan a la sede electrónica o a la Plataforma de Contratación del Sector Público.</p>
+    </div>
+  </section>
+  <div class="pie__cuerpo">
+    <div class="contenedor pie__rejilla pie__rejilla--plano">
+      <div class="pie__col pie__id">
+        <img class="pie__escudo" src="marca/escudo-160.png" width="91" height="160" alt="">
+        <div>
+          <h2 class="pie__nombre">Ayuntamiento de Ribera del Fresno</h2>
+          <p>C/ Ayuntamiento, 1<br>06225 Ribera del Fresno (Badajoz)</p>
+          <p><span class="pie__etiqueta">Teléfono</span> <a href="tel:+34924536011">924 536 011</a></p>
+          <p><span class="pie__etiqueta">Correo</span> <a class="rompe" href="mailto:ayuntamiento@riberadelfresno.es">ayuntamiento@riberadelfresno.es</a></p>
+          <p data-dato-ejemplo="horario"><span class="pie__etiqueta">Horario</span> Lunes a viernes, de 9:00 a 14:00 <span class="ejemplo">Ejemplo</span></p>
+        </div>
+      </div>
+      <nav class="pie__col pie__enlaces" aria-labelledby="t-pie-enlaces">
+        <h2 class="pie__titulo" id="t-pie-enlaces">Enlaces útiles</h2>
+        <ul class="pie__lista">
+          <li><a href="https://riberadelfresno.sedelectronica.es">Sede electrónica<span class="sr">, se abre la sede electrónica</span></a></li>
+          <li><a href="https://riberadelfresno.sedelectronica.es/board">Tablón de anuncios<span class="sr">, se abre la sede electrónica</span></a></li>
+          <li><a href="transparencia.html">Transparencia</a></li>
+          <li><a href="https://contrataciondelestado.es/wps/portal/!ut/p/b0/DcexDkAwEADQTzqLBImhmsYsBtx2ieKiTlPH4Ot52wOEEVDo4ZWUT6Hwf5q9j4Flr6JPCwd7iiZSEvUwAALy3ESYss5i6bY3uaK_10tN06bc1DXE4zAfE0Dcfg!!/">Perfil del contratante<span class="sr">, se abre otra web</span></a></li>
+          <li><a href="tramites.html">Trámites</a></li>
+          <li><a href="telefonos.html">Teléfonos</a></li>
+          <li><a href="agenda.html">Agenda</a></li>
+          <li><a href="accesibilidad.html">Accesibilidad</a></li>
+          
+        </ul>
+        <p class="pie__subtitulo" id="t-pie-redes">En redes sociales</p>
+        <ul class="pie__redes" aria-labelledby="t-pie-redes">
+          <li><a href="https://www.facebook.com/AyuntamientodeRiberadelFresno">Facebook<span class="sr">, se abre otra web</span></a></li><li><a href="https://www.instagram.com/aytoriberadelfresno/">Instagram<span class="sr">, se abre otra web</span></a></li><li><a href="https://twitter.com/aytoribera">X (Twitter)<span class="sr">, se abre otra web</span></a></li><li><a href="https://www.youtube.com/channel/UC6OMGwPGD_SNkhk9ew5Bc-A">YouTube<span class="sr">, se abre otra web</span></a></li>
+        </ul>
+      </nav>
+      <div class="pie__col pie__plano">
+        <h2 class="pie__titulo" id="t-pie-plano">Cómo llegar</h2>
+        <figure class="pie__plano-figura">
+          <a class="pie__plano-enlace" href="contacto.html#t-donde"><svg class="pie__plano-dibujo" viewBox="0 0 320 240" aria-hidden="true" focusable="false"><rect class="plano-fondo" width="320" height="240"/><path class="plano-plaza" d="M101.6 133.8L117.6 114.6L118.2 106.8L120.4 104.4L167.1 136.6L164.9 139.3L128.1 112.3L123.1 114.4L102 137.7L101.6 133.8ZM8.8 169.1L29.9 147.3L34.4 140.8L0.5 157.4L8.8 169.1ZM102 137.7L106.5 150.6L147.8 126.3L128.1 112.3L123.1 114.4L102 137.7ZM114.5 165.4L133 182.1L152.9 165.2L149.9 162.4L165.7 144.9L163.9 143.2L149.6 151.6L147.2 147.8L114.5 165.4Z"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.000" d="M167.8 135.7L186.7 155.2L192.5 164.2L201.8 183.5L209.8 195.1L218.5 206L239.7 225.5"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.017" d="M164.9 139.3L128.1 112.3L123.1 114.4L102 137.7"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.017" d="M164.9 139.3L188.1 104L195.7 94.3L203.8 86.2L217.6 75.5L224.5 72.3"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.017" d="M164.9 139.3L163.9 143.2L154.6 152.9L127.1 176.5"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.309" d="M127.1 176.5L112.5 163.6L109 157.9L102 137.7L101.6 133.8L97.3 125.4L77.4 105.2"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.338" d="M119.6 169.6L103.3 190.5"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.348" d="M127.1 176.5L194.4 242"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.377" d="M77.4 105.2L98.6 87.7L117.5 62.7L144 35.6L180 11L227.7 -2"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.442" d="M230.5 86.2L224.5 72.3L200 6"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.442" d="M230.5 86.2L322 50"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.442" d="M230.5 86.2L237.4 97.1L254.5 116.3L280.6 140.4L292.2 153.7"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.483" d="M77.4 105.2L53.3 76.5L44.6 63.2L21.7 37.1L-2 11.9"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.483" d="M77.4 105.2L36.7 139.6L0.5 157.4"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.498" d="M144 35.6L161.9 -2"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.532" d="M52.7 125.4L59.8 140.4L70 156L98.5 186.6L108.4 195.2L115.3 217.5L121.3 228.3L130.5 242"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.656" d="M50.6 72.4L72 58L72.9 56.4L72.2 49.9L63.9 36.9L69.5 -2"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.679" d="M180 11L167.5 -2"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.716" d="M231.1 218.2L247.9 195.5L261 180.7L292.2 153.7"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.835" d="M239.7 225.5L259.1 242"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.835" d="M239.7 225.5L227.3 242"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.855" d="M102.3 242L46 198.7L34.5 187.3L8.8 169.1L0.5 157.4L-2 155.4"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.866" d="M292.2 153.7L322 130.7"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.866" d="M292.2 153.7L308.9 175.5L322 195.2"/><path class="plano-calle" pathLength="1" style="--plano-d: 0.955" d="M75.1 -2L68.9 2.1"/><path class="plano-calle" pathLength="1" style="--plano-d: 1.000" d="M5.3 112.6L-2 99.8"/><path class="plano-hito" d="M246.1 125L253.7 133.1L262.3 123.4L254.5 116.3L246.1 125ZM106.5 150.6L147.8 126.3L164.9 139.3L163.9 143.2L149.6 151.6L147.2 147.8L114.5 165.4L112.5 163.6L109 157.9L106.5 150.6Z"/><path class="plano-ayto" d="M143.1 119.8L150.5 109.1L160 116.3L165.9 109.4L178.1 119.7L167.1 136.6L143.1 119.8Z"/><path class="plano-escala" d="M10 228h94.1M10 225v6M104.1 225v6"/><text class="plano-rotulo plano-rotulo--escala" x="108.1" y="228" dy=".35em">100 m</text><text class="plano-rotulo" x="203.8" y="180.6" transform="rotate(51.3 203.8 180.6)" text-anchor="middle" dy=".35em">C/ Cura</text><text class="plano-rotulo" x="128.7" y="58.1" transform="rotate(-42.5 128.7 58.1)" text-anchor="middle" dy=".35em">C/ Coso</text><text class="plano-rotulo" x="261.7" y="186" transform="rotate(-46.5 261.7 186)" text-anchor="middle" dy=".35em">C/ Mercado</text><text class="plano-rotulo plano-rotulo--ayto" x="182.1" y="120" text-anchor="start" dy=".35em">Ayuntamiento</text></svg><span class="sr">Plano de las calles alrededor del Ayuntamiento: ver la dirección y el mapa en Contacto</span></a>
+          <figcaption class="pie__plano-pie">El Ayuntamiento, en C/ Ayuntamiento, 1. En el plano: Calle Cura, Calle Coso y Calle Mercado. Datos del plano: <a href="https://www.openstreetmap.org/copyright">© colaboradores de OpenStreetMap<span class="sr">, se abre otra web</span></a>.</figcaption>
+        </figure>
+        <a class="pie__llegar ver-todo" href="contacto.html#t-donde">Dirección, horario y mapa<svg class="icono" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+      </div>
+      
+    </div>
+    <div class="contenedor pie__base">
+      <nav class="pie__legal" aria-label="Información legal">
+        <ul>
+          <li><a href="aviso-legal.html">Aviso legal</a></li>
+          <li><a href="privacidad.html">Privacidad</a></li>
+          <li><a href="cookies.html">Cookies</a></li>
+          <li><a href="accesibilidad.html">Declaración de accesibilidad</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+        </ul>
+      </nav>
+      <!-- v3c · guia: la página para quien publica, fuera del menú (noindex siempre) -->
+      <p class="pie__personal"><a href="publicar.html">Personal del Ayuntamiento: publicar</a></p>
+      <p class="pie__creditos">Escudo: SanchoPanzaXXI, CC BY-SA 4.0 (<a href="https://commons.wikimedia.org/wiki/File:Escudo_de_Ribera_del_Fresno.svg">Wikimedia Commons</a>). Las fotos llevan su autor y licencia en <a href="pueblo.html#creditos">El pueblo</a>.</p>
+      <p class="pie__actualizada">Web actualizada el <time datetime="2026-10-05T00:35+02:00">5 de octubre de 2026 a las 0:35</time>.</p>
+      <p class="pie__propuesta" data-propuesta>Propuesta de diseño para el Ayuntamiento de Ribera del Fresno · no es la web oficial.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="cookies" lang="es" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
+  <div class="cookies__texto">
+    <p>Esta web no usa cookies. <a href="cookies.html">Más información</a></p>
+    <!-- [MANDO DE MAQUETA] inicio -->
+    <p class="cookies__revision">Durante la revisión de la propuesta también guarda la versión y el color que se estén probando.</p>
+    <!-- [MANDO DE MAQUETA] fin -->
+  </div>
+  <button class="boton boton--marca" type="button" data-aceptar-cookies>Entendido</button>
+</div>
+
+<!-- [MANDO DE MAQUETA] inicio -->
+<!-- Mando de la reunión: solo con ?revision. NUNCA viaja al sitio del Ayuntamiento:
+     python scripts/quitar_mandos.py lo borra (README, «Antes de entregar»). -->
+<div class="mando" lang="es" id="mando" role="region" aria-label="Versiones de la propuesta" hidden>
+  <div class="mando__grupo" role="group" aria-labelledby="mando-version">
+    <p class="mando__titulo" id="mando-version">Versión</p>
+    <button type="button" class="mando__boton" data-densidad="puerta" aria-pressed="true">Puerta abierta</button>
+    <button type="button" class="mando__boton" data-densidad="sobria" aria-pressed="false">Sobria</button>
+  </div>
+  <div class="mando__grupo" role="group" aria-labelledby="mando-color">
+    <p class="mando__titulo" id="mando-color">Color</p>
+    <button type="button" class="mando__boton" data-paleta="a" aria-pressed="true"><span class="mando__muestra mando__muestra--a" aria-hidden="true"></span>Sinople</button>
+    <button type="button" class="mando__boton" data-paleta="b" aria-pressed="false"><span class="mando__muestra mando__muestra--b" aria-hidden="true"></span>Azur</button>
+    <button type="button" class="mando__boton" data-paleta="c" aria-pressed="false"><span class="mando__muestra mando__muestra--c" aria-hidden="true"></span>Almagre</button>
+    
+  </div>
+</div>
+<!-- [MANDO DE MAQUETA] fin -->
+
+<script type="application/json" id="datos-vivos">{"slug":"ribera-del-fresno","nombre":"Ribera del Fresno","nombre_corto":"Ribera","zona":"Europe/Madrid","horario":{"texto":"Lunes a viernes, de 9:00 a 14:00","tramos":[{"dias":[1,2,3,4,5],"de":"09:00","a":"14:00"}],"ejemplo":true},"avisos":[{"id":"corte-agua-ejemplo","fecha":"2026-10-02","tema":"Agua","titulo":"Corte de agua programado en varias calles, de 9:00 a 13:00","texto":"Así se vería un aviso programado: las calles afectadas, la hora del corte y la hora prevista de vuelta del agua. Sale en la franja ámbar de arriba de todas las páginas y se quita sola el día que caduca. Un aviso urgente (una avería, una alerta) saldría en rojo.","enlace":null,"titulo_corto":null,"urgente":false,"gravedad":"programado","caduca":"2026-11-30","ejemplo":true,"oculto":false,"plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false},{"id":"empleo-ejemplo","fecha":"2026-10-01","tema":"Empleo","titulo":"Bolsa de trabajo de auxiliar de ayuda a domicilio: plazo de solicitudes","texto":"Así se vería una oferta de empleo del Ayuntamiento: qué puesto es, cuántas plazas, los requisitos básicos y hasta cuándo se puede pedir, con el enlace a las bases en el tablón de la sede. Sale con el tema «Empleo», su cuenta atrás y, mientras el plazo esté abierto, en la ficha «Empleo» de la portada.","enlace":null,"titulo_corto":null,"urgente":false,"gravedad":null,"caduca":null,"ejemplo":true,"oculto":false,"plazo_inicio":null,"plazo_fin":"2026-11-13","plazo_ejemplo":true},{"id":"reunion-feria-comercio","fecha":"2026-10-02","tema":"Comercio","titulo":"Reunión informativa sobre la V Feria del Comercio","texto":"Viernes 2 de octubre, a las 20:30, en la Casa de la Cultura. Para comercios y negocios que quieran participar.","enlace":"https://www.facebook.com/AyuntamientodeRiberadelFresno","titulo_corto":null,"urgente":false,"gravedad":null,"caduca":null,"ejemplo":false,"oculto":false,"plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false}],"agenda":[{"id":"reunion-feria-comercio","fecha":"2026-10-02","hora":"20:30","hora_fin":null,"titulo":"Reunión de la V Feria del Comercio","lugar":"Casa de la Cultura","nota":null,"ejemplo":false,"oculto":false,"tipo":null,"convocatoria":null,"convocatoria_sr":null,"grabacion":null,"grabacion_sr":null,"ics":"ics/reunion-feria-comercio.ics"},{"id":"feavir-2026","fecha":"2026-11-12","hora":null,"hora_fin":null,"titulo":"FEAVIR, Feria Avícola","lugar":"Segunda semana de noviembre","nota":"Fecha exacta por confirmar.","ejemplo":true,"oculto":false,"tipo":null,"convocatoria":null,"convocatoria_sr":null,"grabacion":null,"grabacion_sr":null,"ics":"ics/feavir-2026.ics"},{"id":"camino-pozo-san-juan","fecha":"2026-12-15","hora":null,"hora_fin":null,"titulo":"Apertura del camino de peregrinación al Pozo de San Juan","lugar":"Prevista para finales de año","nota":null,"ejemplo":true,"oculto":false,"tipo":null,"convocatoria":null,"convocatoria_sr":null,"grabacion":null,"grabacion_sr":null,"ics":"ics/camino-pozo-san-juan.ics"},{"id":"fiesta-san-isidro-2026","fecha":"2026-05-15","titulo":"San Isidro","lugar":null,"origen":"fiesta","ics":"ics/fiesta-san-isidro-2026.ics"},{"id":"fiesta-san-isidro-2027","fecha":"2027-05-15","titulo":"San Isidro","lugar":null,"origen":"fiesta","ics":"ics/fiesta-san-isidro-2027.ics"},{"id":"fiesta-fiestas-del-emigrante-2026","fecha":"2026-08-15","titulo":"Fiestas del Emigrante","lugar":null,"origen":"fiesta","ics":"ics/fiesta-fiestas-del-emigrante-2026.ics"},{"id":"fiesta-fiestas-del-emigrante-2027","fecha":"2027-08-15","titulo":"Fiestas del Emigrante","lugar":null,"origen":"fiesta","ics":"ics/fiesta-fiestas-del-emigrante-2027.ics"},{"id":"fiesta-dia-de-extremadura-2026","fecha":"2026-09-08","titulo":"Día de Extremadura","lugar":null,"origen":"fiesta","ics":"ics/fiesta-dia-de-extremadura-2026.ics"},{"id":"fiesta-dia-de-extremadura-2027","fecha":"2027-09-08","titulo":"Día de Extremadura","lugar":null,"origen":"fiesta","ics":"ics/fiesta-dia-de-extremadura-2027.ics"},{"id":"fiesta-ferias-y-fiestas-del-cristo-de-la-misericordia-2026","fecha":"2026-09-14","titulo":"Ferias y Fiestas del Cristo de la Misericordia","lugar":"Desde el 14 de septiembre, cuatro días","origen":"fiesta","ics":"ics/fiesta-ferias-y-fiestas-del-cristo-de-la-misericordia-2026.ics"},{"id":"fiesta-ferias-y-fiestas-del-cristo-de-la-misericordia-2027","fecha":"2027-09-14","titulo":"Ferias y Fiestas del Cristo de la Misericordia","lugar":"Desde el 14 de septiembre, cuatro días","origen":"fiesta","ics":"ics/fiesta-ferias-y-fiestas-del-cristo-de-la-misericordia-2027.ics"},{"id":"pleno-2026-09-30","fecha":"2026-09-30","hora":null,"titulo":"Pleno ordinario","lugar":null,"nota":null,"ejemplo":false,"oculto":false,"tipo":"pleno","convocatoria":null,"convocatoria_sr":null,"grabacion":"https://www.facebook.com/AyuntamientodeRiberadelFresno","grabacion_sr":", se abre otra web","ics":"ics/pleno-2026-09-30.ics"},{"id":"pleno-2026-12-29","fecha":"2026-12-29","hora":"20:00","titulo":"Pleno ordinario","lugar":"Salón de plenos del Ayuntamiento","nota":null,"ejemplo":true,"oculto":false,"tipo":"pleno","convocatoria":null,"convocatoria_sr":null,"grabacion":null,"grabacion_sr":null,"ics":"ics/pleno-2026-12-29.ics"}],"farmacias":{"lista":[{"id":"melendez-7","nombre":"Farmacia Meléndez Valdés 7","direccion":"C/ Meléndez Valdés, 7","localidad":null,"telefono":null},{"id":"melendez-37","nombre":"Farmacia Meléndez Valdés 37","direccion":"C/ Meléndez Valdés, 37","localidad":null,"telefono":null}],"cambio":"09:30","guardias":[],"rotacion":{"inicio":"2026-01-05","dias":7,"orden":["melendez-7","melendez-37"]},"oficial":{"nombre":"Colegio Oficial de Farmacéuticos de Badajoz","url":"https://cofbadajoz.com/farmacias-de-guardia/"},"ejemplo":true},"tiempo":{"url":"https://www.aemet.es/es/eltiempo/prediccion/municipios/ribera-del-fresno-id06113","lugar":"Ribera del Fresno"},"recogida":[{"id":"enseres","nombre":"Recogida de enseres","dias":[3],"fechas":[],"hora":null,"como":"Pídala el día antes en el Ayuntamiento","telefono":"924 536 011","tramite":null,"tramite_texto":null,"tramite_sr":null,"ejemplo":true}],"canal":null,"web":"https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/","noticias":[{"id":"reunion-v-feria-comercio","fecha":"2026-10-02","titulo":"Reunión informativa sobre la V Feria del Comercio","resumen":"Hoy viernes, a las 20:30, en la Casa de la Cultura.","imagen":"casa-cultura","imagen_alt":"Fachada encalada de la Casa de la Cultura","ejemplo":false},{"id":"cruz-pozo-san-juan","fecha":"2026-10-01","titulo":"Instalada una nueva cruz de 8 × 4 metros en el Pozo de San Juan","resumen":"El camino de peregrinación desde el pueblo estará listo a finales de año.","imagen":null,"imagen_alt":"","ejemplo":false},{"id":"ayudas-natalidad-2026","fecha":"2026-10-01","titulo":"Abierta la convocatoria 2026 de ayudas a la natalidad","resumen":"Las bases y la solicitud están en el tablón de la sede electrónica.","imagen":null,"imagen_alt":"","ejemplo":false},{"id":"campo-cesped-artificial","fecha":"2026-10-01","titulo":"El concejal de Deportes informa sobre el campo de césped artificial","resumen":"Andrés Bermejo explica en qué punto está el proyecto.","imagen":null,"imagen_alt":"","ejemplo":false},{"id":"grabacion-pleno-30-septiembre","fecha":"2026-10-01","titulo":"Ya se puede ver la grabación del pleno del 30 de septiembre","resumen":"El pleno ordinario, grabado entero.","imagen":null,"imagen_alt":"","ejemplo":false},{"id":"anillo-norte","fecha":"2026-09-29","titulo":"Anuncio previo de las instalaciones eléctricas «Anillo Norte»","resumen":"Publicado en el tablón antes de empezar la obra.","imagen":null,"imagen_alt":"","ejemplo":false}],"tablon":{"actualizado":"2026-10-02T16:14:39.116Z","entradas":[{"fecha":"2026-10-01","tema":"Ayudas","titulo":"CONVOCATORIA AYUDA NATALIDAD CORRECTA 2026","titulo_claro":"Convocatoria 2026 de ayudas a la natalidad","url":"https://riberadelfresno.sedelectronica.es/preview-document/02af28b6-9fdb-4b29-968c-eee1a7582f0a","oculto":false,"expediente":"182/2026","plazo_inicio":null,"plazo_fin":"2026-10-31","plazo_ejemplo":true},{"fecha":"2026-09-29","tema":"Obras","titulo":"ANUNCIO PREVIO A LA CONSTRUCCIÓN DE INSTALACIÓN ELÉCTRICAS ANILLO NORTE","titulo_claro":"Anuncio previo de las instalaciones eléctricas «Anillo Norte»","url":"https://riberadelfresno.sedelectronica.es/preview-document/e93c0528-669d-435a-9c14-ea0cd2393a51","oculto":false,"expediente":"1526/2026","plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false},{"fecha":"2026-09-25","tema":"Pleno","titulo":"Anuncio celebración sesión Ordinaria Pleno 30 de septiembre de 2026","titulo_claro":"Pleno ordinario del 30 de septiembre: convocatoria","url":"https://riberadelfresno.sedelectronica.es/preview-document/38e93efa-c78c-46df-a85c-31b2cf7f017c","oculto":false,"expediente":"1504/2026","plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false},{"fecha":"2026-08-24","tema":"Impuestos","titulo":"ANUNCIO COBRANZA IAE 2026","titulo_claro":"Periodo de cobro del IAE 2026","url":"https://riberadelfresno.sedelectronica.es/preview-document/3f841651-c794-4d5f-abc7-f70773d5bb3e","oculto":false,"expediente":"1101/2026","plazo_inicio":"2026-09-01","plazo_fin":"2026-11-02","plazo_ejemplo":true},{"fecha":"2026-08-03","tema":"Pleno","titulo":"Anuncio celebración sesión Extraordinaria Pleno 06 de agosto 2026","titulo_claro":"Pleno extraordinario del 6 de agosto: convocatoria","url":"https://riberadelfresno.sedelectronica.es/preview-document/731a9524-6eee-45c4-8078-90c16624a687","oculto":false,"expediente":"1256/2026","plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false},{"fecha":"2026-08-03","tema":"Pleno","titulo":"Anuncio incorporación nuevo punto orden del día celebración sesión Extraordinaria Pleno 06 de agosto 2026","titulo_claro":"Pleno del 6 de agosto: punto añadido al orden del día","url":"https://riberadelfresno.sedelectronica.es/preview-document/56744471-3e15-4f83-bb45-5610964f3bc8","oculto":false,"expediente":"1256/2026","plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false},{"fecha":"2026-07-16","tema":"Ayudas","titulo":"Extracto Bases Asociaciones","titulo_claro":"Subvenciones para asociaciones: extracto de las bases","url":"https://riberadelfresno.sedelectronica.es/preview-document/a18eb373-57db-40ae-9cde-4c13311f98bf","oculto":false,"expediente":"1153/2026","plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false},{"fecha":"2026-05-19","tema":"Ayudas","titulo":"B.O.P. nº. 91 - Anuncio 1752_2026 Bases reguladoras para ayudas mínimos vitales 2026","titulo_claro":"Ayudas para suministros mínimos vitales 2026: bases (BOP n.º 91)","url":"https://riberadelfresno.sedelectronica.es/preview-document/6f4c8681-90a6-46ae-a32f-c5601f49af42","oculto":false,"expediente":"745/2026","plazo_inicio":null,"plazo_fin":null,"plazo_ejemplo":false}]},"fiestas":[{"mes":2,"nombre":"Jueves de Compadres","cuando":"Dos jueves antes del Miércoles de Ceniza","mayor":false,"fecha_fija":null},{"mes":2,"nombre":"Muestra de Vinos de Pitarra y Matanza","cuando":"Finales de febrero","mayor":false,"fecha_fija":null},{"mes":3,"nombre":"Carnaval y Semana Santa","cuando":"Fecha variable","mayor":false,"fecha_fija":null},{"mes":5,"nombre":"San Isidro","cuando":"15 de mayo","mayor":false,"fecha_fija":"05-15"},{"mes":7,"nombre":"Festival Folklórico Internacional de la Baja Extremadura","cuando":"Tercer fin de semana de julio","mayor":false,"fecha_fija":null},{"mes":8,"nombre":"Festival de Teatro «Meléndez Valdés»","cuando":"En verano","mayor":false,"fecha_fija":null},{"mes":8,"nombre":"Jornadas Gastronómicas y Artesanales","cuando":"Primer fin de semana de agosto","mayor":false,"fecha_fija":null},{"mes":8,"nombre":"Fiestas del Emigrante","cuando":"15 de agosto","mayor":false,"fecha_fija":"08-15"},{"mes":9,"nombre":"Día de Extremadura","cuando":"8 de septiembre","mayor":false,"fecha_fija":"09-08"},{"mes":9,"nombre":"Ferias y Fiestas del Cristo de la Misericordia","cuando":"Desde el 14 de septiembre, cuatro días","mayor":true,"fecha_fija":"09-14"},{"mes":9,"nombre":"Romería al Pozo de San Juan Macías","cuando":"El domingo después de las fiestas del Cristo","mayor":false,"fecha_fija":null},{"mes":11,"nombre":"FEAVIR, Feria Avícola","cuando":"Segunda semana de noviembre","mayor":false,"fecha_fija":null}],"servicios":{"ayuntamiento":[{"dias":[1,2,3,4,5],"de":"09:00","a":"14:00"}],"centro-de-dia-la-ribera":[{"dias":[1,2,3,4,5],"de":"10:00","a":"18:00"}],"biblioteca-virgilio-gutierrez":[{"dias":[1,2,3,4,5],"de":"09:30","a":"14:00"}]},"tramites_sede":111,"rutas":{"tramites":"tramites.html","avisos":"avisos.html","agenda":"agenda.html","noticia":"noticia-{id}.html","media":"media/"},"hoja":null,"tablon_json":"contenido/tablon.json","horizonte_dias":60,"v_datos":"131e64b4"}</script>
+<script src="js/vivo.js?v=20917a62" defer></script>
+<script src="js/main.js?v=2504b34e" defer></script>
+<script src="js/movimiento.js?v=daa5c706" defer></script>
+<script src="js/identidad.js?v=848289b2" defer></script>
+
+
+</body>
+</html>
+

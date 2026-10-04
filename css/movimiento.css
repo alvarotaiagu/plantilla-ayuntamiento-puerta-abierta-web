@@ -1,0 +1,397 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   movimiento.css — animaciones y microinteracciones de «Puerta abierta».
+
+   Reglas (sector público, WCAG 2.1 AA):
+   - TODO va dentro de @media (prefers-reduced-motion: no-preference). Con
+     movimiento reducido este archivo no hace nada y la web se ve completa y
+     quieta (además, base.css quita transiciones y animaciones con !important).
+   - El estado de reposo de cada regla es el FINAL: si una animación no arranca
+     o el navegador no soporta la API, todo se ve. Nada de texto con opacity en
+     revelados por scroll: se mueve con transform y se dibujan elementos
+     decorativos (la raya de oro, la línea de tiempo, los puntos).
+   - Ningún bucle infinito (el latido de «Abierto ahora» da 3 vueltas).
+   - Colores solo con tokens. Duraciones de 100 a 600 ms.
+   Mejora progresiva: View Transitions, scroll-driven animations, @starting-style
+   y ::details-content se ven en Chromium (y en Safari lo que ya soporta);
+   en Firefox la web queda igual que sin este archivo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* v3 · M6: el ángulo con el que se dibuja el borde de oro del mes en curso. Registrado para que
+   se pueda animar; su valor inicial (360deg) es el borde entero: el reposo */
+@property --mov-giro { syntax: '<angle>'; inherits: false; initial-value: 360deg; }
+
+:root {
+  --curva-salida: cubic-bezier(.22, 1, .36, 1);     /* ease-out «quint»: llega y se posa */
+  --curva-va-y-viene: cubic-bezier(.65, 0, .35, 1); /* ease-in-out para lo que vuelve */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ═══ 15. Transiciones entre páginas (View Transitions entre documentos) ═══
+     La cabecera (con el escudo) se queda quieta: tiene su propio grupo y no se
+     anima. El resto funde y sube 10 px. La foto de una noticia (listado o
+     portada) se transforma en la del artículo: cada una lleva un
+     view-transition-name único (noticia-<id>) puesto en la plantilla, o al
+     salir de la portada desde js/movimiento.js (pageswap).
+     La cortina de la portada salta la transición (lo decide el <head>). */
+  @view-transition { navigation: auto; }
+
+  /* con nombre, la cabecera es un contexto de apilamiento: z-index 90 para que
+     el panel del menú móvil (fixed, z 90 dentro) siga por encima de la página */
+  .cabecera { view-transition-name: cabecera; position: relative; z-index: 90; }
+  ::view-transition-group(cabecera) { animation: none; }
+  ::view-transition-old(cabecera) { display: none; }
+  ::view-transition-new(cabecera) { animation: none; }
+
+  ::view-transition-old(root) { animation: mov-funde-sale .16s ease-in both; }
+  ::view-transition-new(root) { animation: mov-entra-pagina .34s var(--curva-salida) .06s both; }
+
+  /* v3 · M1 «la puerta se queda, cambia lo que hay dentro». El arco de la cabecera interior (con su
+     umbral) tiene su propio grupo y no se anima: entre páginas interiores se queda donde está y no
+     funde con el resto. Lo que cambia es el pictograma de dentro, que el nuevo documento TRAZA al
+     cargar (la instantánea nueva es viva, así que el trazado se ve durante la transición). Sin View
+     Transitions (Firefox) el trazado ocurre igual al cargar. Reposo = trazo entero y sin dasharray:
+     el «desde» solo existe mientras corre (fill backwards). Total ≤ 600 ms. */
+  .cabeza-pagina__puerta { view-transition-name: puerta-cabecera; }
+  ::view-transition-group(puerta-cabecera) { animation: none; }
+  ::view-transition-old(puerta-cabecera) { display: none; }
+  ::view-transition-new(puerta-cabecera) { animation: none; }
+  .cabeza-pagina__picto > path {
+    animation: mov-picto-traza .42s var(--curva-salida) backwards;
+    animation-delay: calc(var(--mov-picto, 0) * 30ms + 60ms);
+  }
+  .cabeza-pagina__picto > path:nth-child(2) { --mov-picto: 1; }
+  .cabeza-pagina__picto > path:nth-child(3) { --mov-picto: 2; }
+  .cabeza-pagina__picto > path:nth-child(4) { --mov-picto: 3; }
+  .cabeza-pagina__picto > path:nth-child(n+5) { --mov-picto: 4; }
+  @keyframes mov-picto-traza {
+    from { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+    to { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
+  }
+
+  .noticia__foto, .articulo__foto, .linea__foto { view-transition-class: foto-noticia; }
+  ::view-transition-group(*.foto-noticia) { animation-duration: .42s; animation-timing-function: var(--curva-salida); }
+  ::view-transition-old(*.foto-noticia),
+  ::view-transition-new(*.foto-noticia) { height: 100%; object-fit: cover; }
+
+  /* ═══ 22. Filtros del tablón: las filas se recolocan (document.startViewTransition).
+     js/movimiento.js pone los nombres a las filas solo mientras dura y marca
+     <html> con .mov-tablon para no usar la entrada de página. ═══ */
+  .tablon__fila { view-transition-class: tablon-fila; }
+  html.mov-tablon::view-transition-group(*) { animation-duration: .3s; animation-timing-function: var(--curva-salida); }
+  html.mov-tablon::view-transition-old(root) { animation: mov-funde-sale .14s ease-in both; }
+  html.mov-tablon::view-transition-new(root) { animation: mov-funde-entra .2s ease-out both; }
+
+  @keyframes mov-funde-sale { to { opacity: 0; } }
+  @keyframes mov-funde-entra { from { opacity: 0; } }
+  @keyframes mov-entra-pagina { from { opacity: 0; transform: translateY(10px); } }
+
+  /* ═══ 16 y 17. Ligado al scroll (animation-timeline: view()) ═══
+     Solo transform y escala de decoraciones. Sin soporte, @supports no entra y
+     todo queda en su estado final. Los rangos se miden en alto de pantalla:
+     «entry-crossing 25vh» = cuando el borde de arriba pasa por el 75 % de la
+     pantalla, así la punta de la línea va siempre un cuarto por encima del
+     borde inferior y cada punto aparece justo cuando la punta llega a él. */
+  @supports (animation-timeline: view()) {
+
+    /* 16. el h2 sube 12 px y su raya de oro se dibuja desde la izquierda */
+    .seccion__titulo {
+      view-timeline: --titulo block;
+      animation: mov-sube linear both;
+      animation-timeline: --titulo;
+      animation-range: entry-crossing 4vh entry-crossing calc(100% + 16vh);
+      animation-timing-function: var(--curva-salida);
+    }
+    .seccion__titulo::before {
+      transform-origin: left center;
+      animation: mov-raya linear both;
+      animation-timeline: --titulo;
+      animation-range: entry-crossing 8vh entry-crossing calc(100% + 26vh);
+      animation-timing-function: var(--curva-salida);
+    }
+
+    /* 17. la línea de tiempo se traza de arriba abajo, pasa por «Hoy» y los
+       puntos saltan al llegar la punta (escalonados por su posición) */
+    .linea { view-timeline: --linea block; }
+    .linea::before {
+      transform-origin: center top;
+      animation: mov-traza linear both;
+      animation-timeline: --linea;
+      animation-range: entry-crossing 25vh entry-crossing calc(100% + 25vh);
+    }
+    .linea__item, .linea__hoy { view-timeline: --punto block; }
+    .linea__item::before, .linea__marca {
+      animation: mov-punto linear both;
+      animation-timeline: --punto;
+      animation-range: entry-crossing 23vh entry-crossing calc(23vh + 56px);
+    }
+    .linea__hoy::after {
+      transform-origin: left center;
+      animation: mov-raya linear both;
+      animation-timeline: --punto;
+      animation-range: entry-crossing 24vh entry-crossing calc(24vh + 140px);
+      animation-timing-function: var(--curva-salida);
+    }
+  }
+  /* ═══ v3 · M3. Paralaje dentro del arco («Conocer …» de la portada y «Qué ver» de
+     pueblo.html, por clase: .con-paralaje en la sección y .paralaje en el marco). La foto mide
+     40 px más que su marco (que recorta y NO se mueve) y pasa de -20 a +20 px mientras la sección
+     cruza la pantalla: en el centro, centrada. El timeline es de la SECCIÓN (view-timeline con
+     nombre): el marco vive dentro de un carril con scroll horizontal y view() buscaría ese
+     carril, que no se desplaza en vertical. Sin soporte, la foto queda quieta y entera. ═══ */
+  @supports (animation-timeline: view()) {
+    .con-paralaje { view-timeline: --paralaje block; }
+    .paralaje { overflow: hidden; }
+    .paralaje img {
+      height: calc(100% + 40px); margin-top: -20px;
+      animation: mov-paralaje linear both;
+      animation-timeline: --paralaje;
+    }
+
+    /* ═══ v3 · M7. Ritmo de bandas: el arco de la banda (base.css → .banda--puerta::before) sube
+       por el borde de arriba al llegar, el mismo gesto que el arco de los atajos al pasar el ratón
+       (§18), a escala de página. Mientras está abajo queda dentro de su banda, del mismo color:
+       no se ve. Reposo = arriba del todo. ═══ */
+    .banda--puerta { view-timeline: --banda block; }
+    .banda--puerta::before {
+      animation: mov-puerta linear both;
+      animation-timeline: --banda;
+      animation-range: entry-crossing 0px entry-crossing 28vh;
+      animation-timing-function: var(--curva-salida);
+    }
+  }
+  @keyframes mov-paralaje { from { translate: 0 -20px; } to { translate: 0 20px; } }
+  @keyframes mov-puerta { from { translate: 0 100%; } to { translate: none; } }
+
+  @keyframes mov-sube { from { translate: 0 12px; } to { translate: none; } }
+  @keyframes mov-raya { from { scale: 0 1; } to { scale: 1 1; } }
+  @keyframes mov-traza { from { scale: 1 0; } to { scale: 1 1; } }
+  @keyframes mov-punto { 0% { scale: 0; } 70% { scale: 1.15; } 100% { scale: 1; } }
+
+  /* ═══ 18. Atajos: «la puerta que se abre». Un arco de medio punto en
+     --marca-tenue sube desde abajo DETRÁS del texto. Mide el alto de la tarjeta
+     más medio ancho (padding-top en % = ancho del padre): con el arco del todo
+     arriba, la parte recta cubre la tarjeta entera y queda igual que el hover
+     de siempre. El texto pasa AA sobre --superficie y sobre --marca-tenue
+     (parejas medidas en scripts/lib/color.mjs), así que pasa en cada fotograma. ═══ */
+  .atajo { position: relative; isolation: isolate; overflow: hidden; }
+  .atajo::before {
+    content: ""; position: absolute; left: 0; bottom: 0; z-index: -1;
+    box-sizing: content-box; width: 100%; height: 100%; padding-top: 50%;
+    border-radius: 9999px 9999px 0 0;
+    background: var(--marca-tenue);
+    translate: 0 100%;
+    transition: translate .26s var(--curva-va-y-viene);
+    pointer-events: none;
+  }
+  .atajo:hover, .atajo:focus-visible { background: var(--superficie); }
+  .atajo:hover::before, .atajo:focus-visible::before {
+    translate: none;
+    transition-duration: .5s; transition-timing-function: cubic-bezier(.33, 1, .68, 1);
+  }
+
+  /* ═══ 19. Menú móvil, buscador y desplegables ═══ */
+  /* el panel del menú baja como una persiana (clip-path, sin opacity: el texto
+     nunca está a medias) y los enlaces llegan escalonados. display se anima en
+     discreto para que al cerrar dé tiempo a recogerse. */
+  @media (max-width: 63.99em) {
+    html.con-js .menu {
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path .22s var(--curva-va-y-viene), display .22s allow-discrete;
+    }
+    html.con-js .menu:not(.esta-abierto) { pointer-events: none; }
+    html.con-js .menu.esta-abierto {
+      clip-path: inset(0);
+      transition: clip-path .34s var(--curva-salida), display .34s allow-discrete;
+    }
+    html.con-js .menu.esta-abierto .menu__lista > li,
+    html.con-js .menu.esta-abierto .menu__sede {
+      transition: translate .36s var(--curva-salida);
+      transition-delay: calc(var(--mov-n, 0) * 30ms + 60ms);
+    }
+    .menu__lista > li:nth-child(2) { --mov-n: 1; }
+    .menu__lista > li:nth-child(3) { --mov-n: 2; }
+    .menu__lista > li:nth-child(4) { --mov-n: 3; }
+    .menu__lista > li:nth-child(5) { --mov-n: 4; }
+    .menu__lista > li:nth-child(6) { --mov-n: 5; }
+    .menu__lista > li:nth-child(7) { --mov-n: 6; }
+    .menu__lista > li:nth-child(n+8) { --mov-n: 7; }
+    .menu__sede { --mov-n: 8; }
+    @starting-style {
+      html.con-js .menu.esta-abierto { clip-path: inset(0 0 100% 0); }
+      html.con-js .menu.esta-abierto .menu__lista > li,
+      html.con-js .menu.esta-abierto .menu__sede { translate: 0 -.6rem; }
+    }
+  }
+
+  /* el buscador (<dialog>): de .97 a 1 con el fondo fundiendo; al cerrar, al
+     revés. overlay y display en discreto lo mantienen en la capa superior
+     mientras sale (Chromium; en Safari se cierra en seco). */
+  .buscador[open] { transition: scale .26s var(--curva-salida); }
+  .buscador[open]::backdrop { transition: opacity .26s ease-out; }
+  /* la salida solo donde el diálogo puede quedarse en la capa superior mientras
+     se va (overlay); si no, se vería un fotograma fuera de sitio */
+  @supports (overlay: auto) {
+    .buscador {
+      scale: .97; opacity: 0;
+      transition: scale .2s var(--curva-salida), opacity .16s ease-in, overlay .2s allow-discrete, display .2s allow-discrete;
+    }
+    .buscador[open] {
+      scale: 1; opacity: 1;
+      transition: scale .26s var(--curva-salida), overlay .26s allow-discrete, display .26s allow-discrete;
+    }
+    .buscador::backdrop { opacity: 0; transition: opacity .2s ease-in, overlay .2s allow-discrete, display .2s allow-discrete; }
+    .buscador[open]::backdrop { opacity: 1; transition: opacity .26s ease-out, overlay .26s allow-discrete, display .26s allow-discrete; }
+  }
+  /* @starting-style DESPUÉS: con la misma especificidad, la última regla gana
+     también al calcular el estilo de partida */
+  @starting-style {
+    .buscador[open] { scale: .97; opacity: 1; }
+    .buscador[open]::backdrop { opacity: 0; }
+  }
+
+  /* v3 · M5. Los resultados del buscador (diálogo, portada y Trámites) entran escalonados: solo
+     transform, 160 ms cada uno y 28 ms entre uno y otro, tope en el sexto: ≤ 300 ms en total.
+     v3b: van en grupos (una lista por tipo); el escalón se cuenta dentro de cada lista */
+  .resultados li { animation: mov-resultado .16s var(--curva-salida) backwards; }
+  .resultados li:nth-child(2) { animation-delay: 28ms; }
+  .resultados li:nth-child(3) { animation-delay: 56ms; }
+  .resultados li:nth-child(4) { animation-delay: 84ms; }
+  .resultados li:nth-child(5) { animation-delay: 112ms; }
+  .resultados li:nth-child(n+6) { animation-delay: 140ms; }
+  @keyframes mov-resultado { from { translate: 0 6px; } }
+
+  /* los <details> de trámites se abren animados (::details-content +
+     interpolate-size). Sin soporte, se abren en seco como siempre.
+     overflow-clip-margin: que el anillo de foco del primer enlace no se corte. */
+  @supports (interpolate-size: allow-keywords) {
+    :root { interpolate-size: allow-keywords; }
+    .tema::details-content {
+      block-size: 0; overflow: clip; overflow-clip-margin: .5rem;
+      transition: block-size .3s var(--curva-va-y-viene), content-visibility .3s allow-discrete;
+    }
+    .tema[open]::details-content { block-size: auto; }
+  }
+
+  /* ═══ 24. Entrada del hero sin cortina (ya se vio en la sesión) ═══
+     El <head> pone html.entrada-hero solo si no hay cortina y no se pide movimiento reducido. El
+     nombre sube 8 px palabra a palabra (solo transform: el texto se ve siempre entero) y la foto se
+     asienta de 1,06 a 1, como al final de la cortina. backwards: el «desde» solo cuenta mientras
+     espera su turno; el reposo es el final. Todo acaba antes de 600 ms */
+  html.entrada-hero .hero__palabra {
+    animation: mov-palabra .4s var(--curva-salida) backwards;
+    animation-delay: calc(min(var(--n, 0), 4) * 45ms);
+  }
+  html.entrada-hero #arco-hero img { animation: mov-asienta .56s cubic-bezier(.33, 1, .68, 1) backwards; }
+  @keyframes mov-palabra { from { translate: 0 8px; } }
+  @keyframes mov-asienta { from { scale: 1.06; } }
+
+  /* ═══ 20. «Abierto ahora»: un anillo que late 3 veces y para ═══ */
+  .esta-abierto .estado__punto { position: relative; }
+  .esta-abierto .estado__punto::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    border: 2px solid var(--marca); opacity: 0; pointer-events: none;
+    animation: mov-latido 1.3s var(--curva-salida) .7s 3;
+  }
+  @keyframes mov-latido { 0% { scale: 1; opacity: .75; } 100% { scale: 2.8; opacity: 0; } }
+
+  /* ═══ 23. Detalles ═══ */
+  /* las flechas se adelantan 3 px; la de volver, hacia atrás; la de «sale a la sede», en diagonal */
+  .ver-todo .icono, .tablon__flecha { transition: translate .22s var(--curva-salida); }
+  .ver-todo:hover .icono, .ver-todo:focus-visible .icono,
+  .tablon__enlace:hover .tablon__flecha, .tablon__enlace:focus-visible .tablon__flecha { translate: 3px 0; }
+  .ver-todo:hover .icono--volver, .ver-todo:focus-visible .icono--volver { translate: -3px 0; }
+  .tablon__enlace:hover .tablon__flecha:has(use[href="#i-salida"]),
+  .tablon__enlace:focus-visible .tablon__flecha:has(use[href="#i-salida"]) { translate: 2px -2px; }
+
+  /* al pulsar, los botones se hunden un poco */
+  .boton, .boton-icono, .boton-menu, .filtro {
+    transition-property: background-color, border-color, color, scale;
+    transition-duration: .15s, .15s, .15s, .1s;
+    transition-timing-function: ease;
+  }
+  .boton:active, .boton-icono:active, .boton-menu:active, .filtro:active { scale: .98; }
+  .atajo { transition: border-color .15s, background-color .15s, scale .1s; }
+  .atajo:active { scale: .99; }
+
+  /* los escaños del hemiciclo aparecen en orden, una vez, al entrar en pantalla.
+     js/movimiento.js pone --i a cada escaño y la clase al llegar; antes de eso
+     (o sin JS) están todos a la vista. backwards: el «desde» solo cuenta en su espera. */
+  .pleno__figura.mov-escanos circle {
+    transform-box: fill-box; transform-origin: center;
+    animation: mov-escano .42s var(--curva-salida) backwards;
+    animation-delay: calc(var(--i, 0) * 45ms);
+  }
+  @keyframes mov-escano { from { scale: 0; } }
+
+  /* ═══ v3 · M6. El borde de oro del mes en curso se dibuja al entrar en pantalla, una vez.
+     js/movimiento.js pone .mov-mes en la lista (no en el mes: vivo.js lo repinta) cuando el mes
+     asoma. Entonces el borde propio se aparta y lo pinta un ::after enmascarado con un barrido
+     cónico de 0 a 360°. Al acabar, el ::after queda entero: el reposo es el borde dibujado.
+     Sin la clase (sin JS, movimiento reducido), el borde de siempre. ═══ */
+  .anio.mov-mes .es-mes-actual { position: relative; border-color: transparent; }
+  .anio.mov-mes .es-mes-actual::after {
+    content: ""; position: absolute; inset: -3px; pointer-events: none;
+    border: 3px solid var(--oro); border-radius: var(--radio);
+    -webkit-mask: conic-gradient(black var(--mov-giro), transparent 0);
+    mask: conic-gradient(black var(--mov-giro), transparent 0);
+    animation: mov-borde .6s var(--curva-va-y-viene) .1s backwards;
+  }
+  @keyframes mov-borde { from { --mov-giro: 0deg; } to { --mov-giro: 360deg; } }
+
+  /* ═══ v3. El perfil del pueblo (pie) se traza una vez al asomar ═══
+     Cada trazo lleva pathLength="1" (aplicar.mjs): se dibuja de 1 a 0 en 600 ms. El
+     dasharray solo existe mientras corre la animación (fill: backwards): en reposo, sin
+     clase o sin soporte, el dibujo está entero. La escala del SVG es uniforme (slice),
+     así que el dasharray no se rompe (memoria «dasharray con escala no uniforme»). */
+  .pie__perfil.mov-perfil path { animation: mov-perfil .6s var(--curva-salida) backwards; }
+  .pie__perfil.mov-perfil path.lejos { animation-duration: .45s; }
+  @keyframes mov-perfil {
+    from { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+    to { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
+  }
+
+  /* ═══ v3b · M9. El plano del pie se dibuja una vez al asomar, del Ayuntamiento hacia fuera ═══
+     Cada tramo de calle es su propio <path pathLength="1"> con --plano-d (0 en el Ayuntamiento,
+     1 el más lejano; aplicar.mjs). Cada uno se traza en 300 ms con un retraso de hasta 300 ms:
+     600 ms en total. Mismo truco que el perfil: el dasharray solo existe mientras corre
+     (fill: backwards); en reposo, sin clase o sin soporte, el plano está entero. El SVG del
+     plano escala uniforme (width 100 %, height auto), así que el dasharray no se rompe. */
+  .pie__plano.mov-plano .plano-calle { animation: mov-plano .3s var(--curva-salida) calc(var(--plano-d, 0) * .3s) backwards; }
+  @keyframes mov-plano {
+    from { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+    to { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
+  }
+
+  /* ═══ v3b · M10. La línea de oro de la lectura (noticias) ═══
+     Bajo la cabecera y pegada arriba mientras se lee, avanza con el artículo: 0 cuando su principio
+     llega arriba de la pantalla y 100 % cuando su final llega abajo (rango «contain» de la línea de
+     tiempo de vista del propio artículo). Solo con animation-timeline: sin soporte (Firefox) o con
+     movimiento reducido no sale (display: none en base.css). Decorativa: aria-hidden en la plantilla */
+  @supports (animation-timeline: scroll()) {
+    .pagina-noticia article { view-timeline: --lectura block; }
+    .lectura-progreso {
+      display: block; position: sticky; top: 0; z-index: 5; height: 3px; margin-top: -3px;
+      background: var(--oro); transform-origin: 0 50%;
+      animation: mov-lectura linear both; animation-timeline: --lectura; animation-range: contain 0% contain 100%;
+    }
+    @keyframes mov-lectura { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  }
+
+  /* ═══ v3. Hemiciclo: los escaños de los demás grupos se atenúan en 180 ms ═══
+     (con movimiento reducido el resaltado sigue, sin transición: es información) */
+  .hemiciclo circle { transition: opacity .18s ease-out, translate .24s var(--curva-salida); }
+  /* v3b · M11: los escaños del grupo pulsado saltan 7 unidades hacia el centro (js/identidad.js pone
+     el vector) y vuelven al soltarlo. Con movimiento reducido no hay salto: solo el atenuado */
+  .hemiciclo circle.es-saltado { translate: var(--salto-x, 0) var(--salto-y, 0); }
+  .pleno__boton { transition: background-color .15s, border-color .15s, box-shadow .15s; }
+
+  /* ═══ v3b · M8. Del hero a la página de trámites: el campo de búsqueda viaja ═══
+     Al enviar el buscador de la portada (o pulsar «Ver los N resultados»), Trámites llega con lo
+     escrito (?q=) y su campo ocupa el lugar del de la portada con la View Transition entre
+     documentos de §15: los dos campos llevan el mismo nombre. 400 ms. Sin soporte (Firefox) o con
+     movimiento reducido (fuera de este @media), navegación normal */
+  .hero__buscador [data-buscador-campo], .buscador-pagina [data-buscador-campo] { view-transition-name: campo-buscar; }
+  ::view-transition-group(campo-buscar) { animation-duration: .4s; animation-timing-function: var(--curva-salida); }
+  ::view-transition-old(campo-buscar), ::view-transition-new(campo-buscar) { height: 100%; }
+}

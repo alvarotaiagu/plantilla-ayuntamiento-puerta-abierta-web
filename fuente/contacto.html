@@ -26,10 +26,11 @@
 <section class="seccion" aria-labelledby="t-escribir">
   <div class="contenedor">
     <h2 class="seccion__titulo" id="t-escribir">Escribir al Ayuntamiento</h2>
-    <p class="seccion__entradilla">Esta web no recoge datos. Las solicitudes, quejas y sugerencias se presentan en la sede electrónica, que le da un justificante con fecha y número de registro.</p>
+    <p class="seccion__entradilla">Esta web no recoge datos. Las solicitudes y las quejas formales se presentan en la sede electrónica, que le da un justificante con fecha y número de registro.{{#escribanos}} Para una consulta o una sugerencia basta un correo.{{/escribanos}}</p>
     <ul class="fichas">
       <li class="ficha"><h3 class="ficha__titulo">Cualquier solicitud</h3><p>La instancia general sirve para todo lo que no tiene un trámite propio.</p><p><a class="boton boton--marca" href="{{sede.instancia}}"><svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg>Instancia general<span class="sr">, se abre la sede electrónica</span></a></p></li>
       {{#sede.quejas}}<li class="ficha"><h3 class="ficha__titulo">Quejas y sugerencias</h3><p>Su opinión sobre cualquier servicio municipal.</p><p><a class="boton boton--borde" href="{{sede.quejas}}"><svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg>Quejas y sugerencias<span class="sr">, se abre la sede electrónica</span></a></p></li>{{/sede.quejas}}
+      {{#escribanos}}<li class="ficha"><h3 class="ficha__titulo">Una consulta o una sugerencia</h3><p>Escríbanos desde esta web: le preparamos el correo y usted lo envía desde el suyo.</p><p><a class="boton boton--borde" href="escribanos.html"><svg class="icono" aria-hidden="true"><use href="#i-mensaje"/></svg>Escríbanos</a></p></li>{{/escribanos}}
       <li class="ficha"><h3 class="ficha__titulo">Una consulta rápida</h3><p>Por teléfono, en horario de atención: <a href="{{contacto.tel_href}}">{{contacto.telefono}}</a>. O por correo: <a class="rompe" href="mailto:{{contacto.correo}}">{{contacto.correo}}</a>.</p></li>
     </ul>
   </div>

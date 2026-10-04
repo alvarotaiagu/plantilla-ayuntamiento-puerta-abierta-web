@@ -1,14 +1,24 @@
 {
-  "_leeme": "Avisos del Ayuntamiento. Campos: id, fecha (AAAA-MM-DD), tema, titulo, texto, enlace (opcional). Con \"urgente\": true y \"caduca\" (AAAA-MM-DD) sale en la franja roja de todas las páginas hasta ese día incluido. \"ejemplo\": true pone la etiqueta «Ejemplo». También se pueden publicar desde la hoja de cálculo (municipio.json → hoja).",
+  "_leeme": "Avisos del Ayuntamiento. Campos: id, fecha (AAAA-MM-DD), tema, titulo, texto, enlace (opcional). \"gravedad\" (opcional): \"urgente\" (en rojo), \"programado\" o \"informativo\" (en ámbar; es el de por defecto). Un aviso urgente o programado con \"caduca\" (AAAA-MM-DD) sale en la franja de arriba de todas las páginas hasta ese día incluido; si el título pasa de 70 caracteres, pon \"titulo_corto\" para la franja. \"urgente\": true (de antes) vale como \"gravedad\": \"urgente\". \"ejemplo\": true pone la etiqueta «Ejemplo». También se pueden publicar desde la hoja de cálculo (municipio.json → hoja), con las mismas columnas. Plazo (opcional): \"plazo_inicio\" y/o \"plazo_fin\" (AAAA-MM-DD) ponen el chip con la cuenta atrás («Quedan N días», «Último día», «Plazo cerrado», «Abre el …») y lo llevan a «Plazos abiertos» de la portada; solo si la fecha consta en la fuente, o con \"plazo_ejemplo\": true.",
   "avisos": [
     {
       "id": "corte-agua-ejemplo",
       "fecha": "2026-10-02",
       "tema": "Agua",
       "titulo": "Corte de agua programado en varias calles, de 9:00 a 13:00",
-      "texto": "Así se vería un aviso urgente: las calles afectadas, la hora del corte y la hora prevista de vuelta del agua. Sale en una franja roja arriba de todas las páginas y se quita sola el día que caduca.",
-      "urgente": true,
+      "texto": "Así se vería un aviso programado: las calles afectadas, la hora del corte y la hora prevista de vuelta del agua. Sale en la franja ámbar de arriba de todas las páginas y se quita sola el día que caduca. Un aviso urgente (una avería, una alerta) saldría en rojo.",
+      "gravedad": "programado",
       "caduca": "2026-11-30",
+      "ejemplo": true
+    },
+    {
+      "id": "empleo-ejemplo",
+      "fecha": "2026-10-01",
+      "tema": "Empleo",
+      "titulo": "Bolsa de trabajo de auxiliar de ayuda a domicilio: plazo de solicitudes",
+      "texto": "Así se vería una oferta de empleo del Ayuntamiento: qué puesto es, cuántas plazas, los requisitos básicos y hasta cuándo se puede pedir, con el enlace a las bases en el tablón de la sede. Sale con el tema «Empleo», su cuenta atrás y, mientras el plazo esté abierto, en la ficha «Empleo» de la portada.",
+      "plazo_fin": "2026-11-13",
+      "plazo_ejemplo": true,
       "ejemplo": true
     },
     {

@@ -7,13 +7,29 @@
         <label class="campo__etiqueta" for="buscar-campo">¿Qué necesita hacer?</label>
         <input class="campo__entrada" id="buscar-campo" type="search" autocomplete="off" spellcheck="false" placeholder="Empadronarme, pagar un recibo, una obra…" aria-describedby="buscar-ayuda" data-buscador-campo>
       </div>
-      <p class="campo__ayuda" id="buscar-ayuda">Escríbalo con sus palabras: «empadronarme», «obra», «agua», «boda». Cada resultado le lleva a su trámite en la sede electrónica.</p>
+      <p class="campo__ayuda" id="buscar-ayuda">Escríbalo con sus palabras: «empadronarme», «obra», «agua», «boda». Cada trámite le lleva a la sede electrónica; también salen los avisos, las noticias, los teléfonos y los lugares del pueblo que casen.</p>
       <p class="buscador__cuenta" role="status" data-buscador-cuenta></p>
-      <ul class="resultados" data-buscador-resultados></ul>
+      <div class="resultados" data-buscador-resultados data-buscador-nivel="3"></div>
       <noscript><p class="campo__ayuda">El buscador necesita JavaScript. Más abajo tiene la lista completa de trámites.</p></noscript>
     </div>
   </div>
 </section>
+
+<!-- v3b · F10: los más pedidos (tramites.atajos), cada uno con su «Explicado fácil» si lo tiene -->
+{{#tramites.atajos.length}}<section class="seccion" aria-labelledby="t-pedidos">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-pedidos">Los más pedidos</h2>
+    <ul class="atajos atajos--facil" style="--atajos-columnas: {{tramites.atajos_columnas}}">
+      {{#tramites.atajos}}<li><a class="atajo" href="{{href}}">
+        <svg class="icono atajo__icono" aria-hidden="true"><use href="#i-{{icono}}"/></svg>
+        <svg class="icono atajo__flecha" aria-hidden="true"><use href="#i-{{#destino}}documento{{/destino}}{{^destino}}salida{{/destino}}"/></svg>
+        <span class="atajo__nombre">{{nombre}}<span class="sr">{{sr}}{{#destino}}. {{destino}}{{/destino}}</span></span>
+        <span class="atajo__nota">{{nota}}</span>
+      </a>{{#facil}}<a class="atajo__facil" href="{{facil}}"><svg class="icono" aria-hidden="true"><use href="#i-ojo"/></svg>Explicado fácil<span class="sr">: {{nombre}}</span></a>{{/facil}}</li>
+      {{/tramites.atajos}}
+    </ul>
+  </div>
+</section>{{/tramites.atajos.length}}
 
 <section class="seccion" aria-labelledby="t-momentos">
   <div class="contenedor">
@@ -27,6 +43,7 @@
           {{#pasos}}<li>{{#href}}<a href="{{href}}">{{texto}}<span class="sr">{{sr}}</span></a>{{/href}}{{^href}}{{texto}}{{/href}}</li>
           {{/pasos}}
         </ol>
+        {{#incidencia}}<p class="momento__accion"><a class="boton boton--marca" href="incidencia.html"><svg class="icono" aria-hidden="true"><use href="#i-incidencia"/></svg>Avisar de un problema</a>{{#facil}}<a class="atajo__facil" href="{{facil}}"><svg class="icono" aria-hidden="true"><use href="#i-ojo"/></svg>Explicado fácil<span class="sr">: avisar de un problema</span></a>{{/facil}}</p>{{/incidencia}}
       </li>
       {{/tramites.momentos}}
     </ul>
@@ -49,10 +66,19 @@
       <input class="campo__entrada" id="filtrar-tramites" type="search" autocomplete="off" spellcheck="false" placeholder="Por ejemplo: padrón, agua, licencia">
       <p class="buscador__cuenta" role="status" data-filtro-cuenta></p>
     </div>
-    <ul class="todos" id="todos-lista">
-      {{#tramites.lista}}<li data-texto="{{texto_busqueda}}"><a class="enlace-tramite" href="{{href}}">{{nombre}}<span class="sr">{{sr}}</span>{{#formato}}<span class="etiqueta-pdf" aria-hidden="true">{{formato}}</span>{{/formato}}<svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg></a></li>
-      {{/tramites.lista}}
-    </ul>
+    <nav class="az" aria-label="Trámites por letra" data-az="todos-lista">
+      <ol class="az__lista" data-desborda>{{#tramites.az}}<li{{^activa}} aria-hidden="true"{{/activa}}><a class="az__letra" data-letra="{{id}}"{{#activa}} href="#{{id}}"{{/activa}}>{{letra}}</a></li>{{/tramites.az}}</ol>
+    </nav>
+    <div class="todos" id="todos-lista">
+      {{#tramites.letras}}<div class="todos__grupo" data-letra="{{id}}">
+        <h3 class="todos__inicial" id="{{id}}" tabindex="-1">{{letra}}</h3>
+        <ul class="todos__lista">
+          {{#items}}<li data-texto="{{texto_busqueda}}"><a class="enlace-tramite" href="{{href}}">{{nombre}}<span class="sr">{{sr}}</span>{{#formato}}<span class="etiqueta-pdf" aria-hidden="true">{{formato}}</span>{{/formato}}<svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg></a></li>
+          {{/items}}
+        </ul>
+      </div>
+      {{/tramites.letras}}
+    </div>
   </div>
 </section>
 {{> documento_abajo}}

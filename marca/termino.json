@@ -1,0 +1,166 @@
+{
+  "_leeme": "Lo genera scripts/termino.mjs (no editar a mano salvo «fijado» en lugares, que el script respeta). aplicar.mjs pinta con esto el mapa del término en «El pueblo»: sin este archivo o sin marca/termino.svg, la sección no sale.",
+  "fuente": "OpenStreetMap, por la API de Overpass",
+  "licencia": "ODbL 1.0",
+  "atribucion": "© colaboradores de OpenStreetMap",
+  "atribucion_url": "https://www.openstreetmap.org/copyright",
+  "nombre_osm": "Ribera del Fresno",
+  "relacion": "relation/344111",
+  "pueblo_osm": "node/252463065",
+  "casco_osm": [
+    "way/23353661",
+    "way/566188373"
+  ],
+  "carreteras": [
+    "BA-013",
+    "BA-121",
+    "BA-122",
+    "BA-131",
+    "EX-212",
+    "EX-334",
+    "EX-342"
+  ],
+  "carreteras_osm": [
+    "way/37910250",
+    "way/37910252",
+    "way/61849863",
+    "way/83056277",
+    "way/211437445",
+    "way/217870873",
+    "way/318204528",
+    "way/327496757",
+    "way/331357094",
+    "way/331357095",
+    "way/331357096",
+    "way/379747612",
+    "way/401674748",
+    "way/481012250",
+    "way/565915312",
+    "way/566188363",
+    "way/566188364",
+    "way/566209654",
+    "way/566209655",
+    "way/566209656",
+    "way/628426099",
+    "way/628426100",
+    "way/628426101"
+  ],
+  "rutas": [],
+  "viewBox": "0 0 600 952",
+  "metros_por_unidad": 25.825,
+  "escala_m": 5000,
+  "radio_punto": 15,
+  "recuadro": {
+    "caja": [
+      378,
+      330,
+      588,
+      540
+    ],
+    "zona": [
+      287.3,
+      570.3,
+      325.3,
+      608.3
+    ],
+    "metros_por_unidad": 4.679,
+    "escala_m": 250,
+    "tapa_termino": 0
+  },
+  "fecha": "2026-10-04",
+  "lugares": [
+    {
+      "nombre": "Iglesia de Nuestra Señora de Gracia",
+      "osm": "way/566210276",
+      "nombre_osm": "Iglesia de Nuestra Señora de Gracia",
+      "lat": 38.552564,
+      "lon": -6.241467,
+      "x": 414.2,
+      "y": 381,
+      "recuadro": true,
+      "sitio": [
+        441.5,
+        393.5
+      ]
+    },
+    {
+      "nombre": "Casa de Vargas-Zúñiga",
+      "osm": "way/566195236",
+      "nombre_osm": "Casa de la Cultura \"José Mª Vargas-Zúñiga\"",
+      "lat": 38.552922,
+      "lon": -6.240199,
+      "x": 476,
+      "y": 357,
+      "recuadro": true,
+      "sitio": [
+        465.1,
+        385
+      ]
+    },
+    {
+      "nombre": "Ermita del Cristo de la Misericordia",
+      "osm": "way/566195241",
+      "nombre_osm": "Ermita del Cristo de la Misericordia",
+      "lat": 38.54852,
+      "lon": -6.237001,
+      "x": 553.7,
+      "y": 496,
+      "recuadro": true,
+      "sitio": [
+        524.5,
+        489
+      ]
+    },
+    {
+      "nombre": "Ermita de la Aurora",
+      "osm": "way/566205161",
+      "nombre_osm": "Ermita de la Aurora",
+      "lat": 38.551496,
+      "lon": -6.238511,
+      "x": 523.6,
+      "y": 431.3,
+      "recuadro": true,
+      "sitio": [
+        496.4,
+        418.7
+      ]
+    },
+    {
+      "nombre": "Ermita de San Juan Macías",
+      "osm": "way/566200526",
+      "nombre_osm": "Ermita de San Juan Macías",
+      "lat": 38.552805,
+      "lon": -6.239999,
+      "x": 466.4,
+      "y": 417.7,
+      "recuadro": true,
+      "sitio": [
+        468.8,
+        387.8
+      ]
+    },
+    {
+      "nombre": "Palacio de Quintanilla",
+      "osm": "way/566195238",
+      "nombre_osm": "Palacio de Quintanilla",
+      "lat": 38.553093,
+      "lon": -6.240578,
+      "x": 411.5,
+      "y": 431.2,
+      "recuadro": true,
+      "sitio": [
+        458,
+        381
+      ]
+    },
+    {
+      "nombre": "Pozo de San Juan Macías",
+      "osm": "node/5904426027",
+      "nombre_osm": "Pozo de San Juan Macías",
+      "lat": 38.516972,
+      "lon": -6.2291,
+      "x": 340.5,
+      "y": 734.2
+    }
+  ]
+}

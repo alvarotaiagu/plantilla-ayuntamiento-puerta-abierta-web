@@ -17,9 +17,16 @@
   --oro: #EAC102;
   --alerta: #CF0317;
   --sobre-alerta: #FFFFFF;
+  --aviso: #9F650C;
+  --sobre-aviso: #FFFFFF;
   --foco: #0A7940;
   --foco-claro: #FFFFFF;
   --cortina: #EFEEEA;
+  --oscuro: #1A1E1B;
+  --superficie-oscura: #2A2D2A;
+  --sobre-oscuro: #FAF9F5;
+  --sobre-oscuro-apagado: #969794;
+  --linea-oscura: #50534F;
   --sombra-alta: 0 .75rem 2.5rem #1A1E1B2E;
   --velo: #1A1E1B99;
   --muestra-a: #0A7940;

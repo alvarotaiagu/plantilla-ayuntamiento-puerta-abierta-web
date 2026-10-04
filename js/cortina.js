@@ -11,6 +11,7 @@
    3. El hueco viaja y crece hasta el arco de la foto del hero, medido con
       getBoundingClientRect: termina exactamente encima. El velo se va y el
       arco de la foto sigue ahí.                                       0,80–1,20 s
+   4. Ya sin cortina, la foto del arco se asienta (1,06 → 1).   +0,6 s, fuera de la línea
    Clic, tecla, rueda o toque la saltan. Sin GSAP se quita al momento.
    strokeDashoffset con pathLength=1 → autoRound:false (memoria «GSAP autoRound»). */
 (function () {
@@ -81,6 +82,14 @@
     }
     pinta();
     cortina.classList.add('con-muro');     /* el muro ya está: fuera el velo provisional */
+    /* la foto del arco espera un poco más cerca y, al irse la cortina, se asienta
+       (1,06 → 1 en 0,6 s). Es el img dentro del figure con overflow: no rebasa el
+       arco, y el figure (lo que mide el aterrizaje) no se mueve */
+    var foto = destino.querySelector('img');
+    if (foto) window.gsap.set(foto, { scale: 1.06, autoRound: false });
+    function asentar() {
+      if (foto) window.gsap.to(foto, { scale: 1, duration: 0.6, ease: 'power2.out', autoRound: false, clearProps: 'transform' });
+    }
 
     tl = window.gsap.timeline({
       onUpdate: pinta,
@@ -89,6 +98,7 @@
         var c = caja();
         window.__cortinaFinal = { x: c.x, base: c.y + c.h, r: c.w / 2, viaje: e.viaje };
         quitar();
+        asentar();
       }
     });
     tl.to(lados, { strokeDashoffset: 0, duration: 0.45, ease: 'power2.inOut', autoRound: false }, 0)

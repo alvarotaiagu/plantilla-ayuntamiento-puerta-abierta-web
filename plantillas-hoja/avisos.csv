@@ -1,0 +1,5 @@
+Marca temporal,Fecha,Título,Tema,Texto,Gravedad,Caduca,Título corto,Estado
+05/10/2026 9:12:40,05/10/2026,EJEMPLO · Corte de agua en la calle Mayor de 9:00 a 13:00,Agua,"Por una reparación en la red, la calle Mayor y la plaza se quedan sin agua de 9:00 a 13:00.",programado,06/10/2026,,
+05/10/2026 11:30:02,05/10/2026,EJEMPLO · Abierto el plazo de inscripción en la Universidad Popular,Cultura,"Hasta el 20 de octubre, en el Ayuntamiento o en la sede electrónica.",informativo,,,
+06/10/2026 8:05:51,06/10/2026,EJEMPLO · Alerta naranja por tormentas esta tarde,Seguridad,"Eviten salir al campo y no aparquen junto al arroyo.",urgente,06/10/2026,,
+06/10/2026 10:00:00,06/10/2026,EJEMPLO · Aviso todavía en borrador,Otros,"Con «borrador» en Estado no se publica.",,,,borrador

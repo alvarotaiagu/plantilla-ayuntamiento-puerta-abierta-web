@@ -1,0 +1,125 @@
+{
+  "_leeme": "v3b · F10. Trámites explicados en lectura fácil (facil.html). Uno por atajo de municipio.json → tramites.atajos (campo «atajo», con el nombre exacto del atajo) o la página «Avisar de un problema» («pagina»: «incidencia»). Frases cortas, una idea por línea, sin abreviaturas, un pictograma por paso (los de fuente/_pictos_facil.html). Solo lo que ya dicen la plantilla y la sede: los papeles concretos que pide cada trámite no constan, así que se manda preguntar. Marcadores que aplicar.mjs rellena: {telefono}, {direccion}, {nombre}. Sin este archivo no hay página. La validación con personas usuarias (UNE 153101 EX) está pendiente.",
+  "nota": "Texto adaptado a lectura fácil. Pendiente de validar con personas usuarias.",
+  "tramites": [
+    {
+      "atajo": "Empadronarme",
+      "titulo": "Empadronarse",
+      "picto": "casa",
+      "que_es": [
+        "El padrón es la lista de las personas que viven en el pueblo.",
+        "Empadronarse es apuntarse en esa lista.",
+        "Tiene que apuntarse cuando viene a vivir al pueblo.",
+        "También puede renovar sus datos si ya está apuntado."
+      ],
+      "pasos": [
+        { "texto": "Pulse el botón de abajo. Se abre la sede electrónica del Ayuntamiento.", "picto": "ordenador" },
+        { "texto": "La sede electrónica es la oficina del Ayuntamiento en internet. Está abierta todos los días, a todas horas.", "picto": "reloj" },
+        { "texto": "Para entrar necesita un certificado digital o Cl@ve. Son formas de decir quién es usted en internet.", "picto": "llave" },
+        { "texto": "Rellene sus datos y los datos de su casa.", "picto": "lapiz" },
+        { "texto": "Envíe la solicitud.", "picto": "enviar" }
+      ],
+      "boton": "Empadronarme en la sede electrónica",
+      "sin_internet": [
+        { "texto": "Si no tiene internet, vaya al Ayuntamiento. Está en {direccion}.", "picto": "ayuntamiento" },
+        { "texto": "Pregunte qué papeles tiene que llevar.", "picto": "pregunta" },
+        { "texto": "Puede llamar antes por teléfono al {telefono}.", "picto": "telefono" }
+      ]
+    },
+    {
+      "atajo": "Domiciliar recibos",
+      "titulo": "Pagar los recibos desde el banco",
+      "picto": "banco",
+      "que_es": [
+        "Domiciliar un recibo es pagarlo desde su cuenta del banco.",
+        "El banco paga el recibo cada vez que llega.",
+        "Así no se le olvida pagar.",
+        "También sirve para cambiar de cuenta o para dejar de pagar así."
+      ],
+      "pasos": [
+        { "texto": "Busque el número de su cuenta del banco. En España empieza por las letras E y S.", "picto": "tarjeta" },
+        { "texto": "Pulse el botón de abajo. Se abre la sede electrónica del Ayuntamiento.", "picto": "ordenador" },
+        { "texto": "Para entrar necesita un certificado digital o Cl@ve. Son formas de decir quién es usted en internet.", "picto": "llave" },
+        { "texto": "Escriba qué recibos quiere pagar desde el banco y el número de su cuenta.", "picto": "lapiz" },
+        { "texto": "Envíe la solicitud.", "picto": "enviar" }
+      ],
+      "boton": "Domiciliar recibos en la sede electrónica",
+      "sin_internet": [
+        { "texto": "Si no tiene internet, vaya al Ayuntamiento. Está en {direccion}.", "picto": "ayuntamiento" },
+        { "texto": "Lleve el número de su cuenta del banco.", "picto": "tarjeta" },
+        { "texto": "Puede llamar antes por teléfono al {telefono}.", "picto": "telefono" }
+      ]
+    },
+    {
+      "atajo": "Licencia de obra",
+      "titulo": "Pedir permiso para una obra",
+      "picto": "obra",
+      "que_es": [
+        "Para hacer una obra grande necesita permiso del Ayuntamiento.",
+        "Ese permiso se llama licencia de obra.",
+        "Para una obra pequeña basta con avisar al Ayuntamiento.",
+        "Ese aviso se llama declaración responsable.",
+        "Pida el permiso o avise antes de empezar la obra."
+      ],
+      "pasos": [
+        { "texto": "Pregunte en el Ayuntamiento si su obra es grande o pequeña.", "picto": "pregunta" },
+        { "texto": "Pregunte también qué papeles tiene que presentar.", "picto": "documento" },
+        { "texto": "Pulse el botón de abajo. Se abre la sede electrónica del Ayuntamiento.", "picto": "ordenador" },
+        { "texto": "Para entrar necesita un certificado digital o Cl@ve. Son formas de decir quién es usted en internet.", "picto": "llave" },
+        { "texto": "Explique qué obra quiere hacer y dónde. Añada los papeles.", "picto": "lapiz" },
+        { "texto": "Envíe la solicitud.", "picto": "enviar" }
+      ],
+      "boton": "Pedir la licencia de obra en la sede electrónica",
+      "sin_internet": [
+        { "texto": "Si no tiene internet, vaya al Ayuntamiento. Está en {direccion}.", "picto": "ayuntamiento" },
+        { "texto": "Puede llamar antes por teléfono al {telefono}.", "picto": "telefono" }
+      ]
+    },
+    {
+      "atajo": "Ayudas a la natalidad",
+      "titulo": "Ayudas por el nacimiento de un bebé",
+      "picto": "bebe",
+      "que_es": [
+        "Es una ayuda del Ayuntamiento para las familias con un bebé.",
+        "Hay unas normas que dicen quién puede pedir la ayuda.",
+        "Esas normas se llaman bases.",
+        "El anuncio de la ayuda se llama convocatoria.",
+        "Las bases y la solicitud están en el tablón de anuncios de la sede electrónica."
+      ],
+      "pasos": [
+        { "texto": "Pulse el botón de abajo. Se abre el documento de la convocatoria.", "picto": "documento" },
+        { "texto": "Lea quién puede pedir la ayuda.", "picto": "leer" },
+        { "texto": "Mire hasta qué día puede pedirla.", "picto": "calendario" },
+        { "texto": "Rellene la solicitud.", "picto": "lapiz" },
+        { "texto": "Pregunte en el Ayuntamiento cómo entregarla.", "picto": "pregunta" }
+      ],
+      "boton": "Ver la convocatoria de la ayuda",
+      "sin_internet": [
+        { "texto": "Si no tiene internet, vaya al Ayuntamiento. Está en {direccion}.", "picto": "ayuntamiento" },
+        { "texto": "Puede llamar antes por teléfono al {telefono}.", "picto": "telefono" }
+      ]
+    },
+    {
+      "pagina": "incidencia",
+      "titulo": "Avisar de un problema en la calle",
+      "picto": "farola",
+      "que_es": [
+        "Puede avisar al Ayuntamiento de un problema en la calle.",
+        "Por ejemplo, una farola apagada, un bache o una fuga de agua.",
+        "Si hay peligro o alguien está herido, llame al 112."
+      ],
+      "pasos": [
+        { "texto": "Pulse el botón de abajo. Se abre la página para avisar.", "picto": "ordenador" },
+        { "texto": "Elija qué pasa. Por ejemplo, alumbrado o agua.", "picto": "elegir" },
+        { "texto": "Escriba dónde está el problema. Ponga la calle y el número.", "picto": "lugar" },
+        { "texto": "Cuente con sus palabras qué pasa.", "picto": "lapiz" },
+        { "texto": "Pulse el botón para preparar el correo.", "picto": "correo" },
+        { "texto": "Se abre su correo con el aviso escrito. Envíelo.", "picto": "enviar" }
+      ],
+      "boton": "Avisar de un problema",
+      "sin_internet": [
+        { "texto": "Si no tiene internet, llame al Ayuntamiento al {telefono}.", "picto": "telefono" }
+      ]
+    }
+  ]
+}

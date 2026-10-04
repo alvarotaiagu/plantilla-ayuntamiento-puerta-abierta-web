@@ -61,10 +61,10 @@
   "listin_corto": ["Emergencias", "Guardia Civil", "Consultorio médico", "Biblioteca «Maestro Don Jacinto»"],
   "tramites": {
     "atajos": [
-      { "nombre": "Empadronarme", "nota": "Alta o renovación en el padrón", "id": "d120f65c-c936-4a95-bd50-e7ae970ca149" },
-      { "nombre": "Volante de empadronamiento", "nota": "Certificado o volante", "id": "1c74bc66-8b69-4f3c-8183-d3591f0504ed" },
-      { "nombre": "Licencia de obra", "nota": "Licencia o autorización urbanística", "id": "15fabacb-83b1-47d1-b435-508245672051" },
-      { "nombre": "Avisar de una incidencia", "nota": "Una farola, un bache, un contenedor", "id": "d643e8cf-0824-4617-a997-c523799b4a93" }
+      { "nombre": "Empadronarme", "icono": "padron", "nota": "Alta o renovación en el padrón", "id": "d120f65c-c936-4a95-bd50-e7ae970ca149" },
+      { "nombre": "Volante de empadronamiento", "icono": "volante", "nota": "Certificado o volante", "id": "1c74bc66-8b69-4f3c-8183-d3591f0504ed" },
+      { "nombre": "Licencia de obra", "icono": "obra", "nota": "Licencia o autorización urbanística", "id": "15fabacb-83b1-47d1-b435-508245672051" },
+      { "nombre": "Avisar de una incidencia", "icono": "incidencia", "nota": "Una farola, un bache, un contenedor", "id": "d643e8cf-0824-4617-a997-c523799b4a93" }
     ],
     "temas": [
       { "nombre": "Vivir aquí", "nota": "Padrón, certificados, boda civil", "icono": "casa", "tramites": [

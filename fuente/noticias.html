@@ -3,10 +3,11 @@
   <div class="contenedor">
     {{^noticias.length}}<p>Todavía no hay noticias publicadas.</p>{{/noticias.length}}
     <ul class="noticias">
-      {{#noticias}}<li class="noticia"{{#ejemplo}} data-dato-ejemplo="noticia:{{id}}"{{/ejemplo}}>
-        {{#imagen}}<figure class="noticia__foto arco-opcional"><img src="media/{{imagen}}-800.jpg" width="{{imagen_ancho}}" height="{{imagen_alto}}" alt="{{imagen_alt}}" loading="lazy" decoding="async"></figure>{{/imagen}}
+      {{#noticias}}<li class="noticia{{^imagen}} noticia--sin-foto{{/imagen}}"{{#ejemplo}} data-dato-ejemplo="noticia:{{id}}"{{/ejemplo}}>
+        {{#imagen}}<figure class="noticia__foto arco-opcional" style="view-transition-name: noticia-{{id}}"><img src="media/{{imagen}}-800.jpg" width="{{imagen_ancho}}" height="{{imagen_alto}}" alt="{{imagen_alt}}" loading="lazy" decoding="async"></figure>{{/imagen}}
+        {{^imagen}}<div class="noticia__fecha arco-opcional" aria-hidden="true"><b class="noticia__dia">{{fecha_dia}}</b><span class="noticia__mes">{{fecha_mes}}</span><span class="noticia__anio">{{fecha_anio}}</span></div>{{/imagen}}
         <div class="noticia__texto">
-          <p class="noticia__meta"><time datetime="{{fecha}}">{{fecha_texto}}</time>{{#ejemplo}}<span class="ejemplo">Ejemplo</span>{{/ejemplo}}</p>
+          <p class="noticia__meta"><time{{^imagen}} class="sr"{{/imagen}} datetime="{{fecha}}">{{fecha_texto}}</time>{{#ejemplo}}<span class="ejemplo">Ejemplo</span>{{/ejemplo}}</p>
           <h2 class="noticia__titulo"><a href="noticia-{{id}}.html">{{titulo}}</a></h2>
           {{#resumen}}<p class="noticia__resumen">{{resumen}}</p>{{/resumen}}
         </div>

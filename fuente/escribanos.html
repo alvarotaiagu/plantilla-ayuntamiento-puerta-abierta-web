@@ -1,0 +1,106 @@
+{{> documento_arriba}}
+<!-- v3c · transparencia (F24). «Escríbanos»: consultas, sugerencias y felicitaciones por correo, sin servidor.
+     El mismo enfoque que incidencia.html (js/formulario-correo.js es común a los dos): con JavaScript
+     (js/escribanos.js) valida con mensajes accesibles y compone el mailto con asunto y cuerpo; sin
+     JavaScript, el propio formulario se envía como mailto (enctype text/plain) y el navegador valida los
+     obligatorios. Al correo de municipio.json → escribanos.correo o, si no, contacto.correo; sin correo
+     (o con "escribanos": false) no hay página. Lo que tiene efectos legales va por el registro de la sede -->
+<section class="seccion seccion--primera" aria-labelledby="t-escribanos-antes">
+  <div class="contenedor">
+    <div class="escribanos-registro">
+      <svg class="icono escribanos-registro__icono" aria-hidden="true"><use href="#i-sede"/></svg>
+      <div>
+        <h2 class="escribanos-registro__titulo" id="t-escribanos-antes">¿Una queja formal o una solicitud?</h2>
+        <p>Este correo no es un registro: no le da justificante, ni fecha de entrada, ni abre un expediente. Una queja formal, una reclamación o una solicitud que el Ayuntamiento tenga que tramitar y responder preséntela en la sede electrónica o en el registro del Ayuntamiento: queda registrada con fecha y número.</p>
+        <ul class="lista-enlaces">
+          {{#sede.quejas}}<li><a href="{{sede.quejas}}">Quejas y sugerencias en la sede<span class="sr">, se abre la sede electrónica</span></a></li>{{/sede.quejas}}
+          <li><a href="{{sede.instancia}}">Instancia general en la sede<span class="sr">, se abre la sede electrónica</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-escribanos">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-escribanos">Su mensaje</h2>
+    <p class="seccion__entradilla">Para una pregunta, una idea o un agradecimiento. Los campos con <span aria-hidden="true">*</span><span class="sr">asterisco</span> son obligatorios. Al final le preparamos un correo para <b class="rompe">{{escribanos.correo}}</b>: lo revisa y lo envía usted desde su correo.</p>
+
+    <div class="incidencia-errores" id="escribanos-errores" tabindex="-1" hidden data-escribanos-errores>
+      <h3 class="incidencia-errores__titulo">Revise estos datos antes de seguir:</h3>
+      <ul class="incidencia-errores__lista" data-escribanos-errores-lista></ul>
+    </div>
+
+    <form class="incidencia" action="mailto:{{escribanos.correo}}?subject={{escribanos.asunto_url}}" method="post" enctype="text/plain" data-escribanos data-correo="{{escribanos.correo}}" data-municipio="{{nombre}}">
+      <fieldset class="incidencia__grupo" id="campo-tipo" aria-describedby="error-tipo">
+        <legend class="incidencia__pregunta">1. ¿Qué nos quiere decir? <span aria-hidden="true">*</span></legend>
+        <p class="campo__error" id="error-tipo" hidden data-error-de="tipo"></p>
+        <div class="incidencia__opciones">
+          {{#escribanos.tipos}}<label class="incidencia__opcion" for="{{id}}">
+            <input type="radio" id="{{id}}" name="tipo" value="{{nombre}}" required><span class="incidencia__marca" aria-hidden="true"></span>
+            <span><b>{{nombre}}</b><span class="incidencia__ayuda">{{ayuda}}</span></span>
+          </label>
+          {{/escribanos.tipos}}
+        </div>
+      </fieldset>
+
+      <fieldset class="incidencia__grupo">
+        <legend class="incidencia__pregunta">2. Su mensaje</legend>
+        <div class="campo">
+          <label class="campo__etiqueta" for="campo-asunto">Asunto <span aria-hidden="true">*</span></label>
+          <p class="campo__ayuda campo__ayuda--arriba" id="ayuda-asunto">En pocas palabras. Por ejemplo: «Horario de la biblioteca en verano».</p>
+          <p class="campo__error" id="error-asunto" hidden data-error-de="asunto"></p>
+          <input class="campo__entrada" id="campo-asunto" name="asunto" type="text" required maxlength="120" aria-describedby="ayuda-asunto error-asunto" autocomplete="off">
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="campo-mensaje">Mensaje <span aria-hidden="true">*</span></label>
+          <p class="campo__error" id="error-mensaje" hidden data-error-de="mensaje"></p>
+          <textarea class="campo__entrada" id="campo-mensaje" name="mensaje" rows="6" required aria-describedby="error-mensaje"></textarea>
+        </div>
+      </fieldset>
+
+      <fieldset class="incidencia__grupo">
+        <legend class="incidencia__pregunta">3. Sus datos <span class="incidencia__opcional">(si quiere que le respondan por otra vía)</span></legend>
+        <div class="incidencia__datos">
+          <div class="campo">
+            <label class="campo__etiqueta" for="campo-nombre">Nombre</label>
+            <input class="campo__entrada" id="campo-nombre" name="nombre" type="text" autocomplete="name">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="campo-telefono">Teléfono</label>
+            <p class="campo__error" id="error-telefono" hidden data-error-de="telefono"></p>
+            <input class="campo__entrada" id="campo-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="error-telefono">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="campo-correo">Correo electrónico</label>
+            <p class="campo__error" id="error-correo" hidden data-error-de="correo"></p>
+            <input class="campo__entrada" id="campo-correo" name="correo" type="email" autocomplete="email" aria-describedby="error-correo">
+          </div>
+        </div>
+        <p class="campo__ayuda">El correo sale desde su propia cuenta, así que el Ayuntamiento ya sabrá a quién contestar. Esta página no guarda ni envía nada por su cuenta. Más sobre sus datos en <a href="privacidad.html">Privacidad</a>.</p>
+      </fieldset>
+
+      <div class="incidencia__enviar">
+        <button class="boton boton--marca" type="submit"><svg class="icono" aria-hidden="true"><use href="#i-correo"/></svg>Preparar el correo</button>
+        <noscript><p class="campo__ayuda">Sin JavaScript, el botón abre su programa de correo con lo que haya escrito. Si no se abre, escriba a <a href="mailto:{{escribanos.correo}}">{{escribanos.correo}}</a>.</p></noscript>
+      </div>
+    </form>
+
+    <div class="incidencia-listo" id="escribanos-listo" tabindex="-1" hidden data-escribanos-listo>
+      <h3 class="incidencia-listo__titulo">Su mensaje está listo</h3>
+      <p>Pulse el botón: se abrirá su programa de correo con el mensaje escrito. Revíselo y pulse «Enviar».</p>
+      <p><a class="boton boton--marca" href="mailto:{{escribanos.correo}}" data-escribanos-mailto><svg class="icono" aria-hidden="true"><use href="#i-correo"/></svg>Abrir mi correo con el mensaje</a></p>
+      <div class="incidencia-listo__copiar">
+        <p data-escribanos-largo hidden><b>El mensaje es largo</b> y algunos programas de correo lo cortan. Copie el texto y péguelo en el correo.</p>
+        <p>Si no se abre su correo, copie el texto y envíelo a <b class="rompe">{{escribanos.correo}}</b> con el asunto que aparece arriba del texto.</p>
+        <label class="campo__etiqueta" for="escribanos-texto">Texto del mensaje</label>
+        <textarea class="campo__entrada incidencia-listo__texto" id="escribanos-texto" rows="10" readonly data-escribanos-texto></textarea>
+        <p class="incidencia-listo__acciones"><button class="boton boton--borde" type="button" data-escribanos-copiar>Copiar el texto</button> <span class="incidencia__estado" role="status" data-escribanos-copiar-estado></span></p>
+      </div>
+      <p><button class="boton boton--borde" type="button" data-escribanos-volver>Cambiar algo del mensaje</button></p>
+    </div>
+  </div>
+</section>
+<script src="js/formulario-correo.js?v={{v.formulario_correo}}" defer></script>
+<script src="js/escribanos.js?v={{v.escribanos}}" defer></script>
+{{> documento_abajo}}

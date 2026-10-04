@@ -1,0 +1,206 @@
+{{> documento_arriba}}
+<!-- v3c · guia. «Publicar en la web»: la página del personal del Ayuntamiento (la secretaría, una
+     administrativa, el alcalde desde el móvil). Botones a los formularios de Google (municipio.json →
+     hoja.formularios; sin URL no se inventan), qué sale dónde con muestras hechas con las piezas de la
+     web (js/publicar.js las pinta con js/vivo.js y la fecha real), el simulador «Pruébelo» (no envía
+     nada) y lo que hay que saber. Fuera del menú y con noindex siempre. Impresa, es la hoja de la
+     mesa (css/imprimir.css: una A4, sin lo interactivo). -->
+<section class="seccion seccion--primera" aria-labelledby="t-publicar">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-publicar">Publicar desde el móvil</h2>
+    <p>Publicar es rellenar un formulario: elija qué quiere publicar, rellénelo y pulse «Enviar». No hace falta entrar en ningún programa ni saber de webs.</p>
+    <ul class="publicar-botones">
+      {{#publicar.formularios}}<li class="publicar-botones__item">
+        {{#url}}<a class="publicar-boton" href="{{url}}" data-formulario="{{clave}}"><span class="publicar-boton__titulo">{{titulo}}</span><span class="publicar-boton__texto">{{texto}}</span><span class="sr">: formulario de Google, se abre otra web</span><svg class="icono publicar-boton__flecha" aria-hidden="true"><use href="#i-flecha"/></svg></a>{{/url}}
+        {{^url}}<div class="publicar-boton publicar-boton--inactivo" data-formulario="{{clave}}"><span class="publicar-boton__titulo">{{titulo}}</span><span class="publicar-boton__texto">{{texto}}</span><span class="publicar-boton__nota">Se activa al montar la hoja (lo hace quien mantiene la web)</span></div>{{/url}}
+      </li>
+      {{/publicar.formularios}}
+    </ul>
+    <ol class="publicar-pasos">
+      <li><b>Pulse</b> lo que quiere publicar: se abre un formulario de Google. Entre con su cuenta de Google autorizada.</li>
+      <li><b>Rellene</b> la fecha, un título claro y, si hace falta, unas líneas.</li>
+      <li><b>Envíe.</b> En unos minutos sale en la web, sin hacer nada más.</li>
+    </ol>
+    <p class="publicar-quien"><b>Para publicar hay que entrar con una cuenta de Google autorizada por el Ayuntamiento.</b> Para añadir a alguien, se escribe su correo de Google en la pestaña «Personas autorizadas» de la hoja «Web del Ayuntamiento»; para quitarlo, se borra su fila. Lo que mande otra cuenta no sale en la web.</p>
+    <p class="publicar-solo-pantalla nota-fuente">Para tenerla a un toque, guarde esta página en la pantalla de inicio del móvil (en el menú del navegador, «Añadir a pantalla de inicio»).</p>
+    <p class="publicar-solo-papel">Los formularios están en {{#web_texto}}<b>{{web_texto}}/publicar.html</b>{{/web_texto}}{{^web_texto}}la página «Publicar en la web»{{/web_texto}}, abajo del todo de la web: «Personal del Ayuntamiento: publicar». Ábrala en el móvil y guárdela en la pantalla de inicio.</p>
+  </div>
+</section>
+
+<section class="seccion publicar-pruebelo" aria-labelledby="t-pruebelo">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-pruebelo">Pruébelo: así quedaría su aviso</h2>
+    <p>Escriba un aviso de prueba y vea al momento cómo saldría en la web. <b>Es una simulación: no se publica nada</b> ni se envía nada a ningún sitio.</p>
+    <p data-sin-js>El simulador necesita JavaScript. Lo que haría está explicado en «Qué sale dónde».</p>
+    <div class="simulador" data-simulador hidden>
+      <form class="simulador__form" data-simulador-form aria-label="Aviso de prueba (no se publica)">
+        <div class="campo">
+          <label class="campo__etiqueta" for="sim-titulo">Título del aviso</label>
+          <input class="campo__entrada" id="sim-titulo" name="titulo" type="text" maxlength="200" autocomplete="off" aria-describedby="sim-titulo-ayuda">
+          <p class="campo__ayuda" id="sim-titulo-ayuda">Claro y con día y hora. Por ejemplo: «Corte de agua en la calle Mayor el martes, de 9:00 a 13:00».</p>
+        </div>
+        <fieldset class="incidencia__grupo">
+          <legend class="incidencia__pregunta">Gravedad</legend>
+          <div class="incidencia__opciones simulador__gravedades">
+            <label class="incidencia__opcion" for="sim-urgente"><input type="radio" id="sim-urgente" name="gravedad" value="urgente" checked><span class="incidencia__marca" aria-hidden="true"></span><span><b>Urgente</b><span class="incidencia__ayuda">Una avería, una alerta. Franja roja</span></span></label>
+            <label class="incidencia__opcion" for="sim-programado"><input type="radio" id="sim-programado" name="gravedad" value="programado"><span class="incidencia__marca" aria-hidden="true"></span><span><b>Programado</b><span class="incidencia__ayuda">Un corte o una obra anunciados. Franja ámbar</span></span></label>
+            <label class="incidencia__opcion" for="sim-informativo"><input type="radio" id="sim-informativo" name="gravedad" value="informativo"><span class="incidencia__marca" aria-hidden="true"></span><span><b>Informativo</b><span class="incidencia__ayuda">Lo demás. Tablón y «Hoy», sin franja</span></span></label>
+          </div>
+        </fieldset>
+        <div class="simulador__fechas">
+          <div class="campo">
+            <label class="campo__etiqueta" for="sim-fecha">Fecha del aviso</label>
+            <input class="campo__entrada" id="sim-fecha" name="fecha" type="date">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="sim-caduca">Último día en la franja («Caduca»)</label>
+            <input class="campo__entrada" id="sim-caduca" name="caduca" type="date" aria-describedby="sim-caduca-ayuda">
+            <p class="campo__ayuda" id="sim-caduca-ayuda">Sin esta fecha, un aviso urgente o programado no sale en la franja.</p>
+          </div>
+        </div>
+        <div class="campo">
+          <label class="campo__etiqueta" for="sim-corto">Título corto <span class="incidencia__opcional">(solo si el título pasa de 70 letras)</span></label>
+          <input class="campo__entrada" id="sim-corto" name="titulo_corto" type="text" maxlength="70" autocomplete="off" aria-describedby="sim-corto-ayuda">
+          <p class="campo__ayuda" id="sim-corto-ayuda">Es lo que sale en la franja del móvil.</p>
+        </div>
+        <p class="simulador__acciones"><button class="boton boton--borde" type="reset">Empezar de nuevo</button></p>
+      </form>
+      <div class="simulador__resultado">
+        <p class="simulador__marca"><svg class="icono" aria-hidden="true"><use href="#i-ojo"/></svg>Simulación: no se publica nada</p>
+        <p class="sr" role="status" data-sim-estado></p>
+        <p class="simulador__vacio" data-sim-vacio>Escriba un título y aquí verá cómo quedaría.</p>
+        <div class="simulador__vista" data-sim-vista hidden>
+          <p class="simulador__nota" data-sim-nota hidden></p>
+          <div class="simulador__bloque" data-sim-bloque>
+            <p class="simulador__donde">Arriba, en todas las páginas</p>
+            <div class="franja-urgente" data-sim-franja></div>
+          </div>
+          <div class="simulador__bloque" data-sim-bloque>
+            <p class="simulador__donde">En la portada, en «Hoy en {{nombre_corto}}»</p>
+            <div class="hoy"><ul class="hoy__lista" data-sim-hoy></ul></div>
+          </div>
+          <div class="simulador__bloque" data-sim-bloque>
+            <p class="simulador__donde">En el tablón (portada y «Avisos»)</p>
+            <div class="tablon"><ul class="tablon__lista" data-sim-tablon></ul></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-donde">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-donde">Qué sale dónde</h2>
+    <dl class="publicar-donde">
+      <div class="publicar-donde__fila publicar-donde__fila--urgente">
+        <dt><span class="chip chip--urgente">Urgente</span> Aviso urgente</dt>
+        <dd>Franja <b>roja</b> arriba, en todas las páginas, hasta el día que ponga en «Caduca». También en «Hoy» (el último aviso) y en el tablón. Para una avería o una alerta.</dd>
+      </div>
+      <div class="publicar-donde__fila publicar-donde__fila--programado">
+        <dt><span class="chip chip--programado">Programado</span> Aviso programado</dt>
+        <dd>Franja <b>ámbar</b> arriba, en todas las páginas, hasta su «Caduca». También en «Hoy» y en el tablón. Para un corte o una obra que se saben de antes.</dd>
+      </div>
+      <div class="publicar-donde__fila">
+        <dt>Aviso informativo</dt>
+        <dd>El tablón (en la portada y en «Avisos») y «Hoy», si es el último. Sin franja.</dd>
+      </div>
+      <div class="publicar-donde__fila">
+        <dt>Acto de la agenda</dt>
+        <dd>La agenda, con su día marcado en el calendario; «Lo que viene» y «Hoy» en la portada; y «Añadir a mi calendario». Un pleno sale además como «Próximo pleno».</dd>
+      </div>
+      <div class="publicar-donde__fila">
+        <dt>Noticia</dt>
+        <dd>«Lo que pasó» en la portada y la página de Noticias.</dd>
+      </div>
+    </dl>
+    <h3 class="publicar-sub" id="t-cuanto">Cuánto tarda en verse</h3>
+    <ul class="publicar-lista">
+      <li><b>En la web, unos minutos.</b> Google tarda unos minutos en pasar lo enviado a la hoja publicada; desde entonces sale en cuanto alguien abre o recarga la página.</li>
+      <li><b>En el calendario y en los avisos que los vecinos reciben en el móvil</b> (la página «Avisos y agenda en su móvil»), y en la lista de Noticias con su página propia: en la próxima actualización de la web, que se hace sola dos veces al día.</li>
+      <li>La web no publica en las redes sociales ni en otras aplicaciones de avisos: eso se sigue haciendo aparte.</li>
+    </ul>
+    <div class="publicar-muestras" data-muestras hidden>
+      <h3 class="publicar-sub" id="t-asi">Así se ve</h3>
+      <p>Son muestras hechas con las mismas piezas de la web y la fecha de hoy. No están publicadas.</p>
+      <div class="publicar-muestras__rejilla">
+        <figure class="publicar-muestra publicar-muestra--ancha">
+          <figcaption class="publicar-muestra__pie"><span class="publicar-muestra__rotulo">Muestra</span> Un aviso urgente y uno programado, en la franja de arriba</figcaption>
+          <div class="franja-urgente" data-muestra="franja-urgente"></div>
+          <div class="franja-urgente" data-muestra="franja-programado"></div>
+        </figure>
+        <figure class="publicar-muestra publicar-muestra--ancha">
+          <figcaption class="publicar-muestra__pie"><span class="publicar-muestra__rotulo">Muestra</span> El aviso urgente y un acto, en «Hoy en {{nombre_corto}}»</figcaption>
+          <div class="hoy"><ul class="hoy__lista" data-muestra="hoy"></ul></div>
+        </figure>
+        <figure class="publicar-muestra">
+          <figcaption class="publicar-muestra__pie"><span class="publicar-muestra__rotulo">Muestra</span> Un aviso informativo, en el tablón</figcaption>
+          <div class="tablon"><ul class="tablon__lista" data-muestra="tablon"></ul></div>
+        </figure>
+        <figure class="publicar-muestra">
+          <figcaption class="publicar-muestra__pie"><span class="publicar-muestra__rotulo">Muestra</span> Un acto, en la agenda</figcaption>
+          <ol class="eventos" data-muestra="evento"></ol>
+        </figure>
+        <figure class="publicar-muestra">
+          <figcaption class="publicar-muestra__pie"><span class="publicar-muestra__rotulo">Muestra</span> Una noticia, en «Lo que pasó»</figcaption>
+          <ol class="linea linea--paso" data-muestra="noticia"></ol>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-corregir">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-corregir">Corregir o retirar algo</h2>
+    <ul class="publicar-lista">
+      <li><b>Nada más enviarlo:</b> el formulario ofrece «Editar su respuesta». Corrija y vuelva a enviar.</li>
+      <li><b>Más tarde:</b> abra la hoja «Web del Ayuntamiento» en Google Drive (con la cuenta del Ayuntamiento), pestaña «Respuestas avisos» (o «Respuestas agenda», «Respuestas noticias»), y cambie la celda. Las pestañas «Avisos», «Agenda» y «Noticias» se rellenan solas: no las toque.</li>
+      <li><b>Para retirarlo:</b> en su fila, en la columna «Estado», escriba <b>oculto</b>. Deja de verse en unos minutos. Para que vuelva, borre la palabra. «Borrador» tampoco sale en la web, pero <b>no es privado</b>: se puede leer en la hoja publicada.</li>
+      <li>Si cambia el título de algo ya publicado, la web lo toma como nuevo y quita el anterior: es lo normal.</li>
+      <li><b>Si no sale:</b> espere cinco minutos y recargue la página. Un aviso urgente o programado sin «Caduca», o con «Caduca» ya pasada, no sale en la franja (sí en el tablón). Si se entró con una cuenta que no está en «Personas autorizadas», no sale. Si sigue sin salir, avise a quien mantiene la web.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-titulo">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-titulo">Un buen título</h2>
+    <p>El título es lo que se lee en la portada y en la franja. Que diga <b>qué pasa, dónde y cuándo</b>, con el día y la hora, y que se entienda sin abrir nada más.</p>
+    <ul class="publicar-titulos">
+      <li><span class="publicar-titulos__mal"><span class="sr">Mejor no: </span><span aria-hidden="true">No:</span> «AVISO IMPORTANTE»</span> <span class="publicar-titulos__bien"><span class="sr">Mejor así: </span><span aria-hidden="true">Sí:</span> «Corte de agua en la calle Mayor el martes, de 9:00 a 13:00»</span></li>
+      <li><span class="publicar-titulos__mal"><span class="sr">Mejor no: </span><span aria-hidden="true">No:</span> «Pleno»</span> <span class="publicar-titulos__bien"><span class="sr">Mejor así: </span><span aria-hidden="true">Sí:</span> «Pleno ordinario el jueves 29, a las 20:00, en el salón de plenos»</span></li>
+      <li><span class="publicar-titulos__mal"><span class="sr">Mejor no: </span><span aria-hidden="true">No:</span> «Información sobre la convocatoria de subvenciones»</span> <span class="publicar-titulos__bien"><span class="sr">Mejor así: </span><span aria-hidden="true">Sí:</span> «Ayudas para autónomos: se piden hasta el 20 de octubre»</span></li>
+    </ul>
+    <p>Sin mayúsculas seguidas y sin siglas sin explicar. Hasta 70 letras se lee entero en la franja del móvil; si es más largo, rellene también «Título corto».</p>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-no">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-no">Lo que no se publica aquí</h2>
+    <ul class="publicar-lista">
+      <li><b>Lo oficial, lo que tiene efectos</b> (edictos, bandos, convocatorias, licitaciones, listas de admitidos): va al tablón de la sede electrónica, que es el que vale. {{#publicar.tablon_solo}}La web lo copia sola cada día.{{/publicar.tablon_solo}}{{^publicar.tablon_solo}}La web enseña el tablón de la sede; para que lo copie sola cada día, el Ayuntamiento tiene que autorizarlo.{{/publicar.tablon_solo}} Aquí, si quiere, un aviso que lo cuente con palabras sencillas y diga que el documento está en la sede.</li>
+      <li><b>Datos personales</b> (RGPD): ni nombres de vecinos, ni DNI, ni teléfonos o direcciones particulares, ni listas de personas, ni multas o deudas. Lo que se publica lo puede leer cualquiera.</li>
+      <li><b>Fotos:</b> los formularios no llevan fotos. Si una noticia necesita una, mándela a quien mantiene la web, y solo con permiso de quien sale en ella (si son menores, de sus padres o tutores).</li>
+      <li><b>En periodo electoral:</b> nada que presente logros del gobierno municipal, desde la convocatoria hasta el día de la votación (Ley Orgánica del Régimen Electoral General, artículo 50).</li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-mantenimiento">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-mantenimiento">Lo que se le pide a quien mantiene la web</h2>
+    <p>Lo que no está en los formularios lo cambia quien mantiene la web. Mándeselo por correo o por WhatsApp:</p>
+    <ul class="publicar-lista">
+      <li>los textos fijos: el horario, la presentación, las páginas del pueblo;</li>
+      <li>los trámites nuevos o los que cambian en la sede;</li>
+      <li>las personas: la corporación, quién se ocupa de qué y los teléfonos del listín;</li>
+      <li>las fotos, con el permiso de quien sale en ellas;</li>
+      <li>las fiestas, las farmacias de guardia y la recogida de enseres, cuando cambien.</li>
+    </ul>
+    <p>Lo que llega solo, sin que nadie haga nada: si el Ayuntamiento está abierto ahora, la farmacia de guardia, las fiestas de fecha fija{{#publicar.tablon_solo}} y el tablón de la sede{{/publicar.tablon_solo}}.</p>
+    <p class="publicar-solo-papel publicar-papel-pie" data-fecha-impresion></p>
+  </div>
+</section>
+{{> documento_abajo}}

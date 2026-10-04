@@ -1,5 +1,5 @@
 {
-  "_leeme": "Datos de muestra, sin ningún municipio real, para que scripts/verificar.mjs pruebe las secciones opcionales que el municipio de la plantilla no usa: «Para visitar» (pueblo.visitas), «Normativa y documentos» (documentos), «Dónde comer y dormir» (pueblo.establecimientos), el canal de avisos (canal_avisos), impresos en Word (tramites.todos con tipo «doc») y un servicio del listín sin teléfono. Se mezclan en una copia; nunca se publican. También «Instalaciones municipales» (instalaciones).",
+  "_leeme": "Datos de muestra, sin ningún municipio real, para que scripts/verificar.mjs pruebe las secciones opcionales que el municipio de la plantilla no usa: «Para visitar» (pueblo.visitas), «Normativa y documentos» (documentos), «Dónde comer y dormir» (pueblo.establecimientos), el canal de avisos (canal_avisos), impresos en Word (tramites.todos con tipo «doc») y un servicio del listín sin teléfono. Se mezclan en una copia; nunca se publican. También «Instalaciones municipales» (instalaciones). Y lo nuevo del panel «Hoy»: farmacias de guardia con teléfono y pueblo vecino (farmacias), dos recogidas (recogida), los pasos para apuntarse al canal (canal_avisos.pasos) y un pleno que verificar.mjs pone siempre a 10 días de hoy (plenos_dentro_de_dias → plenos).",
   "pueblo": {
     "visitas": [
       {
@@ -95,6 +95,11 @@
     "nombre": "Canal de prueba",
     "url": "https://example.org/avisos",
     "texto": "El Ayuntamiento publica aquí cortes, plazos y actividades.",
+    "pasos": [
+      "Descargue la aplicación de prueba en su móvil.",
+      "Busque el municipio y pulse «Seguir».",
+      "Active las notificaciones."
+    ],
     "otros": [
       {
         "nombre": "Telegram de prueba",
@@ -102,6 +107,59 @@
       }
     ]
   },
+  "farmacias": {
+    "lista": [
+      {
+        "id": "prueba-1",
+        "nombre": "Farmacia de prueba",
+        "direccion": "C/ Mayor, 4",
+        "telefono": "900 000 003"
+      },
+      {
+        "id": "prueba-2",
+        "nombre": "Farmacia de prueba del pueblo vecino",
+        "direccion": "Plaza Mayor, 1",
+        "localidad": "Pueblo vecino",
+        "telefono": "900 000 004"
+      }
+    ],
+    "cambio": "09:30",
+    "rotacion": {
+      "inicio": "2026-01-05",
+      "dias": 7,
+      "orden": ["prueba-1", "prueba-2"]
+    },
+    "oficial": {
+      "nombre": "Colegio de prueba",
+      "url": "https://example.org/guardias"
+    }
+  },
+  "recogida": [
+    {
+      "id": "enseres",
+      "nombre": "Recogida de enseres de prueba",
+      "dias": [1, 3, 5],
+      "como": "Pídala por teléfono",
+      "telefono": "900 000 005"
+    },
+    {
+      "id": "poda",
+      "nombre": "Restos de poda de prueba",
+      "dias": [6],
+      "como": "Déjelos atados junto al contenedor",
+      "tramite": "https://example.org/poda",
+      "tramite_texto": "Avisar en línea"
+    }
+  ],
+  "plenos_dentro_de_dias": [
+    {
+      "dias": 10,
+      "hora": "20:00",
+      "tipo": "extraordinario",
+      "lugar": "Salón de plenos de prueba",
+      "convocatoria": "https://example.org/convocatoria"
+    }
+  ],
   "instalaciones": [
     {
       "grupo": "Deporte de prueba",

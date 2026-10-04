@@ -1,0 +1,36 @@
+{{> documento_arriba}}
+<section class="seccion seccion--primera" aria-labelledby="t-agenda-movil">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-agenda-movil">Añadir la agenda a mi móvil</h2>
+    <p>La agenda del Ayuntamiento ({{servicio.eventos}} actos, con las fiestas{{#servicio.hay_plenos}} y los plenos{{/servicio.hay_plenos}}) se puede añadir al calendario del móvil. Una vez añadida, se actualiza sola: cuando el Ayuntamiento anuncia un acto nuevo, le aparece sin hacer nada más.</p>
+    <p class="suscribirse-acciones">
+      {{#servicio.webcal}}<a class="boton boton--marca" href="{{servicio.webcal}}"><svg class="icono" aria-hidden="true"><use href="#i-calendario"/></svg>Añadir la agenda a mi calendario<span class="sr"> (se abre la aplicación de calendario)</span></a>{{/servicio.webcal}}
+      <a class="boton boton--borde" href="{{raiz}}agenda.ics" download><svg class="icono" aria-hidden="true"><use href="#i-calendario"/></svg>Descargar la agenda<span class="sr"> (archivo .ics)</span></a>
+    </p>
+    <h3 class="subtitulo">Paso a paso</h3>
+    <ul class="suscribirse-pasos">
+      <li><b>iPhone:</b> pulse «Añadir la agenda a mi calendario» y después «Suscribirse».</li>
+      <li><b>Android (Google Calendar):</b> abra calendar.google.com en el navegador, pulse «+» junto a «Otros calendarios», elija «Desde URL» y pegue esta dirección:{{#servicio.ics_abs}} <code class="rompe">{{servicio.ics_abs}}</code>{{/servicio.ics_abs}}{{^servicio.ics_abs}} la del botón «Descargar la agenda» (manténgalo pulsado y elija «Copiar enlace»).{{/servicio.ics_abs}}</li>
+      <li><b>Ordenador (Outlook, Thunderbird):</b> «Añadir calendario» → «Desde internet» y la misma dirección.</li>
+    </ul>
+    <p class="nota-fuente">«Descargar la agenda» guarda una copia de hoy: sirve para importarla una vez, pero no se actualiza.</p>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-lector">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-lector">Recibir los avisos en un lector</h2>
+    <p>Los avisos y las noticias del Ayuntamiento se publican también como canal de noticias (Atom). Con una aplicación lectora de noticias (Feedly, Inoreader, NetNewsWire, Thunderbird…) le llegan en cuanto se publican, sin redes sociales y sin dar su teléfono ni su correo a nadie.</p>
+    <p class="suscribirse-acciones"><a class="boton boton--borde" href="{{raiz}}feed.xml"><svg class="icono" aria-hidden="true"><use href="#i-aviso"/></svg>Canal de avisos y noticias<span class="sr"> (archivo Atom)</span></a></p>
+    <p>En su lector, pulse «Añadir» o «Suscribirse» y pegue esta dirección:{{#servicio.feed_abs}} <code class="rompe">{{servicio.feed_abs}}</code>{{/servicio.feed_abs}}{{^servicio.feed_abs}} la del botón de arriba.{{/servicio.feed_abs}}</p>
+    {{#canal_avisos}}<p>El Ayuntamiento también manda los avisos por {{nombre}}: <a href="{{raiz}}avisos.html">cómo apuntarse</a>.</p>{{/canal_avisos}}
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-sin-cobertura">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-sin-cobertura">Los teléfonos, también sin cobertura</h2>
+    <p>Si ha visitado esta web una vez desde el móvil, la página de <a href="{{raiz}}telefonos.html">teléfonos</a> se abre aunque no tenga cobertura ni datos: el móvil guarda una copia y la renueva cada vez que hay conexión. Y recuerde: el 112 se puede llamar sin saldo y aunque su compañía no tenga cobertura, si llega la de otra.</p>
+  </div>
+</section>
+{{> documento_abajo}}

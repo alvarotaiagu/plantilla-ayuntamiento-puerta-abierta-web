@@ -1,0 +1,42 @@
+{
+  "_leeme": "Perfil de Ribera del Fresno para el borde de arriba del pie. Medido sobre media/iglesia-torres.jpg (las dos torres de Nuestra Señora de Gracia, el cimborrio del crucero y la sierra detrás), media/calle-torre.jpg (la torre del reloj de la avenida, con su chapitel apuntado, pináculos y la cúpula de la nave) y media/casa-cultura.jpg (la fachada con frontón mixtilíneo y el escudo encima). Las casas son genéricas, con semilla fija. Escala de la iglesia: 0,66 unidades por píxel de la foto, con la base de las torres escondida detrás de las casas, como en la foto. node scripts/perfil.mjs lo dibuja en marca/perfil.svg.",
+  "nombre": "ribera-del-fresno",
+  "piezas": [
+    { "tipo": "sierra", "_nota": "la sierra que se ve detrás de las torres en iglesia-torres.jpg, aplastada a la mitad",
+      "puntos": [[-4, 66], [90, 70], [200, 67], [310, 72], [420, 70], [500, 73], [535, 75], [561, 80], [601, 91], [634, 101], [660, 107], [693, 109], [713, 106], [733, 100], [752, 94], [772, 89], [799, 89], [825, 86], [851, 88], [878, 91], [904, 94], [924, 96], [937, 95], [957, 92], [990, 89], [1015, 88], [1060, 86], [1140, 80], [1230, 82], [1330, 76], [1440, 72], [1520, 69], [1604, 66]] },
+
+    { "tipo": "casas", "capa": 1, "desde": -4, "hasta": 330, "alto": [42, 62], "semilla": 5, "ventanas": 0, "chimeneas": 0.35 },
+    { "tipo": "casas", "capa": 1, "desde": 530, "hasta": 628, "alto": [40, 58], "semilla": 6, "ventanas": 0, "chimeneas": 0.35 },
+    { "tipo": "casas", "capa": 1, "desde": 890, "hasta": 1176, "alto": [42, 62], "semilla": 7, "ventanas": 0, "chimeneas": 0.35 },
+    { "tipo": "casas", "capa": 1, "desde": 1300, "hasta": 1604, "alto": [42, 62], "semilla": 8, "ventanas": 0, "chimeneas": 0.35 },
+
+    { "tipo": "nave", "capa": 1.7, "_nota": "el tejado de la nave, que sube hacia la torre por delante del cimborrio", "forma": "una-agua", "desde": 598, "hasta": 722, "izquierda": 54, "derecha": 72 },
+    { "tipo": "cimborrio", "capa": 1.5, "_nota": "tejado ochavado del crucero con su linterna, detrás de la torre izquierda", "desde": 662, "hasta": 718, "base": 86, "tope": 101, "plano": 21,
+      "linterna": { "ancho": 19, "alto": 16.5, "tejado": 6.5, "vano": { "ancho": 5, "base": 4, "tope": 12 }, "cruz": 12 } },
+
+    { "tipo": "torre", "capa": 2, "_nota": "torre izquierda de Nuestra Señora de Gracia", "x": 745, "ancho": 48, "cornisa": 123.4, "grueso": 4.4,
+      "lineas": [31, 64, 71.3, 80.7], "vano": { "ancho": 10, "base": 82.5, "tope": 111 }, "oculo": { "alto": 50, "r": 6 }, "pinaculos": 11,
+      "remate": { "tipo": "cupula", "tambor": { "ancho": 28, "alto": 6.6 }, "cupula": { "rx": 12, "ry": 11.5 }, "linterna": { "ancho": 10, "alto": 17, "cupula": 3, "vano": { "ancho": 3.4, "base": 3, "tope": 12 } }, "cruz": 9 } },
+    { "tipo": "cuerpo", "capa": 2, "_nota": "el cuerpo central con la balaustrada y la ventana", "desde": 769, "hasta": 831, "alto": 81.4, "lineas": [31, 64, 66],
+      "balaustrada": { "base": 72.6, "balaustres": 12 }, "ventanas": [{ "x": 800, "ancho": 16, "base": 41, "tope": 55 }] },
+    { "tipo": "torre", "capa": 2, "_nota": "torre derecha", "x": 855, "ancho": 48, "cornisa": 123.4, "grueso": 4.4,
+      "lineas": [31, 64, 71.3, 80.7], "vano": { "ancho": 10, "base": 82.5, "tope": 111 }, "oculo": { "alto": 50, "r": 6 }, "pinaculos": 11,
+      "remate": { "tipo": "cupula", "tambor": { "ancho": 28, "alto": 6.6 }, "cupula": { "rx": 12, "ry": 11.5 }, "linterna": { "ancho": 10, "alto": 17, "cupula": 3, "vano": { "ancho": 3.4, "base": 3, "tope": 12 } }, "cruz": 9 } },
+
+    { "tipo": "nave", "capa": 1.5, "_nota": "la nave de la iglesia de la torre del reloj (calle-torre.jpg)", "desde": 1176, "hasta": 1228, "alero": 40, "cumbrera": 46 },
+    { "tipo": "cupula", "capa": 1.6, "x": 1201, "base": 46, "tambor": { "ancho": 17, "alto": 5 }, "cupula": { "rx": 8.5, "ry": 8 }, "linterna": { "ancho": 5, "alto": 7, "cupula": 2 }, "cruz": 7 },
+    { "tipo": "torre", "capa": 2, "_nota": "la torre del reloj de la avenida (calle-torre.jpg)", "x": 1243, "ancho": 30, "cornisa": 94, "grueso": 4.5,
+      "lineas": [56, 60], "vano": { "ancho": 7.5, "base": 64, "tope": 79 }, "reloj": { "alto": 85, "r": 3.6 }, "pinaculos": 10,
+      "remate": { "tipo": "chapitel", "ancho": 22, "cruz": 9 } },
+
+    { "tipo": "casas", "capa": 3, "desde": -4, "hasta": 340, "alto": [24, 46], "semilla": 31, "chimeneas": 0.35 },
+    { "tipo": "fronton", "capa": 3, "_nota": "la Casa de la Cultura (casa-cultura.jpg)", "desde": 340, "hasta": 522, "centro": 431, "ancho": 84, "alero": 50, "curva": 8, "voluta": 9, "escudo": 5.5, "huecos": 5 },
+    { "tipo": "casas", "capa": 3, "desde": 522, "hasta": 704, "alto": [22, 40], "semilla": 32, "chimeneas": 0.3 },
+    { "tipo": "casas", "capa": 3, "desde": 704, "hasta": 900, "alto": [14, 27], "semilla": 33, "chimeneas": 0.25 },
+    { "tipo": "casas", "capa": 3, "desde": 900, "hasta": 1186, "alto": [22, 44], "semilla": 34, "chimeneas": 0.3 },
+    { "tipo": "casas", "capa": 3, "desde": 1186, "hasta": 1296, "alto": [14, 24], "semilla": 35, "chimeneas": 0.2 },
+    { "tipo": "casas", "capa": 3, "desde": 1296, "hasta": 1604, "alto": [24, 46], "semilla": 36, "chimeneas": 0.35 },
+
+    { "tipo": "pajaros", "_nota": "los pájaros que vuelan alrededor de las torres en la foto", "puntos": [[703, 150, 4], [905, 157, 5], [948, 142, 3.6]] }
+  ]
+}

@@ -1,0 +1,7 @@
+Marca temporal,Fecha,Título,Tema,Texto,Gravedad,Caduca,Estado
+05/10/2026 9:12:40,31/09/2026,Fecha que no existe,Agua,Texto,programado,06/10/2026,
+05/10/2026 9:12:41,05/10/2026,,Agua,Sin título,,,
+05/10/2026 9:12:42,05/10/2026,Gravedad mal escrita,Agua,Texto,muy urgente,06/10/2026,
+05/10/2026 9:12:43,07/10/2026,Caduca antes de empezar,Agua,Texto,urgente,06/10/2026,
+05/10/2026 9:12:44,05/10/2026,Repetido,Agua,Texto,,,
+05/10/2026 9:12:45,05/10/2026,Repetido,Agua,Texto,,,

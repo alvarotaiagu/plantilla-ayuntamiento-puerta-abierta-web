@@ -1,11 +1,14 @@
 <meta charset="utf-8">
 {{#robots_no}}<meta name="robots" content="noindex, nofollow">
-{{/robots_no}}<meta name="viewport" content="width=device-width, initial-scale=1">
+{{/robots_no}}{{^robots_no}}{{#pagina.noindex}}<meta name="robots" content="noindex, nofollow">
+{{/pagina.noindex}}{{/robots_no}}<meta name="viewport" content="width=device-width, initial-scale=1">
 {{#base_404}}<base href="{{base_404}}">
 {{/base_404}}<title>{{pagina.titulo_doc}}</title>
 <meta name="description" content="{{pagina.descripcion}}">
 <meta property="og:type" content="website">
-<meta property="og:locale" content="es_ES">
+{{#pagina.og_locale}}<meta property="og:locale" content="{{pagina.og_locale}}">
+{{/pagina.og_locale}}{{#pagina.alternativas}}<link rel="alternate" hreflang="{{lang}}" href="{{href}}">
+{{/pagina.alternativas}}
 <meta property="og:title" content="{{og.titulo}}">
 <meta property="og:description" content="{{og.descripcion}}">
 <meta property="og:image" content="{{og.imagen}}">
@@ -17,6 +20,15 @@
 {{/precargar}}<link rel="stylesheet" href="{{raiz}}css/fuentes.css?v={{v.fuentes}}">
 <link rel="stylesheet" href="{{raiz}}css/marca.css?v={{v.marca}}">
 <link rel="stylesheet" href="{{raiz}}css/base.css?v={{v.base}}">
+<link rel="stylesheet" href="{{raiz}}css/movimiento.css?v={{v.movimiento}}">
+<link rel="stylesheet" href="{{raiz}}css/imprimir.css?v={{v.imprimir}}" media="print">
+{{#pagina.estilos}}<link rel="stylesheet" href="{{raiz}}{{href}}">
+{{/pagina.estilos}}<link rel="alternate" type="application/atom+xml" title="Avisos y noticias · Ayuntamiento de {{nombre}}" href="{{raiz}}feed.xml">
+<link rel="alternate" type="text/calendar" title="Agenda de {{nombre}}" href="{{raiz}}agenda.ics">
+{{#pagina.jsonld}}<script type="application/ld+json">{{{pagina.jsonld}}}</script>
+{{/pagina.jsonld}}{{#pagina.scripts}}<script src="{{raiz}}{{href}}" defer></script>
+{{/pagina.scripts}}<script>/* el listín sin cobertura (sw.js, v3b): se registra al terminar de cargar; si no hay service worker o falla, todo sigue igual */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) addEventListener('load', function () { navigator.serviceWorker.register('{{raiz}}sw.js').catch(function () {}); });</script>
 <script>
 /* Bloqueante a propósito: lo que cambia el aspecto se decide antes del primer
    pintado, o la página arranca de una forma y salta a otra. */
@@ -35,7 +47,24 @@
       window.__cortinaSeguro = setTimeout(function () { h.classList.remove('con-cortina'); }, 2600);
     }
   } catch (e) {}
+  /* con cortina no hay transición de página (css/movimiento.css): la cortina ya es la entrada */
+  window.addEventListener('pagereveal', function (ev) { if (ev.viewTransition && h.classList.contains('con-cortina')) ev.viewTransition.skipTransition(); });
+  /* sin cortina (ya se vio en la sesión), el hero entra solo: el nombre sube palabra a palabra y la
+     foto se asienta (css/movimiento.css). Nunca con movimiento reducido */
+  try { if (!quieto && !h.classList.contains('con-cortina')) h.classList.add('entrada-hero'); } catch (e) {}
 {{/pagina.cortina}}
+{{#pagina.es_inicio}}{{#hero_varias}}
+  /* la foto del arco, al azar entre varias (municipio.json → fotos.hero_fotos): se elige aquí, antes
+     del primer pintado, y se precarga; el <figure> del hero la pinta con su srcset, su alt y su encuadre */
+  try {
+    var fotos = window.__heroFotos = {{{hero_varias}}};
+    var i = window.__heroFoto = Math.min(fotos.length - 1, Math.floor(Math.random() * fotos.length));
+    var pre = document.createElement('link');
+    pre.rel = 'preload'; pre.as = 'image'; pre.href = fotos[i].src;
+    pre.setAttribute('imagesrcset', fotos[i].srcset); pre.setAttribute('imagesizes', '{{hero_foto.sizes}}'); pre.setAttribute('fetchpriority', 'high');
+    document.head.appendChild(pre);
+  } catch (e) {}
+{{/hero_varias}}{{/pagina.es_inicio}}
   /* [MANDO DE MAQUETA] inicio */
   /* Solo con ?revision: lo guardado no cuenta fuera de la reunión, o un móvil
      donde se probó la versión sobria la seguiría viendo sin mando para volver. */

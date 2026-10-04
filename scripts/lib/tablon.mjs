@@ -128,17 +128,55 @@ export function motivoPersonal(e) {
   return null;
 }
 
-/* Tema para los filtros. Lo pone una persona en `tema` si no acierta. */
+/* ── v3c · transparencia (F23). Empleo público: lo más buscado en un pueblo ──
+   Un anuncio es de «Empleo» si dice CLARAMENTE que se busca a alguien para trabajar. La lista, con lo
+   que cubre cada patrón (se prueban con títulos reales y trampas en CASOS_EMPLEO, abajo, desde
+   verificar.mjs → v3ctransparencia):
+     · bolsa de trabajo / bolsa de empleo;
+     · proceso selectivo, pruebas selectivas, selección de personal (también el procedimiento de Gestiona
+       «Selecciones de Personal y Provisiones de Puestos»);
+     · oposición: concurso-oposición, «oposiciones», «por oposición», turno libre, promoción interna
+       («oposición» sola no: «el grupo de la oposición» es política);
+     · una plaza o un puesto que se provee o se convoca: «provisión de una plaza de…», «convocatoria de dos
+       plazas de…», «puesto vacante de…» («plaza» sola no: la Plaza de España);
+     · contratación de personal: «contratación laboral/temporal», «contratación de un monitor…»,
+       «personal laboral temporal/fijo» («contratación» sola no: los contratos de obras y servicios);
+     · plan o programa de empleo, empleo social, empleo de experiencia, oferta de empleo u oferta de trabajo;
+     · la subsección «Empleo Público» del tablón de la Diputación.
+   Antes de mirar se quita lo que lo parece y no lo es (SIN_EMPLEO): el Centro Especial de Empleo (una
+   entidad), los «empleados públicos» (un reglamento interno), las plazas de la escuela infantil, de
+   aparcamiento o de un curso, y los puestos del mercado. Las listas, actas y nombramientos con nombres
+   ya se han quedado fuera antes (motivoPersonal): aquí solo llegan las convocatorias y las ofertas.
+   Si no acierta, una persona pone `tema` («Empleo» o el que sea) y `"tema_manual": true` en tablon.json */
+const SIN_EMPLEO = /centros?\s+especial(es)?\s+de\s+empleo|emplead[oa]s\s+p[uú]blic[oa]s|plazas?\s+(de|en)\s+(la\s+|el\s+)?(escuela|guarder[ií]a|residencia|aparcamiento|garaje|campamento|cursos?|talleres?|matr[ií]cula)|puestos?\s+(de\s+venta|del?\s+mercad)/gi;
+const PATRONES_EMPLEO = [
+  [/bolsas?\s+de\s+(trabajo|empleo)/i, 'bolsa de trabajo'],
+  [/procesos?\s+selectivos?|pruebas\s+selectivas|selecci[oó]n(es)?\s+de\s+personal/i, 'proceso selectivo'],
+  [/concurso[\s-]+oposici[oó]n|\boposiciones\b|por\s+oposici[oó]n|turno\s+libre|promoci[oó]n\s+interna/i, 'oposición'],
+  [/\b(provisi[oó]n|cobertura|convocatoria|selecci[oó]n)\b[^.;]{0,80}?\b(plazas?|puestos?)\s+(vacantes?\s+)?(temporalmente\s+)?(de|del|como)\b|\b(plazas?|puestos?)\s+vacantes?\b/i, 'plaza o puesto'],
+  [/contrataci[oó]n\s+(laboral|temporal|de\s+personal|de\s+(un|una|dos|tres|cuatro|\d+)\s+(trabajador|monitor|pe[oó]n|operari|socorrista|auxiliar|profesor|conserje|limpiador|t[eé]cnic|educador|dinamizador))|personal\s+laboral\s+(temporal|fijo)/i, 'contratación de personal'],
+  [/planes?\s+de\s+empleo|programas?\s+de\s+empleo|empleo\s+(social|de\s+experiencia)|ofertas?\s+(de\s+)?(empleo|trabajo)/i, 'plan u oferta de empleo']
+];
+/* por qué es de empleo (para las pruebas y para quien lo revise), o null */
+export function motivoEmpleo(e) {
+  if (/^empleo\s+p[uú]blico$/i.test(String(e.categoria || '').trim())) return 'subsección «Empleo Público»';
+  const texto = [e.titulo, e.descripcion, e.procedimiento].join(' · ').replace(SIN_EMPLEO, ' ');
+  for (const [re, motivo] of PATRONES_EMPLEO) if (re.test(texto)) return motivo;
+  return null;
+}
+
+/* Tema para los filtros. Lo pone una persona en `tema` si no acierta. v3c: el empleo va justo detrás del
+   pleno (antes que impuestos: «tasa por derechos de examen» es de unas oposiciones) y con su lista propia */
 const TEMAS = [
   ['Pleno', /pleno|sesi[oó]n\s+(ordinaria|extraordinaria)|orden\s+del\s+d[ií]a|[oó]rganos\s+de\s+gobierno/i],
+  ['Empleo', motivoEmpleo],
   ['Impuestos', /cobranza|\biae\b|\bibi\b|impuesto|tasa|padr[oó]n\s+fiscal|recaudaci|tribut/i],
-  ['Empleo', /empleo|bolsa\s+de|plaza|puesto\s+de\s+trabajo|contrataci[oó]n\s+laboral/i],
   ['Ayudas', /ayuda|subvenci|beca|m[ií]nimos\s+vitales|natalidad/i],
   ['Obras', /obra|urban|instalaci[oó]n(es)?\s+el[eé]ctrica|licencia|proyecto|alumbrado|pavimentaci/i]
 ];
 export function temaDe(e) {
   const texto = [e.titulo, e.descripcion, e.categoria, e.procedimiento].join(' · ');
-  for (const [tema, re] of TEMAS) if (re.test(texto)) return tema;
+  for (const [tema, re] of TEMAS) if (typeof re === 'function' ? re(e) : re.test(texto)) return tema;
   return 'Anuncios';
 }
 
@@ -152,7 +190,11 @@ export function fusionar(nuevas, previas) {
       tema: p.tema_manual ? p.tema : temaDe(n),
       tema_manual: !!p.tema_manual,
       titulo_claro: p.titulo_claro || '',
-      oculto: !!p.oculto
+      oculto: !!p.oculto,
+      /* v3b · el plazo lo pone una persona leyendo el anuncio: se conserva al refrescar */
+      ...(p.plazo_inicio ? { plazo_inicio: p.plazo_inicio } : {}),
+      ...(p.plazo_fin ? { plazo_fin: p.plazo_fin } : {}),
+      ...(p.plazo_ejemplo ? { plazo_ejemplo: true } : {})
     };
   });
 }
@@ -196,4 +238,29 @@ export const CASOS_PRUEBA = [
   [{ titulo: 'ANUNCIO DE CITACION', descripcion: 'ANUNCIO DE CITACION AL LEVANTAMIENTO DE ACTAS PREVIAS A LA OCUPACION MEJORA ACCESO MONTE DE LOS SILOS' }, 'expropiación con titulares'],
   [{ titulo: 'Relación de bienes y derechos afectados por la obra' }, 'expropiación con titulares'],
   [{ titulo: 'B.O.P. nº. 91 - Anuncio 1752_2026 Bases reguladoras para ayudas mínimos vitales 2026' }, null]
+];
+
+/* v3c · empleo: títulos para probar motivoEmpleo y temaDe sin red: [entrada, ¿es empleo?, de dónde sale].
+   Los reales llevan su fuente; las trampas inventadas lo dicen («trampa») */
+export const CASOS_EMPLEO = [
+  [{ titulo: 'Bases y convocatoria para la constitución de una bolsa de empleo para nombramientos interinos del puesto de Técnico/a de Gestión de Administración General, mediante concurso' }, true, 'BOP, anuncio 1705/2026 de Ribera del Fresno'],
+  [{ titulo: 'Bases y convocatoria para la provisión temporal en comisión de servicios de una puesto vacante temporalmente de Agente de la Policía Local' }, true, 'BOP, anuncio 1707/2026 de Ribera del Fresno'],
+  [{ titulo: 'Bases de la convocatoria para la provisión en propiedad de la plaza vacante de Encargado/a de Servicios Múltiples, por promoción interna' }, true, 'BOP, anuncio 765/2026 de Ribera del Fresno'],
+  [{ titulo: 'OFERTA EMPLEO PERSONAL APOYO DURANTE PERIODO ESTIVAL FERIA Y FIESTAS', categoria: 'Empleo Público' }, true, 'tablón de Monesterio, 03/10/2026'],
+  [{ titulo: 'BASES UN SOCORRISTA ACUATICO PISCINA MUNICIPAL 2026', categoria: 'Empleo Público' }, true, 'tablón de Monesterio'],
+  [{ titulo: 'Bases de la convocatoria de dos plazas de socorrista', categoria: 'Anuncios' }, true, 'casos del tablón (v3)'],
+  [{ titulo: 'Anuncio', descripcion: 'Proceso selectivo de auxiliar administrativo', procedimiento: 'Selecciones de Personal y Provisiones de Puestos' }, true, 'procedimiento de Gestiona'],
+  [{ titulo: 'Plan de Empleo Social 2026: contratación de cuatro peones' }, true, 'inventado: «plan de empleo»'],
+  [{ titulo: 'Aprobación inicial del expediente de modificación de crédito del Centro Especial de Empleo "Ribera"' }, false, 'BOP, anuncio 4703/2025 de Ribera del Fresno'],
+  [{ titulo: 'Reglamento interno de cumplimiento de control horario de los empleados públicos del Ayuntamiento' }, false, 'BOP, anuncio 2608/2026 de Ribera del Fresno'],
+  [{ titulo: 'Bases reguladoras de la convocatoria para la concesión de ayudas extraordinarias de apoyo social para contingencias 2026' }, false, 'BOP, anuncio 1759/2026 de Ribera del Fresno'],
+  [{ titulo: 'Anuncio de licitación Casetas Feria y Fiestas 2026', categoria: 'Anuncio General' }, false, 'tablón de Monesterio'],
+  [{ titulo: 'Extracto Bases Asociaciones', procedimiento: 'Concesión de Subvenciones' }, false, 'tablón de Ribera, 02/10/2026'],
+  [{ titulo: 'Anuncio celebración sesión Ordinaria Pleno 30 de septiembre de 2026' }, false, 'tablón de Ribera, 02/10/2026'],
+  [{ titulo: 'Corte de tráfico en la Plaza de España por obras de pavimentación' }, false, 'trampa: «plaza»'],
+  [{ titulo: 'Convocatoria de plazas de la escuela infantil para el curso 2026/2027' }, false, 'trampa: plazas que no son de trabajo'],
+  [{ titulo: 'Moción del grupo de la oposición sobre el alumbrado' }, false, 'trampa: «oposición»'],
+  [{ titulo: 'Licitación del contrato de servicio de bar de la piscina municipal' }, false, 'trampa: contratación que no es de personal'],
+  [{ titulo: 'Convocatoria para la adjudicación de puestos de venta del mercadillo' }, false, 'trampa: puestos que no son de trabajo'],
+  [{ titulo: 'Aprobación de la modificación de la relación de puestos de trabajo' }, false, 'trampa: la relación de puestos no es una oferta']
 ];

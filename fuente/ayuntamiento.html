@@ -2,8 +2,9 @@
 {{#alcalde}}<section class="seccion seccion--primera" aria-labelledby="t-alcaldia">
   <div class="contenedor alcaldia">
     <figure class="retrato">
-      <div class="retrato__hueco arco-opcional"><img class="retrato__escudo" src="marca/escudo-480.png" width="{{escudo.ancho480}}" height="480" alt=""></div>
-      <figcaption class="retrato__pie">Aquí irá el retrato oficial de la alcaldía.</figcaption>
+      <div class="retrato__hueco arco-opcional"><span class="retrato__marco"><img class="retrato__escudo" src="marca/escudo-480.png" width="{{escudo.ancho480}}" height="480" alt=""></span></div>
+      <span class="retrato__umbral" aria-hidden="true"></span>
+      <figcaption class="retrato__pie"><b>Retrato oficial</b>Aquí irá el retrato oficial de la alcaldía, cuando el Ayuntamiento lo facilite.</figcaption>
     </figure>
     <div class="alcaldia__texto">
       <h2 class="seccion__titulo" id="t-alcaldia">La alcaldía</h2>
@@ -13,15 +14,22 @@
   </div>
 </section>{{/alcalde}}
 
-{{#quien.length}}<section class="seccion" id="quien" aria-labelledby="t-quien">
+{{#quien_ayto.length}}<section class="seccion" id="quien" aria-labelledby="t-quien">
   <div class="contenedor">
     <h2 class="seccion__titulo" id="t-quien">¿Quién se ocupa de qué?</h2>
-    <p class="seccion__entradilla">Busque su asunto a la izquierda: a la derecha está quien lo lleva en el gobierno municipal.</p>
-    <ul class="quien">
-      {{#quien}}{{> quien_fila}}{{/quien}}
+    <p class="seccion__entradilla">Cada asunto, con quien lo lleva en el gobierno municipal, su delegación oficial y su grupo.</p>
+    <ul class="quien quien--ayto">
+      {{#quien_ayto}}<li class="quien__fila">
+        <div class="quien__asunto">
+          <h3 class="quien__tema">{{tema}}</h3>
+          {{#delegacion}}<p class="quien__delegacion">Delegación: {{delegacion}}</p>{{/delegacion}}
+        </div>
+        <p class="quien__persona"><span class="quien__iniciales" aria-hidden="true">{{iniciales}}</span><span><b>{{nombre}}</b><span class="quien__cargo">{{cargo}}</span>{{#grupo}}<span class="quien__grupo">{{#muestra}}<svg class="pleno__muestra" viewBox="0 0 28 28" aria-hidden="true">{{{muestra}}}</svg>{{/muestra}}<span class="sr">Grupo </span>{{grupo}}</span>{{/grupo}}</span></p>
+      </li>
+      {{/quien_ayto}}
     </ul>
   </div>
-</section>{{/quien.length}}
+</section>{{/quien_ayto.length}}
 
 {{#pleno}}<section class="seccion" aria-labelledby="t-pleno">
   <div class="contenedor">
@@ -32,13 +40,16 @@
         {{{pleno.svg}}}
         <figcaption class="sr">{{pleno.descripcion}}</figcaption>
       </figure>
-      <ul class="pleno__leyenda">
-        {{#pleno.grupos}}<li><svg class="pleno__muestra" viewBox="0 0 28 28" aria-hidden="true">{{{muestra}}}</svg><span><b>{{sigla}}</b> · {{n}} {{concejales}}<span class="pleno__papel">{{nombre}} · {{papel}}</span></span></li>
-        {{/pleno.grupos}}
-      </ul>
+      <div class="pleno__lado">
+        <ul class="pleno__leyenda">
+          {{#pleno.grupos}}<li data-grupo="{{clave}}" data-sigla="{{sigla}}"><svg class="pleno__muestra" viewBox="0 0 28 28" aria-hidden="true">{{{muestra}}}</svg><span><b>{{sigla}}</b> · {{n}} {{concejales}}<span class="pleno__papel">{{nombre}} · {{papel}}</span></span></li>
+          {{/pleno.grupos}}
+        </ul>
+        <p class="pleno__ayuda" id="pleno-ayuda" data-pleno-ayuda hidden>Pase el ratón o lleve el foco a un grupo para ver sus escaños; púlselo para dejarlos marcados.</p>
+      </div>
     </div>
     <div class="grupos">
-      {{#pleno.grupos}}<div class="grupo">
+      {{#pleno.grupos}}<div class="grupo" data-grupo="{{clave}}">
         <h3 class="grupo__titulo"><svg class="pleno__muestra" viewBox="0 0 28 28" aria-hidden="true">{{{muestra}}}</svg>{{nombre}} ({{sigla}})</h3>
         <ul class="grupo__lista">
           {{#miembros}}<li><b>{{nombre}}</b><span>{{cargo}}</span></li>{{/miembros}}
@@ -50,20 +61,6 @@
     {{#plenos_video}}<p class="nota-fuente">{{plenos_video.texto}} <a href="{{plenos_video.url}}">Ver las grabaciones</a>.</p>{{/plenos_video}}
   </div>
 </section>{{/pleno}}
-
-{{#concejalias.length}}<section class="seccion" aria-labelledby="t-concejalias">
-  <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-concejalias">Concejalías</h2>
-    <ul class="fichas">
-      {{#concejalias}}<li class="ficha">
-        <h3 class="ficha__titulo">{{delegacion}}</h3>
-        <p class="ficha__persona"><b>{{nombre}}</b><span>{{cargo}} · {{grupo}}</span></p>
-      </li>
-      {{/concejalias}}
-    </ul>
-  </div>
-</section>{{/concejalias.length}}
-
 {{#documentos.length}}<section class="seccion" id="documentos" aria-labelledby="t-documentos">
   <div class="contenedor">
     <h2 class="seccion__titulo" id="t-documentos">Normativa y documentos</h2>

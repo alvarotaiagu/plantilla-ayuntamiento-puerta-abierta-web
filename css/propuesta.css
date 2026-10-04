@@ -1,0 +1,47 @@
+/* propuesta.css — «La propuesta» (para el alcalde) y «Avisos y agenda en su móvil» (v3b · servicio).
+   Solo tokens de css/marca.css. Sin animaciones: el comparador se mueve con la mano, no solo. */
+
+.propuesta-lista { padding-left: 1.25rem; }
+.propuesta-lista li + li { margin-top: .5rem; }
+.propuesta-lista__fuente { color: var(--apagado); font-size: 1rem; }
+.propuesta-fichas .ficha { background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); }
+.propuesta-fichas .ficha p { font-size: 1rem; }
+
+/* ── comparador antes / después ──
+   Sin JavaScript: las dos capturas, una debajo de otra, cada una con su rótulo. Con JavaScript
+   (js/propuesta.js añade .comparador--activo y quita el hidden del control): una encima de otra y la
+   de «después» recortada desde la línea, que mueve un input range (teclado, ratón y dedo) */
+.comparador { margin: 0; }
+.comparador__marco { position: relative; display: grid; gap: 1rem; }
+.comparador__lado { position: relative; margin: 0; }
+.comparador__lado img, .comparador__hueco { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; border: 1px solid var(--linea-fuerte); border-radius: var(--radio); background: var(--superficie-2); }
+.comparador__lado img { object-fit: cover; object-position: top center; }
+.comparador__hueco { display: grid; place-items: center; padding: 1rem; border: 2px dashed var(--linea-fuerte); text-align: center; }
+.comparador__hueco p { margin: 0; font-weight: 600; color: var(--tinta); }
+.comparador__rotulo { margin: 0 0 .35rem; font-size: .875rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--apagado); }
+.comparador__linea { display: none; }
+/* con el comparador activo, el texto del hueco del «antes» va a la izquierda: la otra mitad la tapa el «después» */
+.comparador--activo .comparador__antes .comparador__hueco { place-items: center start; text-align: left; }
+.comparador--activo .comparador__antes .comparador__hueco p { max-width: 40%; }
+.comparador__control { margin-top: .75rem; }
+.comparador__etiqueta { display: block; font-weight: 600; margin-bottom: .25rem; }
+/* 44 px de alto: zona táctil; el pulgar, de 28 px y con su borde */
+.comparador__rango { display: block; width: 100%; min-height: 44px; margin: 0; accent-color: var(--marca); background: transparent; cursor: ew-resize; }
+
+.comparador--activo .comparador__marco { display: block; }
+.comparador--activo .comparador__lado + .comparador__lado { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--corte, 50%)); }
+.comparador--activo .comparador__rotulo { position: absolute; top: .5rem; z-index: 1; margin: 0; padding: .15rem .5rem; border-radius: var(--radio); background: var(--tinta); color: var(--papel); }
+.comparador--activo .comparador__antes .comparador__rotulo { left: .5rem; }
+.comparador--activo .comparador__despues .comparador__rotulo { right: .5rem; }
+.comparador--activo .comparador__linea { display: block; position: absolute; top: 0; bottom: 0; left: var(--corte, 50%); width: 3px; margin-left: -1.5px; background: var(--marca); pointer-events: none; }
+
+.propuesta-precio__hueco { padding: 1rem 1.25rem; border: 2px dashed var(--aviso); border-radius: var(--radio); font-weight: 600; }
+html:not(.en-revision) [data-solo-revision] { display: none; }
+
+.suscribirse-acciones { display: flex; flex-wrap: wrap; gap: .75rem; }
+.suscribirse-pasos { padding-left: 1.25rem; }
+.suscribirse-pasos li + li { margin-top: .5rem; }
+
+/* v3c · guia: «Publicar es rellenar un formulario» en tres pasos */
+.propuesta-pasos { padding-left: 1.4rem; }
+.propuesta-pasos li + li { margin-top: .4rem; }

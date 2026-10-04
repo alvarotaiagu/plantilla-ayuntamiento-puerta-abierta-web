@@ -1,11 +1,17 @@
 {{> documento_arriba}}
-{{#pueblo.lugares.length}}<section class="seccion seccion--primera" aria-labelledby="t-lugares">
+{{#pagina.idiomas.length}}<nav class="contenedor idiomas" aria-label="{{t.idiomas}}">
+  <ul class="idiomas__lista">
+    {{#pagina.idiomas}}<li><a class="idiomas__enlace" href="{{href}}" hreflang="{{lang}}" lang="{{lang}}"{{#actual}} aria-current="page"{{/actual}}>{{nombre}}</a></li>{{/pagina.idiomas}}
+  </ul>
+  {{#t.aviso_idioma}}<p class="idiomas__aviso">{{t.aviso_idioma}}</p>{{/t.aviso_idioma}}
+</nav>{{/pagina.idiomas.length}}
+{{#pueblo.lugares.length}}<section class="seccion seccion--primera con-paralaje" aria-labelledby="t-lugares">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-lugares">Qué ver</h2>
+    <h2 class="seccion__titulo" id="t-lugares">{{t.que_ver}}</h2>
     <div class="carril" data-desborda role="group" aria-labelledby="t-lugares">
       <ul class="carril__lista">
-        {{#pueblo.lugares}}<li class="lugar">
-          {{#foto}}<figure class="lugar__foto arco-opcional"><img src="media/{{foto}}-800.jpg" width="{{ancho}}" height="{{alto}}" alt="{{alt}}" loading="lazy" decoding="async"></figure>{{/foto}}
+        {{#pueblo.lugares}}<li class="lugar" id="{{ancla}}">
+          {{#foto}}<figure class="lugar__foto arco-opcional paralaje"><img src="media/{{foto}}-800.jpg" width="{{ancho}}" height="{{alto}}" alt="{{alt}}" loading="lazy" decoding="async"></figure>{{/foto}}
           {{^foto}}<div class="lugar__foto lugar__foto--vacia arco-opcional"><img src="marca/escudo-160.png" width="{{escudo.ancho160}}" height="160" alt=""></div>{{/foto}}
           <h3 class="lugar__nombre">{{nombre}}</h3>
           <p class="lugar__texto">{{texto}}</p>
@@ -17,17 +23,45 @@
   </div>
 </section>{{/pueblo.lugares.length}}
 
+{{#termino}}<section class="seccion" aria-labelledby="t-termino">
+  <div class="contenedor termino">
+    <h2 class="seccion__titulo" id="t-termino">{{t.termino_titulo}}</h2>
+    <figure class="termino__figura">
+      <svg class="termino__mapa" viewBox="{{viewbox}}" aria-hidden="true" focusable="false">{{{svg_cuerpo}}}{{#puntos}}<a class="termino-punto" href="#{{ancla}}" tabindex="-1"><circle cx="{{x}}" cy="{{y}}" r="{{radio}}"/><text x="{{x}}" y="{{ty}}" text-anchor="middle" dy=".35em" font-size="{{letra}}">{{n}}</text></a>{{/puntos}}</svg>
+      <figcaption class="termino__pie">{{t.termino_pie}} <a href="{{atribucion_url}}">{{atribucion}}<span class="sr">{{t.otra_web}}</span></a>.{{#muestra}} <span class="ejemplo">Ejemplo</span> {{muestra}}.{{/muestra}}</figcaption>
+    </figure>
+    <div class="termino__leyenda">
+      {{#hay_puntos}}<h3 class="termino__titulo">{{t.termino_lugares}}</h3>
+      <ol class="termino__lugares">
+        {{#puntos}}<li><a href="#{{ancla}}"><span class="termino__num" aria-hidden="true">{{n}}</span>{{nombre}}</a></li>
+        {{/puntos}}
+      </ol>{{/hay_puntos}}
+      <h3 class="termino__titulo">{{t.termino_leer}}</h3>
+      <ul class="termino__claves">
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-limite" d="M2 8h28"/></svg>{{t.clave_limite}}</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-casco" d="M6 3h20v10H6z"/></svg>{{t.clave_casco}}</li>
+        <li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-carretera" d="M2 8h28"/></svg>{{t.clave_carreteras}}{{#carreteras}}: {{carreteras}}{{/carreteras}}</li>
+        {{#rutas_texto}}<li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-ruta" d="M2 8h28"/></svg>{{t.clave_rutas}}: {{rutas_texto}}</li>{{/rutas_texto}}
+        {{#hay_puntos}}<li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><circle class="termino-punto-clave" cx="16" cy="8" r="6"/></svg>{{t.clave_puntos}}</li>{{/hay_puntos}}
+        {{#escala_texto}}<li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-escala" d="M3 10h26M3 6v8M29 6v8"/></svg>{{t.clave_escala}} {{escala_texto}}</li>{{/escala_texto}}
+        {{#recuadro_texto}}<li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><rect class="termino-marco" x="5" y="1.5" width="22" height="13"/></svg>{{t.clave_recuadro}} {{recuadro_texto}}</li>{{/recuadro_texto}}
+        {{#hay_guias}}<li><svg class="termino__clave" viewBox="0 0 32 16" aria-hidden="true" focusable="false"><path class="termino-guia" d="M6 11L26 5"/><circle class="termino-sitio" cx="6" cy="11" r="2.6"/></svg>{{t.clave_guia}}</li>{{/hay_guias}}
+      </ul>
+    </div>
+  </div>
+</section>{{/termino}}
+
 {{#pueblo.visitas.length}}<section class="seccion{{^pueblo.lugares.length}} seccion--primera{{/pueblo.lugares.length}}" aria-labelledby="t-visitas">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-visitas">Para visitar</h2>
+    <h2 class="seccion__titulo" id="t-visitas">{{t.para_visitar}}</h2>
     <ul class="fichas visitas">
       {{#pueblo.visitas}}<li class="ficha visita">
         <h3 class="ficha__titulo">{{nombre}}</h3>
         {{#texto}}<p class="visita__texto">{{texto}}</p>{{/texto}}
         {{#datos.length}}<dl class="datos visita__datos">{{#datos}}<div><dt>{{dt}}</dt><dd>{{dd}}</dd></div>{{/datos}}</dl>{{/datos.length}}
         {{#nota}}<p class="visita__nota">{{nota}}</p>{{/nota}}
-        {{#telefono}}<p class="visita__enlace"><a href="{{tel_href}}"><svg class="icono" aria-hidden="true"><use href="#i-telefono"/></svg><span class="sr">Llamar a {{nombre}}: </span>{{telefono}}</a></p>{{/telefono}}
-        {{#url}}<p class="visita__enlace"><a href="{{url}}">{{url_texto}}<span class="sr">: {{nombre}}, se abre otra web</span></a></p>{{/url}}
+        {{#telefono}}<p class="visita__enlace"><a href="{{tel_href}}"><svg class="icono" aria-hidden="true"><use href="#i-telefono"/></svg><span class="sr">{{t.llamar_a}} {{nombre}}: </span>{{telefono}}</a></p>{{/telefono}}
+        {{#url}}<p class="visita__enlace"><a href="{{url}}">{{url_texto}}<span class="sr">: {{nombre}}{{t.otra_web}}</span></a></p>{{/url}}
       </li>
       {{/pueblo.visitas}}
     </ul>
@@ -47,7 +81,7 @@
 
 {{#pueblo.historia.length}}<section class="seccion" aria-labelledby="t-historia">
   <div class="contenedor texto-largo">
-    <h2 class="seccion__titulo" id="t-historia">Historia</h2>
+    <h2 class="seccion__titulo" id="t-historia">{{t.historia}}</h2>
     {{#pueblo.historia}}<p>{{.}}</p>
     {{/pueblo.historia}}
   </div>
@@ -55,38 +89,44 @@
 
 {{#pueblo.patrimonio.length}}<section class="seccion" aria-labelledby="t-patrimonio">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-patrimonio">Patrimonio</h2>
-    <ul class="patrimonio">
-      {{#pueblo.patrimonio}}<li><b>{{nombre}}</b>{{#detalle}}<span>{{detalle}}</span>{{/detalle}}</li>
-      {{/pueblo.patrimonio}}
-    </ul>
+    <h2 class="seccion__titulo" id="t-patrimonio">{{t.patrimonio}}</h2>
+    <div class="patrimonio-grupos">
+      {{#pueblo.patrimonio_grupos}}<div class="patrimonio-grupo">
+        {{#titulo}}<h3 class="patrimonio-grupo__titulo">{{titulo}}</h3>{{/titulo}}
+        <ul class="patrimonio">
+          {{#items}}<li class="patrimonio__fila"{{#ancla}} id="{{ancla}}"{{/ancla}}><b class="patrimonio__nombre">{{nombre}}</b>{{#detalle}}<span class="patrimonio__detalle">{{detalle}}</span>{{/detalle}}</li>
+          {{/items}}
+        </ul>
+      </div>
+      {{/pueblo.patrimonio_grupos}}
+    </div>
   </div>
 </section>{{/pueblo.patrimonio.length}}
 
 {{#fiestas.length}}<section class="seccion" aria-labelledby="t-anio">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-anio">Fiestas</h2>
-    <ol class="anio" data-vivo="anio">{{{vivo.anio}}}</ol>
+    <h2 class="seccion__titulo" id="t-anio">{{t.fiestas}}</h2>
+    {{^anio_traducido}}<ol class="anio" data-vivo="anio">{{{vivo.anio}}}</ol>{{/anio_traducido}}{{#anio_traducido}}<ol class="anio">{{{anio_traducido}}}</ol>{{/anio_traducido}}
   </div>
 </section>{{/fiestas.length}}
 
 {{#pueblo.gastronomia}}<section class="seccion" aria-labelledby="t-gastronomia">
-  <div class="contenedor gastronomia">
+  <div class="contenedor gastronomia{{#pueblo.gastronomia.foto_datos}} gastronomia--con-foto{{/pueblo.gastronomia.foto_datos}}">
     <div>
-      <h2 class="seccion__titulo" id="t-gastronomia">Gastronomía</h2>
+      <h2 class="seccion__titulo" id="t-gastronomia">{{t.gastronomia}}</h2>
       <div class="gastronomia__listas">
-        {{#pueblo.gastronomia.platos.length}}<div><h3 class="gastronomia__titulo">Platos</h3><ul class="lista-coma">{{#pueblo.gastronomia.platos}}<li>{{.}}</li>{{/pueblo.gastronomia.platos}}</ul></div>{{/pueblo.gastronomia.platos.length}}
-        {{#pueblo.gastronomia.dulces.length}}<div><h3 class="gastronomia__titulo">Dulces</h3><ul class="lista-coma">{{#pueblo.gastronomia.dulces}}<li>{{.}}</li>{{/pueblo.gastronomia.dulces}}</ul></div>{{/pueblo.gastronomia.dulces.length}}
-        {{#pueblo.gastronomia.bebidas.length}}<div><h3 class="gastronomia__titulo">Para beber</h3><ul class="lista-coma">{{#pueblo.gastronomia.bebidas}}<li>{{.}}</li>{{/pueblo.gastronomia.bebidas}}</ul></div>{{/pueblo.gastronomia.bebidas.length}}
+        {{#pueblo.gastronomia.platos.length}}<div><h3 class="gastronomia__titulo">{{t.platos}}</h3><ul class="lista-coma">{{#pueblo.gastronomia.platos}}<li>{{.}}</li>{{/pueblo.gastronomia.platos}}</ul></div>{{/pueblo.gastronomia.platos.length}}
+        {{#pueblo.gastronomia.dulces.length}}<div><h3 class="gastronomia__titulo">{{t.dulces}}</h3><ul class="lista-coma">{{#pueblo.gastronomia.dulces}}<li>{{.}}</li>{{/pueblo.gastronomia.dulces}}</ul></div>{{/pueblo.gastronomia.dulces.length}}
+        {{#pueblo.gastronomia.bebidas.length}}<div><h3 class="gastronomia__titulo">{{t.para_beber}}</h3><ul class="lista-coma">{{#pueblo.gastronomia.bebidas}}<li>{{.}}</li>{{/pueblo.gastronomia.bebidas}}</ul></div>{{/pueblo.gastronomia.bebidas.length}}
       </div>
     </div>
-    {{#pueblo.gastronomia.foto_datos}}<figure class="gastronomia__foto"><img src="media/{{archivo}}-800.jpg" width="{{ancho}}" height="{{alto}}" alt="{{alt}}" loading="lazy" decoding="async">{{#credito}}<figcaption class="credito">{{credito}}</figcaption>{{/credito}}</figure>{{/pueblo.gastronomia.foto_datos}}
+    {{#pueblo.gastronomia.foto_datos}}<figure class="gastronomia__foto"><div class="gastronomia__marco arco-opcional"><img src="media/{{archivo}}-800.jpg" width="{{ancho}}" height="{{alto}}" alt="{{alt}}" loading="lazy" decoding="async"></div>{{#credito}}<figcaption class="credito">{{credito}}</figcaption>{{/credito}}</figure>{{/pueblo.gastronomia.foto_datos}}
   </div>
 </section>{{/pueblo.gastronomia}}
 
 {{#pueblo.personajes.length}}<section class="seccion" aria-labelledby="t-personajes">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-personajes">Personajes</h2>
+    <h2 class="seccion__titulo" id="t-personajes">{{t.personajes}}</h2>
     <ul class="fichas">
       {{#pueblo.personajes}}<li class="ficha"><h3 class="ficha__titulo">{{nombre}}</h3><p class="ficha__fechas">{{fechas}}</p><p>{{texto}}</p></li>
       {{/pueblo.personajes}}
@@ -96,9 +136,9 @@
 
 {{#pueblo.rutas.length}}<section class="seccion" aria-labelledby="t-rutas">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-rutas">Rutas</h2>
+    <h2 class="seccion__titulo" id="t-rutas">{{t.rutas}}</h2>
     <ul class="rutas">
-      {{#pueblo.rutas}}<li class="ruta"><h3 class="ruta__nombre">{{nombre}}</h3><p>{{resumen}}</p>{{#url}}<p><a href="{{url}}">Ver la ruta<span class="sr">: {{nombre}}</span></a></p>{{/url}}</li>
+      {{#pueblo.rutas}}<li class="ruta"><h3 class="ruta__nombre">{{nombre}}</h3><p>{{resumen}}</p>{{#url}}<p><a href="{{url}}">{{t.ver_la_ruta}}<span class="sr">: {{nombre}}</span></a></p>{{/url}}</li>
       {{/pueblo.rutas}}
     </ul>
   </div>
@@ -106,7 +146,7 @@
 
 {{#pueblo.establecimientos.length}}<section class="seccion" aria-labelledby="t-establecimientos">
   <div class="contenedor">
-    <h2 class="seccion__titulo" id="t-establecimientos">Dónde comer y dormir</h2>
+    <h2 class="seccion__titulo" id="t-establecimientos">{{t.comer_dormir}}</h2>
     <div class="listin-completo">
       {{#pueblo.establecimientos}}<div class="listin-grupo">
         <h3 class="listin-grupo__titulo">{{grupo}}</h3>
@@ -115,22 +155,22 @@
           {{#items}}<li class="listin__fila">
             <span class="listin__nombre">{{nombre}}{{#detalle}}<small>{{detalle}}</small>{{/detalle}}</span>
             {{#telefono}}<span class="listin__puntos" aria-hidden="true"></span>
-            <a class="listin__numero" href="{{tel_href}}"><span class="sr">Llamar a {{nombre}}: </span>{{telefono}}</a>{{/telefono}}
+            <a class="listin__numero" href="{{tel_href}}"><span class="sr">{{t.llamar_a}} {{nombre}}: </span>{{telefono}}</a>{{/telefono}}
           </li>
           {{/items}}
         </ul>
       </div>
       {{/pueblo.establecimientos}}
     </div>
-    <p class="nota-fuente">{{pueblo.establecimientos_fuente}} Son negocios privados: el Ayuntamiento no responde de sus datos.</p>
+    <p class="nota-fuente">{{pueblo.establecimientos_fuente}} {{t.negocios_privados}}</p>
   </div>
 </section>{{/pueblo.establecimientos.length}}
 
 {{#creditos.length}}<section class="seccion" id="creditos" aria-labelledby="t-creditos">
   <div class="contenedor texto-largo">
-    <h2 class="seccion__titulo" id="t-creditos">Créditos de las fotos</h2>
+    <h2 class="seccion__titulo" id="t-creditos">{{t.creditos}}</h2>
     <ul class="creditos">
-      {{#creditos}}<li><b>{{titulo}}</b>: {{autor}}{{#licencia}}, {{licencia}}{{/licencia}}{{#url}} (<a href="{{url}}">ficha de la foto</a>){{/url}}{{#nota}}. {{nota}}{{/nota}}</li>
+      {{#creditos}}<li><b>{{titulo}}</b>: {{autor}}{{#licencia}}, {{licencia}}{{/licencia}}{{#url}} (<a href="{{url}}">{{t.ficha_foto}}</a>){{/url}}{{#nota}}. {{nota}}{{/nota}}</li>
       {{/creditos}}
     </ul>
   </div>

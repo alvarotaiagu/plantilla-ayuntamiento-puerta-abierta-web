@@ -1,0 +1,44 @@
+{{> documento_arriba}}
+{{> pictos_facil}}
+<!-- v3b · F10. Lectura fácil: frases cortas, una idea por línea, pasos numerados con su pictograma,
+     letra grande y nada de abreviaturas. El contenido sale de contenido/facil.json -->
+<section class="seccion seccion--primera" aria-labelledby="t-facil">
+  <div class="contenedor facil">
+    <h2 class="seccion__titulo" id="t-facil">Elija un trámite</h2>
+    <p class="facil__frase">Aquí le explicamos {{facil.n}} trámites con palabras fáciles.</p>
+    <p class="facil__frase">Cada trámite tiene sus pasos, en orden.</p>
+    <ul class="facil-lista">
+      {{#facil.items}}<li><a class="facil-lista__enlace" href="#{{id}}"><svg class="icono facil-lista__picto" aria-hidden="true"><use href="#f-{{picto}}"/></svg>{{titulo}}</a></li>
+      {{/facil.items}}
+    </ul>
+  </div>
+</section>
+
+{{#facil.items}}<section class="seccion facil-tramite" id="{{id}}" aria-labelledby="{{id}}-t" tabindex="-1">
+  <div class="contenedor facil">
+    <h2 class="facil__titulo" id="{{id}}-t"><svg class="icono facil__picto-grande" aria-hidden="true"><use href="#f-{{picto}}"/></svg>{{titulo}}</h2>
+    <h3 class="facil__subtitulo">Qué es</h3>
+    {{#que_es}}<p class="facil__frase">{{{html}}}</p>
+    {{/que_es}}
+    <h3 class="facil__subtitulo">Cómo se hace</h3>
+    <ol class="facil__pasos" role="list">
+      {{#pasos}}<li class="facil__paso"><span class="facil__numero" aria-hidden="true">{{n}}</span><svg class="icono facil__picto" aria-hidden="true"><use href="#f-{{picto}}"/></svg><p class="facil__frase"><span class="sr">Paso {{n}}. </span>{{{html}}}</p></li>
+      {{/pasos}}
+    </ol>
+    <p class="facil__accion"><a class="boton boton--marca facil__boton" href="{{href}}">{{boton}}<span class="sr">{{sr}}</span></a></p>
+    {{#sin_internet.length}}<h3 class="facil__subtitulo">Si no tiene internet</h3>
+    <ul class="facil__pasos facil__pasos--sin" role="list">
+      {{#sin_internet}}<li class="facil__paso"><svg class="icono facil__picto" aria-hidden="true"><use href="#f-{{picto}}"/></svg><p class="facil__frase">{{{html}}}</p></li>
+      {{/sin_internet}}
+    </ul>{{/sin_internet.length}}
+    <p class="facil__arriba"><a href="#t-facil">Volver a la lista de trámites</a></p>
+  </div>
+</section>
+{{/facil.items}}
+
+<section class="seccion" aria-label="Sobre este texto">
+  <div class="contenedor facil">
+    <p class="facil__nota">{{facil.nota}}</p>
+  </div>
+</section>
+{{> documento_abajo}}

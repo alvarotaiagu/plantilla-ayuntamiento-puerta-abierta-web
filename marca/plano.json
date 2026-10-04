@@ -1,0 +1,22 @@
+{
+  "_leeme": "Lo genera scripts/plano.mjs (no editar a mano salvo osm, radio_m y rotulos, que el script reutiliza). aplicar.mjs incrusta marca/plano.svg en el pie; sin él, el pie va a dos columnas.",
+  "fuente": "OpenStreetMap, por la API de Overpass",
+  "licencia": "ODbL 1.0",
+  "atribucion": "© colaboradores de OpenStreetMap",
+  "atribucion_url": "https://www.openstreetmap.org/copyright",
+  "osm": "way/566195233",
+  "nombre_osm": "Ayuntamiento de Ribera del Fresno",
+  "centro": [
+    38.5528492,
+    -6.2411282
+  ],
+  "radio_m": 170,
+  "rotulos": 3,
+  "metros_por_unidad": 1.0625,
+  "fecha": "2026-10-03",
+  "calles_rotuladas": [
+    "Calle Cura",
+    "Calle Coso",
+    "Calle Mercado"
+  ]
+}

@@ -1,0 +1,134 @@
+{{> documento_arriba}}
+{{#servicio.propuesta}}
+<section class="seccion seccion--primera" aria-labelledby="t-ahora">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-ahora">La web de ahora</h2>
+    {{#problemas.length}}<p>Hemos revisado {{#web_actual_texto}}<b>{{web_actual_texto}}</b>{{/web_actual_texto}}{{^web_actual_texto}}su web actual{{/web_actual_texto}} página por página{{#revisada_texto}} ({{revisada_texto}}){{/revisada_texto}}. Esto es lo que encontramos y se puede comprobar:</p>
+    <ul class="propuesta-lista">
+      {{#problemas}}<li>{{texto}}{{#fuente}} <span class="propuesta-lista__fuente">({{fuente}})</span>{{/fuente}}</li>
+      {{/problemas}}
+    </ul>
+    <p>No es culpa de nadie: son los fallos que salen cuando publicar cuesta trabajo y nadie tiene tiempo para revisar.</p>{{/problemas.length}}
+    {{^problemas.length}}<p>Las webs municipales de los pueblos pequeños suelen tener los mismos problemas: noticias de hace meses, enlaces que ya no llevan a ningún sitio, teléfonos que cambiaron y páginas que en el móvil no se pueden leer.</p>
+    <p>No es culpa de nadie: pasa cuando publicar cuesta trabajo y nadie tiene tiempo para revisar. Esta propuesta está pensada para que eso no ocurra.</p>{{/problemas.length}}
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-comparar">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-comparar">Antes y después</h2>
+    <p class="seccion__entradilla">La portada de la web actual y la de esta propuesta, a la misma medida.</p>
+    <figure class="comparador" data-comparador>
+      <div class="comparador__marco" style="--corte: 50%">
+        <div class="comparador__lado comparador__antes">
+          <p class="comparador__rotulo">Antes</p>
+          {{#antes}}<img src="{{raiz}}{{archivo}}" width="{{ancho}}" height="{{alto}}" alt="{{alt}}" decoding="async">{{/antes}}
+          {{^antes}}<div class="comparador__hueco" role="img" aria-label="Hueco para la captura de la web actual (pendiente)"><p>PENDIENTE: captura de la web actual</p></div>{{/antes}}
+        </div>
+        <div class="comparador__lado comparador__despues">
+          <p class="comparador__rotulo">Después</p>
+          {{#despues}}<img src="{{raiz}}{{archivo}}?v={{huella}}" width="{{ancho}}" height="{{alto}}" alt="Portada de la propuesta: el nombre del pueblo bajo un arco con la foto, el buscador de trámites, los botones de la sede y, debajo, lo que pasa hoy" decoding="async">{{/despues}}
+          {{^despues}}<div class="comparador__hueco" role="img" aria-label="La captura de la propuesta se genera al montar la web"><p>La captura de la portada nueva se genera al montar la web (node scripts/aplicar.mjs)</p></div>{{/despues}}
+        </div>
+        <span class="comparador__linea" aria-hidden="true"></span>
+      </div>
+      <div class="comparador__control" data-comparador-control hidden>
+        <label class="comparador__etiqueta" for="comparador-rango">Mover la línea entre la web actual (a la izquierda) y la propuesta (a la derecha)</label>
+        <input class="comparador__rango" id="comparador-rango" type="range" min="0" max="100" step="1" value="50" aria-valuetext="Mitad y mitad">
+      </div>
+      <figcaption class="nota-fuente">A la izquierda, la web de ahora; a la derecha, la propuesta. Con las flechas del teclado o arrastrando se mueve la línea.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-cambia">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-cambia">Qué cambia con esta web</h2>
+    <ul class="fichas propuesta-fichas">
+      <li class="ficha">
+        <h3 class="ficha__titulo">Se mantiene viva sola</h3>
+        <p>Dice si el Ayuntamiento está abierto ahora mismo{{#farmacias}}, qué farmacia está de guardia{{/farmacias}} y qué es lo próximo de la agenda. Las fiestas de fecha fija entran solas cada año y, con la autorización del Ayuntamiento, los anuncios del tablón de la sede se copian solos cada día. Lo que cambia con el calendario cambia sin que nadie toque nada.</p>
+      </li>
+      <li class="ficha">
+        <h3 class="ficha__titulo">Accesible, como pide la ley</h3>
+        <p>El Real Decreto 1112/2018 obliga a las webs públicas a cumplir las pautas WCAG 2.1 en su nivel AA. Esta se ha hecho para eso: texto grande, buen contraste, todo se usa con el teclado y se lee con el zoom al 200 %. Trae su <a href="{{raiz}}accesibilidad.html">declaración de accesibilidad</a> con el modelo oficial.</p>
+      </li>
+      <li class="ficha">
+        <h3 class="ficha__titulo">La sede, a un paso</h3>
+        <p>Los {{tramites_sede}} trámites de la sede electrónica están enlazados uno a uno. El vecino escribe lo que necesita con sus palabras («empadronarme», «licencia de obra») y llega al trámite exacto.</p>
+      </li>
+      <li class="ficha">
+        <h3 class="ficha__titulo">El tablón, en lenguaje claro</h3>
+        <p>Cada anuncio oficial puede llevar al lado un título que se entienda sin ser abogado. El documento con validez legal sigue en la sede. Lo que tiene datos personales no se repite en la web.</p>
+      </li>
+      <li class="ficha">
+        <h3 class="ficha__titulo">Hecha para el móvil</h3>
+        <p>Se lee bien en la pantalla más pequeña, los botones tienen tamaño de dedo y los teléfonos se llaman con un toque. El listín sigue abriéndose sin cobertura en un móvil que ya haya visitado la web.</p>
+      </li>
+      <li class="ficha">
+        <h3 class="ficha__titulo">Sin depender de las redes</h3>
+        <p>Quien no tenga Facebook puede llevarse la agenda a su calendario y recibir los avisos en un lector de noticias. Las redes siguen sirviendo; la web ya no depende de ellas.</p>
+      </li>
+      <li class="ficha">
+        <h3 class="ficha__titulo">Sin rastrear a nadie</h3>
+        <p>No usa cookies ni avisa a terceros de cada visita: las letras y los programas se sirven desde la propia web. El mapa de Google solo se carga si el vecino lo pide.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-publicar">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-publicar">Publicar es rellenar un formulario</h2>
+    <p>Las webs municipales se abandonan porque nadie publica. No falta voluntad: falta tiempo, y publicar suele pedir entrar en un programa, recordar una contraseña y pelearse con un editor.</p>
+    <p>Aquí, publicar un aviso, un acto de la agenda o una noticia es rellenar un formulario desde el móvil:</p>
+    <!-- v3c · guia: lo esencial en tres pasos y el simulador de «Publicar en la web» -->
+    <ol class="propuesta-pasos">
+      <li><b>Se elige qué publicar</b> en la página «Publicar en la web»: un aviso, un acto o una noticia.</li>
+      <li><b>Se rellena</b> la fecha, un título claro y, si es urgente, se marca.</li>
+      <li><b>Se envía.</b> En unos minutos sale en la portada y, si es urgente, en la franja roja de arriba de todas las páginas.</li>
+    </ol>
+    <p><a href="{{raiz}}publicar.html#t-pruebelo">Pruébelo: escriba un aviso y vea cómo quedaría</a> (es una simulación: no se publica nada). Esa página es también la guía para quien publique, con lo que sale dónde y cómo corregirlo, y se imprime en una hoja.</p>
+    <p>Si un día no se publica nada, la web no envejece: el horario, la farmacia, la agenda y las fiestas siguen al día.</p>
+    <p>El mantenimiento puede cubrir lo que no se resuelve con el formulario:</p>
+    <ul class="propuesta-lista">
+      <li>revisar que los títulos del tablón en lenguaje claro sean correctos;</li>
+      <li>publicar lo que el Ayuntamiento mande por WhatsApp o por correo;</li>
+      <li>cambiar la corporación, los horarios y las fiestas cuando cambien;</li>
+      <li>revisar la accesibilidad y su declaración una vez al año;</li>
+      <li>vigilar que los enlaces a la sede sigan funcionando.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-sin-redes">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-sin-redes">Avisos y agenda, también sin redes</h2>
+    <p>La web publica la agenda completa como calendario y los avisos y noticias como canal de noticias. Cualquier vecino puede llevarse la agenda al móvil con un toque y se le actualiza sola. Lo explica, paso a paso, la página <a href="{{raiz}}suscribirse.html">«Avisos y agenda en su móvil»</a>.</p>
+  </div>
+</section>
+
+<!-- [MANDO DE MAQUETA] inicio -->
+<section class="seccion propuesta-precio" aria-labelledby="t-precio" data-solo-revision>
+  <div class="contenedor texto-largo">
+    <p class="seccion__titulo" id="t-precio">Presupuesto</p>
+    <p class="propuesta-precio__hueco">[PRECIO: lo pone Álvaro]</p>
+    <p class="nota-fuente">Solo se ve con ?revision: no sale en la página que se manda.</p>
+  </div>
+</section>
+<!-- [MANDO DE MAQUETA] fin -->
+
+<section class="seccion" aria-labelledby="t-siguiente">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-siguiente">El siguiente paso</h2>
+    <p>Lo que ve es una maqueta completa con los datos reales de {{nombre}}: puede recorrerla entera desde el <a href="{{raiz}}index.html">inicio</a>. Lo marcado como «Ejemplo» es un dato que falta confirmar con el Ayuntamiento.</p>
+    {{#contacto}}<p>Para verla juntos o resolver cualquier duda{{#nombre}}, hable con {{nombre}}{{/nombre}}:</p>
+    <ul class="lista-enlaces propuesta-contacto">
+      {{#correo}}<li><a href="mailto:{{correo}}">{{correo}}</a></li>{{/correo}}
+      {{#telefono}}<li><a href="{{tel_href}}">{{telefono}}</a></li>{{/telefono}}
+    </ul>{{/contacto}}
+    {{^contacto}}<p>Para verla juntos o resolver cualquier duda, responda al correo con el que le ha llegado esta página.</p>{{/contacto}}
+  </div>
+</section>
+{{/servicio.propuesta}}
+{{> documento_abajo}}

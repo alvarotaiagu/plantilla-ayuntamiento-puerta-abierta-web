@@ -1,0 +1,118 @@
+{{> documento_arriba}}
+<!-- v3b · F9. «Avisar de un problema» sin servidor: el formulario prepara un correo al Ayuntamiento
+     (municipio.json → incidencias.correo). Con JavaScript (js/incidencia.js) valida con mensajes
+     accesibles y compone el mailto con asunto y cuerpo; sin JavaScript, el propio formulario se
+     envía como mailto (enctype text/plain) y el navegador valida los obligatorios -->
+<section class="seccion seccion--primera" aria-labelledby="t-urgente">
+  <div class="contenedor">
+    <div class="incidencia-urgente">
+      <svg class="icono incidencia-urgente__icono" aria-hidden="true"><use href="#i-aviso"/></svg>
+      <div>
+        <h2 class="incidencia-urgente__titulo" id="t-urgente">¿Es urgente o hay peligro?</h2>
+        <p>Si hay peligro o alguien está herido, llame al <a class="incidencia-urgente__tel" href="tel:112">112</a>.{{#incidencias.policia}} Para algo urgente en la calle, a la {{nombre}}: <a class="incidencia-urgente__tel" href="{{tel_href}}">{{telefono}}</a>.{{/incidencias.policia}}</p>
+        <p>Este formulario es para lo que puede esperar: le prepara un correo y el Ayuntamiento lo lee en horario de oficina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="seccion" aria-labelledby="t-aviso">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-aviso">Cuéntenos qué pasa</h2>
+    <p class="seccion__entradilla">Los campos con <span aria-hidden="true">*</span><span class="sr">asterisco</span> son obligatorios. Al final le preparamos un correo para <b class="rompe">{{incidencias.correo}}</b>: lo revisa y lo envía usted desde su correo.</p>
+
+    <div class="incidencia-errores" id="incidencia-errores" tabindex="-1" hidden data-incidencia-errores>
+      <h3 class="incidencia-errores__titulo">Revise estos datos antes de seguir:</h3>
+      <ul class="incidencia-errores__lista" data-incidencia-errores-lista></ul>
+    </div>
+
+    <form class="incidencia" action="mailto:{{incidencias.correo}}?subject={{incidencias.asunto_url}}" method="post" enctype="text/plain" data-incidencia data-correo="{{incidencias.correo}}" data-municipio="{{nombre}}">
+      <fieldset class="incidencia__grupo" id="campo-categoria" aria-describedby="error-categoria">
+        <legend class="incidencia__pregunta">1. ¿Qué pasa? <span aria-hidden="true">*</span></legend>
+        <p class="campo__error" id="error-categoria" hidden data-error-de="categoria"></p>
+        <div class="incidencia__opciones">
+          {{#incidencias.categorias}}<label class="incidencia__opcion" for="{{id}}">
+            <input type="radio" id="{{id}}" name="categoria" value="{{nombre}}" required><span class="incidencia__marca" aria-hidden="true"></span>
+            <span><b>{{nombre}}</b>{{#ayuda}}<span class="incidencia__ayuda">{{ayuda}}</span>{{/ayuda}}</span>
+          </label>
+          {{/incidencias.categorias}}
+        </div>
+      </fieldset>
+
+      <fieldset class="incidencia__grupo">
+        <legend class="incidencia__pregunta">2. ¿Dónde?</legend>
+        <div class="campo">
+          <label class="campo__etiqueta" for="campo-donde">Calle y número, o cómo llegar <span aria-hidden="true">*</span></label>
+          <p class="campo__ayuda campo__ayuda--arriba" id="ayuda-donde">Por ejemplo: «Calle Mayor, delante del 12» o «el camino del cementerio, a la altura del pozo».</p>
+          <p class="campo__error" id="error-donde" hidden data-error-de="donde"></p>
+          <textarea class="campo__entrada incidencia__texto--corto" id="campo-donde" name="donde" rows="2" required aria-describedby="ayuda-donde error-donde" autocomplete="off"></textarea>
+        </div>
+        <div class="incidencia__ubicacion" data-ubicacion hidden>
+          <button type="button" class="boton boton--borde" data-usar-ubicacion><svg class="icono" aria-hidden="true"><use href="#i-pin"/></svg>Usar mi ubicación</button>
+          <p class="campo__ayuda">Añade sus coordenadas al texto de arriba. No se abre ningún mapa ni se envían a nadie hasta que usted mande el correo.</p>
+          <p class="incidencia__estado" role="status" data-ubicacion-estado></p>
+        </div>
+      </fieldset>
+
+      <fieldset class="incidencia__grupo">
+        <legend class="incidencia__pregunta">3. Cuéntelo</legend>
+        <div class="campo">
+          <label class="campo__etiqueta" for="campo-descripcion">¿Qué ha visto? <span aria-hidden="true">*</span></label>
+          <p class="campo__ayuda campo__ayuda--arriba" id="ayuda-descripcion">Con sus palabras: qué pasa, desde cuándo y si molesta o es peligroso.</p>
+          <p class="campo__error" id="error-descripcion" hidden data-error-de="descripcion"></p>
+          <textarea class="campo__entrada" id="campo-descripcion" name="descripcion" rows="5" required aria-describedby="ayuda-descripcion error-descripcion"></textarea>
+        </div>
+        <div class="incidencia__foto">
+          <label class="incidencia__casilla" for="campo-foto"><input type="checkbox" id="campo-foto" name="foto" value="Adjunto una foto a este correo" aria-describedby="ayuda-foto"><span class="incidencia__marca incidencia__marca--casilla" aria-hidden="true"></span><span>Tengo una foto y la adjuntaré al correo</span></label>
+          <p class="campo__ayuda" id="ayuda-foto">Una foto ayuda mucho. Esta página no puede mandarla por usted: cuando se abra su correo, adjúntela allí (el clip o «Adjuntar»).</p>
+        </div>
+      </fieldset>
+
+      <fieldset class="incidencia__grupo">
+        <legend class="incidencia__pregunta">4. Sus datos <span class="incidencia__opcional">(si quiere que le respondan)</span></legend>
+        <div class="incidencia__datos">
+          <div class="campo">
+            <label class="campo__etiqueta" for="campo-nombre">Nombre</label>
+            <input class="campo__entrada" id="campo-nombre" name="nombre" type="text" autocomplete="name">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="campo-telefono">Teléfono</label>
+            <p class="campo__error" id="error-telefono" hidden data-error-de="telefono"></p>
+            <input class="campo__entrada" id="campo-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="error-telefono">
+          </div>
+          <div class="campo">
+            <label class="campo__etiqueta" for="campo-correo">Correo electrónico</label>
+            <p class="campo__error" id="error-correo" hidden data-error-de="correo"></p>
+            <input class="campo__entrada" id="campo-correo" name="correo" type="email" autocomplete="email" aria-describedby="error-correo">
+          </div>
+        </div>
+        <p class="campo__ayuda">El correo sale desde su propia cuenta, así que el Ayuntamiento ya sabrá a quién contestar. Más sobre sus datos en <a href="privacidad.html">Privacidad</a>.</p>
+      </fieldset>
+
+      <div class="incidencia__enviar">
+        <button class="boton boton--marca" type="submit"><svg class="icono" aria-hidden="true"><use href="#i-correo"/></svg>Preparar el correo</button>
+        <noscript><p class="campo__ayuda">Sin JavaScript, el botón abre su programa de correo con lo que haya escrito. Si no se abre, escriba a <a href="mailto:{{incidencias.correo}}">{{incidencias.correo}}</a>.</p></noscript>
+      </div>
+    </form>
+
+    <div class="incidencia-listo" id="incidencia-listo" tabindex="-1" hidden data-incidencia-listo>
+      <h3 class="incidencia-listo__titulo">Su aviso está listo</h3>
+      <p>Pulse el botón: se abrirá su programa de correo con el aviso escrito. Revíselo y pulse «Enviar».</p>
+      <p class="incidencia-listo__foto" data-recordar-foto hidden>Acuérdese de adjuntar la foto en el correo antes de enviarlo.</p>
+      <p><a class="boton boton--marca" href="mailto:{{incidencias.correo}}" data-incidencia-mailto><svg class="icono" aria-hidden="true"><use href="#i-correo"/></svg>Abrir mi correo con el aviso</a></p>
+      <div class="incidencia-listo__copiar" data-incidencia-copiar>
+        <p data-aviso-largo hidden><b>El aviso es largo</b> y algunos programas de correo lo cortan. Copie el texto y péguelo en el correo.</p>
+        <p>Si no se abre su correo, copie el texto y envíelo a <b class="rompe">{{incidencias.correo}}</b> con el asunto que aparece arriba del texto.</p>
+        <label class="campo__etiqueta" for="incidencia-texto">Texto del aviso</label>
+        <textarea class="campo__entrada incidencia-listo__texto" id="incidencia-texto" rows="10" readonly data-incidencia-texto></textarea>
+        <p class="incidencia-listo__acciones"><button class="boton boton--borde" type="button" data-copiar-texto>Copiar el texto</button> <span class="incidencia__estado" role="status" data-copiar-estado></span></p>
+      </div>
+      <p><button class="boton boton--borde" type="button" data-incidencia-volver>Cambiar algo del aviso</button></p>
+    </div>
+
+    {{#incidencias.sede}}<p class="nota-fuente">¿Tiene certificado digital o Cl@ve? También puede avisar en la sede electrónica, con registro de entrada: <a href="{{href}}">{{nombre}}<span class="sr">{{sr}}</span></a>.</p>{{/incidencias.sede}}
+  </div>
+</section>
+<script src="js/formulario-correo.js?v={{v.formulario_correo}}" defer></script>
+<script src="js/incidencia.js?v={{v.incidencia}}" defer></script>
+{{> documento_abajo}}

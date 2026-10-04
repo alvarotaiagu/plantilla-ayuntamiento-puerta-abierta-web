@@ -1,0 +1,315 @@
+{
+ "_leeme": "«El pueblo» em português (pueblo-pt.html). Lo lee scripts/aplicar.mjs: cada texto va emparejado por el nombre en castellano de municipio.json → pueblo. Si falta alguno, la página no se genera. Los nombres propios y los topónimos no se traducen.",
+ "nombre_idioma": "Português",
+ "og_locale": "pt_PT",
+ "pagina": {
+  "titulo": "A vila",
+  "titulo_doc": "A vila · Ribera del Fresno",
+  "entradilla": "Uma vila caiada da Tierra de Barros, com uma igreja de duas torres, um povoado pré-romano no alto de um cerro e um poeta do Iluminismo.",
+  "descripcion": "História, património, festas e gastronomia de Ribera del Fresno (Badajoz, Espanha)."
+ },
+ "cabecera_alt": "As duas torres brancas da igreja sobre os telhados da vila, com a serra ao fundo",
+ "ui": {
+  "idiomas": "Idiomas desta página",
+  "aviso_idioma": "O resto do sítio está em espanhol.",
+  "que_ver": "O que ver",
+  "para_visitar": "Para visitar",
+  "historia": "História",
+  "patrimonio": "Património",
+  "fiestas": "Festas",
+  "gastronomia": "Gastronomia",
+  "platos": "Pratos",
+  "dulces": "Doces",
+  "para_beber": "Para beber",
+  "personajes": "Personalidades",
+  "rutas": "Percursos pedestres",
+  "ver_la_ruta": "Ver o percurso (em espanhol)",
+  "comer_dormir": "Onde comer e dormir",
+  "llamar_a": "Ligar para",
+  "otra_web": ", abre outro sítio",
+  "negocios_privados": "São negócios privados: a Câmara Municipal não se responsabiliza pelos seus dados.",
+  "creditos": "Créditos das fotografias",
+  "ficha_foto": "ficha da fotografia",
+  "foto": "Foto:",
+  "termino_titulo": "O concelho num mapa",
+  "termino_pie": "Mapa do território municipal de {nombre}, desenhado com dados do OpenStreetMap{fecha}.",
+  "termino_fecha": " a {fecha}",
+  "termino_lugares": "Lugares do mapa",
+  "termino_leer": "Como ler o mapa",
+  "clave_limite": "Limite do território municipal (linha tracejada)",
+  "clave_casco": "A vila (área sombreada)",
+  "clave_carreteras": "Estradas (linha grossa)",
+  "clave_rutas": "Percursos (linha de pontos)",
+  "clave_puntos": "Círculo com número: um lugar da lista",
+  "clave_escala": "Escala: a barra de baixo mede",
+  "clave_recuadro": "Detalhe: a vila ampliada; a sua barra mede",
+  "clave_guia": "Linha fina com um ponto: o sítio exato, quando o número foi afastado para se poder ler",
+  "fiesta_mayor": "Festa principal",
+  "sin_fiestas": "Sem festas neste mês",
+  "migas": "Está aqui",
+  "inicio": "Início (em espanhol)",
+  "en_esta_pagina": "Nesta página"
+ },
+ "pueblo": {
+  "historia": [
+   "No Oppidum de Hornachuelos, provavelmente a Fornacis de Ptolomeu, já vivia gente na Idade do Cobre, e a sua melhor época foi entre o século II antes de Cristo e o século I depois de Cristo.",
+   "A Ordem de Santiago repovoou a vila no século XIII, que chegou a ser sede de Comenda; a primeira referência escrita é de 1257. Segundo a tradição, o nome vem de um grande freixo (fresno) nas margens do ribeiro Valdemedel.",
+   "O centro histórico foi refeito nos séculos XVII e XVIII: casas caiadas com grades negras e casas senhoriais barrocas com brasões. A Câmara Municipal ocupa o antigo convento de Jesús y María, das clarissas, fundado em 1535."
+  ],
+  "placa": {
+   "titulo": "A casa do poeta",
+   "pie": "Placa da casa natal do poeta, na Calle Larga",
+   "texto": "A placa diz: «Nesta casa que vês nasceu o admirável poeta Dom Juan Meléndez Valdés». Juan Meléndez Valdés (1754-1817), poeta e magistrado do Iluminismo, nasceu nesta rua. O busto de bronze da vila é de 1985, obra de Luis Martínez Giraldo."
+  },
+  "lugares": {
+   "Iglesia de Nuestra Señora de Gracia": {
+    "texto": "Duas torres gémeas, um retábulo barroco e um púlpito de mármore de Estremoz. Nos seus telhados nidifica o francelho.",
+    "alt": "As duas torres da igreja sobre os telhados, com a serra ao fundo"
+   },
+   "Monumento a Meléndez Valdés": {
+    "nombre": "Monumento a Meléndez Valdés",
+    "texto": "O poeta do Iluminismo nasceu na Calle Larga em 1754. O seu busto de bronze é de 1985.",
+    "alt": "Busto de bronze de Meléndez Valdés sobre um pedestal"
+   },
+   "Casa de Vargas-Zúñiga": {
+    "texto": "Casa senhorial dos séculos XVII e XVIII, hoje Casa de la Cultura (centro cultural) e biblioteca.",
+    "alt": "Fachada caiada da Casa de la Cultura, com grades e varandas"
+   },
+   "Oppidum de Hornachuelos": {
+    "texto": "Povoado fortificado pré-romano de cerca de cinco hectares, com centro de interpretação na Casa de la Cultura.",
+    "alt": "Restos de muros de pedra do povoado entre a erva"
+   },
+   "Los pozos rojos y blancos": {
+    "nombre": "Os poços vermelhos e brancos",
+    "texto": "Os poços do concelho pintam-se de vermelho no corpo e de branco no bocal.",
+    "alt": "Poço de corpo vermelho e bocal branco com o seu arco de ferro, no campo"
+   },
+   "Lavadero de lanas": {
+    "nombre": "Lavadouro de lãs",
+    "texto": "As ruínas dos seus arcos, junto ao ribeiro Valdemedel.",
+    "alt": "Arcos de tijolo em ruínas do antigo lavadouro de lãs"
+   }
+  },
+  "grupos": {
+   "Iglesia y ermitas": "Igreja e ermidas",
+   "Casas, palacios y monumentos": "Casas, palácios e monumentos",
+   "Arqueología y campo": "Arqueologia e campo"
+  },
+  "patrimonio": {
+   "Iglesia de Nuestra Señora de Gracia": {
+    "detalle": "Dos séculos XIII-XIV, reconstruída em 1745 e 1859. Duas torres gémeas, um retábulo barroco de Alonso Rodríguez Lucas e um púlpito de mármore de Estremoz. C/ Iglesia, 2."
+   },
+   "Ermita del Cristo de la Misericordia": {
+    "detalle": "Do século XVIII, com adro, arcada lateral e torre. Guarda a imagem do Cristo que a tradição atribui a Pedro Roldán."
+   },
+   "Ermita de la Aurora": {
+    "detalle": "Na Calle Meléndez Valdés. Conserva o cadeiral dos Treze da Ordem de Santiago e pedras visigóticas na soleira."
+   },
+   "Ermita del Cristo Viejo": {
+    "detalle": "Do século XVI, hoje em ruínas, com cúpula e uma torre de remate bolboso."
+   },
+   "Ermita de San Juan Macías": {
+    "detalle": "Construída em 1985 na casa natal do santo."
+   },
+   "Ermita de San Isidro": {
+    "detalle": "De 1998, a cerca de 4 km da vila."
+   },
+   "Casa natal de Juan Meléndez Valdés": {
+    "nombre": "Casa natal de Juan Meléndez Valdés",
+    "detalle": "Na Calle Larga, com a placa que recorda o poeta."
+   },
+   "Monumento a Meléndez Valdés": {
+    "nombre": "Monumento a Meléndez Valdés",
+    "detalle": "Busto de bronze de 1985, obra do escultor de Badajoz Luis Martínez Giraldo."
+   },
+   "Casa de Vargas-Zúñiga": {
+    "detalle": "Casa senhorial dos séculos XVII e XVIII, com varanda, brasão com vieira e grades com a cruz de Santiago. Hoje é a Casa de la Cultura."
+   },
+   "Palacio de Quintanilla": {
+    "detalle": "Na Calle Ayuntamiento, com fachada barroca."
+   },
+   "Casa de Bazo": {
+    "detalle": "Com uma varanda sob abóbada de vieira."
+   },
+   "Casas de los Olea y de los Grajera": {
+    "detalle": "Casas de esquina com brasões, dos séculos XVII e XVIII."
+   },
+   "Antiguo convento de Jesús y María": {
+    "nombre": "Antigo convento de Jesús y María",
+    "detalle": "Convento de clarissas fundado em 1535. Hoje é a Câmara Municipal."
+   },
+   "Oppidum de Hornachuelos": {
+    "detalle": "Povoado fortificado pré-romano de cerca de cinco hectares, escavado entre 1986 e 1997. Tem centro de interpretação na Casa de la Cultura."
+   },
+   "Pozo de San Juan Macías": {
+    "detalle": "Na herdade do Valle Garzón, a cerca de 4 km: o lugar do primeiro milagre do santo."
+   },
+   "Pilar del Caño": {
+    "detalle": "Bebedouro tradicional, nos arredores da vila."
+   },
+   "Los pozos rojos y blancos": {
+    "nombre": "Os poços vermelhos e brancos",
+    "detalle": "Os poços do concelho pintam-se de vermelho no corpo e de branco no bocal."
+   },
+   "Ruinas del lavadero de lanas": {
+    "nombre": "Ruínas do lavadouro de lãs",
+    "detalle": "Arcos de tijolo junto ao ribeiro Valdemedel."
+   }
+  },
+  "fiestas": {
+   "Jueves de Compadres": {
+    "cuando": "Duas quintas-feiras antes da Quarta-feira de Cinzas"
+   },
+   "Muestra de Vinos de Pitarra y Matanza": {
+    "nombre": "Muestra de Vinos de Pitarra y Matanza (mostra de vinho caseiro e da matança do porco)",
+    "cuando": "Finais de fevereiro"
+   },
+   "Carnaval y Semana Santa": {
+    "nombre": "Carnaval e Semana Santa",
+    "cuando": "Data variável"
+   },
+   "San Isidro": {
+    "cuando": "15 de maio"
+   },
+   "Festival Folklórico Internacional de la Baja Extremadura": {
+    "nombre": "Festival Folklórico Internacional de la Baja Extremadura (festival internacional de folclore)",
+    "cuando": "Terceiro fim de semana de julho"
+   },
+   "Festival de Teatro «Meléndez Valdés»": {
+    "nombre": "Festival de Teatro «Meléndez Valdés»",
+    "cuando": "No verão"
+   },
+   "Jornadas Gastronómicas y Artesanales": {
+    "nombre": "Jornadas Gastronómicas e Artesanais",
+    "cuando": "Primeiro fim de semana de agosto"
+   },
+   "Fiestas del Emigrante": {
+    "nombre": "Fiestas del Emigrante (festa dos emigrantes)",
+    "cuando": "15 de agosto"
+   },
+   "Día de Extremadura": {
+    "nombre": "Dia da Estremadura",
+    "cuando": "8 de setembro"
+   },
+   "Ferias y Fiestas del Cristo de la Misericordia": {
+    "cuando": "A partir de 14 de setembro, quatro dias"
+   },
+   "Romería al Pozo de San Juan Macías": {
+    "nombre": "Romaria ao Pozo de San Juan Macías",
+    "cuando": "O domingo a seguir às festas do Cristo"
+   },
+   "FEAVIR, Feria Avícola": {
+    "nombre": "FEAVIR, Feira Avícola",
+    "cuando": "Segunda semana de novembro"
+   }
+  },
+  "platos": [
+   "Gazpacho (sopa fria de tomate)",
+   "Bacalao en cantina (bacalhau)",
+   "Escabeche",
+   "Caldereta de cordero (ensopado de borrego)",
+   "Pescadilla (pescada)",
+   "Tapas de guarrino (petiscos de porco)",
+   "Migas",
+   "Garbanzos con romazas (grão com labaças)",
+   "Repápalos de leche (bolinhos de pão em leite)"
+  ],
+  "dulces": [
+   "Roscas de candil (roscas de anis)",
+   "Flores (filhoses em forma de flor)",
+   "Prestines (fritos com mel)",
+   "Tirabuzones (espirais fritas)",
+   "Perrunillas (bolachas de banha)",
+   "Bollos de Pascua (bolos da Páscoa)",
+   "Coquillos",
+   "Hijuelas",
+   "Torrijas (rabanadas)"
+  ],
+  "bebidas": [
+   "Vino de pitarra (vinho caseiro)",
+   "Resóleo (licor de café e anis)",
+   "Vinho e azeite virgem extra da terra"
+  ],
+  "gastronomia_alt": "Tabuleiro de doces típicos: flores, perrunillas e roscas",
+  "personajes": {
+   "Juan Meléndez Valdés": {
+    "texto": "Poeta e magistrado do Iluminismo. Nasceu na Calle Larga."
+   },
+   "San Juan Macías": {
+    "texto": "Dominicano em Lima, canonizado em 1975. A sua casa natal é hoje uma ermida."
+   },
+   "Alonso García Bravo": {
+    "fechas": "c. 1490-1561",
+    "texto": "Alarife de Hernán Cortés: traçou a primeira planta da Cidade do México."
+   },
+   "José María Chacón Pachón": {
+    "fechas": "século XIX",
+    "texto": "Deputado na I República espanhola."
+   }
+  },
+  "rutas": {
+   "Ruta al Cerro de Hornachuelos": {
+    "nombre": "Percurso ao Cerro de Hornachuelos",
+    "resumen": "Pelo caminho de Peñas del Agua até à Cañada Real Leonesa; vistas sobre cinco ou seis povoações e sobre a barragem de Los Molinos"
+   },
+   "Ruta al Pozo de San Juan Macías": {
+    "nombre": "Percurso ao Pozo de San Juan Macías",
+    "resumen": "Da Plaza de España pela C/ Sevilla; cerca de 4 km; regresso pela Vereda de la Tía Juana"
+   },
+   "Ruta al Cortijo de Siete Iglesias": {
+    "nombre": "Percurso ao Cortijo de Siete Iglesias",
+    "resumen": "Monte do século XVIII do Marquês de Siete Iglesias, na Cañada Real Leonesa"
+   },
+   "Ruta al Cortijo de Quintana": {
+    "nombre": "Percurso ao Cortijo de Quintana",
+    "resumen": "Monte do início do século XX com lagar de azeite e adega"
+   },
+   "Ruta a la Bodega y Cortijo de Peñaovejera": {
+    "nombre": "Percurso à Bodega y Cortijo de Peñaovejera",
+    "resumen": "Adega histórica; povoados visigóticos e romanos nas proximidades"
+   },
+   "Ruta al Punto de Mira de Las Cabezas": {
+    "nombre": "Percurso ao Punto de Mira de Las Cabezas",
+    "resumen": "Cerro com vistas sobre seis povoações e um povoado romano"
+   },
+   "Ruta al Cortijo Bonito": {
+    "nombre": "Percurso ao Cortijo Bonito",
+    "resumen": "Passa por Los Pilones (zona de merendas no ribeiro Valdemedel); abetardas e grous"
+   }
+  }
+ },
+ "creditos": {
+  "calle-torre": {
+   "titulo": "Avenida com torre (página inicial)",
+   "autor": "sítio da Câmara Municipal",
+   "nota": "Só para esta proposta: para a publicar é precisa a autorização da Câmara"
+  },
+  "iglesia-torres": {
+   "titulo": "As duas torres da igreja",
+   "autor": "cartaz da DEMA e da Junta de Extremadura (2014), sítio da Câmara Municipal",
+   "nota": "Só para esta proposta: para a publicar é precisa a autorização da Câmara"
+  },
+  "casa-cultura": {
+   "titulo": "Casa de la Cultura",
+   "autor": "sítio da Câmara Municipal",
+   "nota": "Só para esta proposta: para a publicar é precisa a autorização da Câmara"
+  },
+  "dulces": {
+   "titulo": "Doces típicos",
+   "autor": "sítio da Câmara Municipal",
+   "nota": "Só para esta proposta: para a publicar é precisa a autorização da Câmara"
+  },
+  "monumento-melendez": {
+   "titulo": "Monumento a Meléndez Valdés"
+  },
+  "oppidum": {
+   "titulo": "Oppidum de Hornachuelos"
+  },
+  "pozo-tinajona": {
+   "titulo": "Poço de «La Tinajona»"
+  },
+  "lavadero": {
+   "titulo": "Ruínas do lavadouro de lãs"
+  }
+ }
+}

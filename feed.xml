@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="es">
+  <title>Avisos y noticias · Ayuntamiento de Ribera del Fresno</title>
+  <subtitle>Lo que publica el Ayuntamiento de Ribera del Fresno: avisos (cortes, convocatorias, plazos) y noticias.</subtitle>
+  <id>urn:uuid:1ba7bdb6-4e43-30b7-d53a-b9ca95e0200a</id>
+  <link rel="self" type="application/atom+xml" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/feed.xml"/>
+  <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/avisos.html"/>
+  <updated>2026-10-02T09:00:00+02:00</updated>
+  <author><name>Ayuntamiento de Ribera del Fresno</name></author>
+  <icon>https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/marca/escudo-160.png</icon>
+  <entry>
+    <title>EJEMPLO: Corte de agua programado en varias calles, de 9:00 a 13:00</title>
+    <id>urn:uuid:2781e53e-4b79-3d9b-724a-0295d81f80d8</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/avisos.html#aviso-corte-agua-ejemplo"/>
+    <published>2026-10-02T09:00:00+02:00</published>
+    <updated>2026-10-02T09:00:00+02:00</updated>
+    <category term="aviso" label="Aviso"/>
+    <summary type="text">Dato de ejemplo de la propuesta de diseño, no es un aviso real. Así se vería un aviso programado: las calles afectadas, la hora del corte y la hora prevista de vuelta del agua. Sale en la franja ámbar de arriba de todas las páginas y se quita sola el día que caduca. Un aviso urgente (una avería, una alerta) saldría en rojo.</summary>
+  </entry>
+  <entry>
+    <title>Reunión informativa sobre la V Feria del Comercio</title>
+    <id>urn:uuid:10800675-d2d5-3c75-07f7-2847825d1e2a</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/avisos.html#aviso-reunion-feria-comercio"/>
+    <published>2026-10-02T09:00:00+02:00</published>
+    <updated>2026-10-02T09:00:00+02:00</updated>
+    <category term="aviso" label="Aviso"/>
+    <summary type="text">Viernes 2 de octubre, a las 20:30, en la Casa de la Cultura. Para comercios y negocios que quieran participar.</summary>
+  </entry>
+  <entry>
+    <title>Reunión informativa sobre la V Feria del Comercio</title>
+    <id>urn:uuid:63200efe-ddf6-d003-10eb-eabe1f68bfe5</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/noticia-reunion-v-feria-comercio.html"/>
+    <published>2026-10-02T09:00:00+02:00</published>
+    <updated>2026-10-02T09:00:00+02:00</updated>
+    <category term="noticia" label="Noticia"/>
+    <summary type="text">Hoy viernes, a las 20:30, en la Casa de la Cultura.</summary>
+  </entry>
+  <entry>
+    <title>EJEMPLO: Bolsa de trabajo de auxiliar de ayuda a domicilio: plazo de solicitudes</title>
+    <id>urn:uuid:57c1504b-8da4-eb81-1a1e-0ea2e4fb3176</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/avisos.html#aviso-empleo-ejemplo"/>
+    <published>2026-10-01T09:00:00+02:00</published>
+    <updated>2026-10-01T09:00:00+02:00</updated>
+    <category term="aviso" label="Aviso"/>
+    <summary type="text">Dato de ejemplo de la propuesta de diseño, no es un aviso real. Así se vería una oferta de empleo del Ayuntamiento: qué puesto es, cuántas plazas, los requisitos básicos y hasta cuándo se puede pedir, con el enlace a las bases en el tablón de la sede. Sale con el tema «Empleo», su cuenta atrás y, mientras el plazo esté abierto, en la ficha «Empleo» de la portada.</summary>
+  </entry>
+  <entry>
+    <title>Abierta la convocatoria 2026 de ayudas a la natalidad</title>
+    <id>urn:uuid:c8e6bf7c-70c5-0e31-0b1c-bc14068badc6</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/noticia-ayudas-natalidad-2026.html"/>
+    <published>2026-10-01T09:00:00+02:00</published>
+    <updated>2026-10-01T09:00:00+02:00</updated>
+    <category term="noticia" label="Noticia"/>
+    <summary type="text">Las bases y la solicitud están en el tablón de la sede electrónica.</summary>
+  </entry>
+  <entry>
+    <title>El concejal de Deportes informa sobre el campo de césped artificial</title>
+    <id>urn:uuid:04fcdb33-e7fc-66c5-26c1-953868d9d07d</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/noticia-campo-cesped-artificial.html"/>
+    <published>2026-10-01T09:00:00+02:00</published>
+    <updated>2026-10-01T09:00:00+02:00</updated>
+    <category term="noticia" label="Noticia"/>
+    <summary type="text">Andrés Bermejo explica en qué punto está el proyecto.</summary>
+  </entry>
+  <entry>
+    <title>Instalada una nueva cruz de 8 × 4 metros en el Pozo de San Juan</title>
+    <id>urn:uuid:9bdd463e-0db7-9bc7-9d68-23979479cd92</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/noticia-cruz-pozo-san-juan.html"/>
+    <published>2026-10-01T09:00:00+02:00</published>
+    <updated>2026-10-01T09:00:00+02:00</updated>
+    <category term="noticia" label="Noticia"/>
+    <summary type="text">El camino de peregrinación desde el pueblo estará listo a finales de año.</summary>
+  </entry>
+  <entry>
+    <title>Ya se puede ver la grabación del pleno del 30 de septiembre</title>
+    <id>urn:uuid:0a86561e-7734-885f-1e11-93729ddc7f03</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/noticia-grabacion-pleno-30-septiembre.html"/>
+    <published>2026-10-01T09:00:00+02:00</published>
+    <updated>2026-10-01T09:00:00+02:00</updated>
+    <category term="noticia" label="Noticia"/>
+    <summary type="text">El pleno ordinario, grabado entero.</summary>
+  </entry>
+  <entry>
+    <title>Anuncio previo de las instalaciones eléctricas «Anillo Norte»</title>
+    <id>urn:uuid:4ec1b4ec-0bba-6530-1dc4-cf07c1699671</id>
+    <link rel="alternate" type="text/html" href="https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/noticia-anillo-norte.html"/>
+    <published>2026-09-29T09:00:00+02:00</published>
+    <updated>2026-09-29T09:00:00+02:00</updated>
+    <category term="noticia" label="Noticia"/>
+    <summary type="text">Publicado en el tablón antes de empezar la obra.</summary>
+  </entry>
+</feed>

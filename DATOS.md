@@ -161,10 +161,13 @@ Estado comprobado el 02/10/2026.
 | Cita previa | No hay cita municipal. La web enlaza la cita de la ITV (citapreviaitv.gobex.es) | **ROTO** (no responde) |
 | Bandomóvil / app de avisos | no consta [PENDIENTE] | — |
 | RSS del BOP | **No existe.** El icono RSS del bloque «Anuncios en el BOP» lleva a `rss.php`, que solo tiene feeds de noticias, tablón y agenda. Listado de anuncios: <https://riberadelfresno.es/bop.php> | — |
+| Ordenanzas (web actual) | <https://riberadelfresno.es/plantilla.php?enlace=ordenanzas> | 200 (04/10/2026). Lista de su web; no tiene las aprobadas en 2026. En `transparencia.html` (v3c) |
+| Anuncios del Ayuntamiento en el BOP (web actual) | <https://riberadelfresno.es/bop.php> | 200 (04/10/2026). De ahí salen, con su título y su enlace, los anuncios que enlaza `transparencia.html`: presupuesto general de 2026, aprobación definitiva (344/2026, BOP 05/02/2026); exposición pública de la cuenta general de 2025 (3352/2026, BOP 24/08/2026); bases de las subvenciones a asociaciones de 2026 (2828/2026, BOP 16/07/2026). El `robots.txt` de dip-badajoz.es prohíbe `/bop` a los robots: los anuncios **no se han abierto**, solo se enlazan como los enlaza su web. Los títulos de empleo de `CASOS_EMPLEO` (`scripts/lib/tablon.mjs`) salen también de esta lista |
 | Feeds de la web | <https://riberadelfresno.es/atomnoticias.php> · <https://riberadelfresno.es/atomtablon.php> · <https://riberadelfresno.es/atomagenda.php> | 200 |
 | OAR | <http://cervantes.dip-badajoz.es/contenidos/> | 200 |
 | Vida laboral | <https://sede.seg-social.gob.es/Sede_1/ServiciosenLinea/Ciudadanos/168694> | 200 |
-| El tiempo (AEMET) | <http://www.aemet.es/es/eltiempo/prediccion/municipios/ribera-del-fresno-id06113> | 200 |
+| El tiempo (AEMET) | <http://www.aemet.es/es/eltiempo/prediccion/municipios/ribera-del-fresno-id06113> | 200. INE **06113** (`municipio.json → ine`), el mismo que el DIR3 L0106113**4**. Comprobado el 03/10/2026: AEMET decide el pueblo por el número (con otro nombre en la URL sigue saliendo Ribera) |
+| Farmacias de guardia (Colegio Oficial de Farmacéuticos de Badajoz) | <https://cofbadajoz.com/farmacias-de-guardia/> | 200 (03/10/2026). Es un buscador provincial; `cofbadajoz.es` no responde. El calendario de guardias de Ribera no consta: la rotación de la web es de **ejemplo** |
 | Observatorio socioeconómico | <https://portalestadistico.com/municipioencifras/?pn=dip-badajoz&pc=WRC03&id_territorio=06113> | 200 |
 | Vídeo promocional | <https://youtu.be/DV9DXcXjrYY> | 200 |
 | Web de Meléndez Valdés | <http://www.juanmelendezvaldes.es/> | 200 |

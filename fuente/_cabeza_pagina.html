@@ -1,5 +1,5 @@
-<div class="cabeza-pagina">
-  <div class="contenedor">
+<div class="cabeza-pagina{{#pagina.cabecera}} cabeza-pagina--foto{{/pagina.cabecera}}{{#pagina.cabeza_grande}} cabeza-pagina--grande{{/pagina.cabeza_grande}}{{#pagina.cabeza_arco}} cabeza-pagina--arco{{/pagina.cabeza_arco}}">
+  <div class="contenedor cabeza-pagina__rejilla">
     <nav class="migas" aria-label="Usted está aquí">
       <ol>
         <li><a href="{{raiz}}index.html">Inicio</a></li>
@@ -9,5 +9,24 @@
     </nav>
     <h1 class="cabeza-pagina__titulo" id="titulo-pagina">{{pagina.titulo}}</h1>
     {{#pagina.entradilla}}<p class="entradilla">{{pagina.entradilla}}</p>{{/pagina.entradilla}}
+    {{#pagina.cabecera}}<figure class="cabeza-pagina__puerta">
+      <div class="cabeza-pagina__arco arco-opcional"><img src="{{raiz}}media/{{archivo}}.jpg" srcset="{{raiz}}media/{{archivo}}-800.jpg 800w, {{raiz}}media/{{archivo}}.jpg {{ancho}}w" sizes="(min-width: 64em) 34rem, (min-width: 48em) 16rem, 92vw" width="{{ancho}}" height="{{alto}}" alt="{{alt}}" style="object-position: {{posicion}}" fetchpriority="high" decoding="async"></div>
+      <span class="cabeza-pagina__umbral" aria-hidden="true"></span>
+      {{#credito}}<figcaption class="credito">{{credito}}</figcaption>{{/credito}}
+    </figure>{{/pagina.cabecera}}
+    {{#pagina.cabeza_arco}}<div class="cabeza-pagina__puerta cabeza-pagina__puerta--linea" aria-hidden="true"><span class="cabeza-pagina__arco cabeza-pagina__arco--linea">{{#pagina.pictograma}}<svg class="cabeza-pagina__picto" viewBox="0 0 24 24" focusable="false" data-picto="{{pagina.picto}}">{{{pagina.pictograma}}}</svg>{{/pagina.pictograma}}</span><span class="cabeza-pagina__umbral"></span></div>{{/pagina.cabeza_arco}}
   </div>
 </div>
+{{#pagina.indice.length}}<div class="contenedor con-indice">
+  <nav class="indice indice--movil" aria-label="En esta página">
+    <details class="indice__plegable" open><summary class="indice__resumen">En esta página</summary>
+      <ol class="indice__lista">{{#pagina.indice}}<li><a href="#{{id}}">{{texto}}</a></li>{{/pagina.indice}}</ol>
+    </details>
+    <script>/* plegado en el móvil antes de pintarse (sin JavaScript, abierto: se ve la lista) */ (function (d) { if (window.matchMedia && matchMedia('(max-width: 63.99em)').matches) d.open = false; })(document.currentScript.previousElementSibling);</script>
+  </nav>
+  <nav class="indice indice--lateral" aria-labelledby="indice-titulo">
+    <p class="indice__titulo" id="indice-titulo">En esta página</p>
+    <ol class="indice__lista">{{#pagina.indice}}<li><a href="#{{id}}">{{texto}}</a></li>{{/pagina.indice}}</ol>
+  </nav>
+  <div class="con-indice__cuerpo">
+{{/pagina.indice.length}}

@@ -1,0 +1,21 @@
+{
+  "_leeme": "Respuestas reales del 2026-10-04 para Segura de León (INE 06124), recortadas a lo que lee scripts/nuevo-municipio.mjs. Las usa verificar.mjs (v3calta) con --sin-red. Sin la de Overpass (el mapa del término no se prueba aquí).",
+  "fecha": "2026-10-04",
+  "entrada": "06124",
+  "ine": "06124",
+  "item": "Q1354528",
+  "urls": [
+    "https://servicios.ine.es/wstempus/js/ES/TABLAS_OPERACION/22",
+    "https://servicios.ine.es/wstempus/js/ES/DATOS_TABLA/2859?nult=3&tip=M",
+    "https://qlever.cs.uni-freiburg.de/api/wikidata",
+    "https://qlever.cs.uni-freiburg.de/api/wikidata",
+    "https://qlever.cs.uni-freiburg.de/api/wikidata",
+    "https://qlever.cs.uni-freiburg.de/api/wikidata",
+    "https://qlever.cs.uni-freiburg.de/api/wikidata",
+    "https://commons.wikimedia.org/wiki/File:Escudo_Segura_de_Le%C3%B3n.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/9/92/Escudo_Segura_de_Le%C3%B3n.svg",
+    "https://seguradeleon.es/",
+    "https://seguradeleon.sedelectronica.es/info.0",
+    "Overpass (scripts/termino.mjs), relation/340003"
+  ]
+}

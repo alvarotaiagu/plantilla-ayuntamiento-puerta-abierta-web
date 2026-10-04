@@ -1,0 +1,307 @@
+{
+ "_leeme": "MUESTRA SINTÉTICA para las pruebas de verificar.mjs (v3bPueblo): NO es el término real de ningún municipio ni datos de OpenStreetMap. Contorno, carreteras (XX-1, XX-2) y posiciones inventados, con ids de OSM falsos (90000xx). Solo se aplica sobre una copia.",
+ "_muestra": "Muestra sintética para pruebas: no son datos reales",
+ "limite": {
+  "type": "relation",
+  "id": 9000000,
+  "tags": {
+   "boundary": "administrative",
+   "admin_level": "8",
+   "name": "Ribera del Fresno"
+  },
+  "members": [
+   {
+    "type": "way",
+    "ref": 9000001,
+    "role": "outer",
+    "geometry": [
+     {
+      "lat": 38.62515,
+      "lon": -6.310021
+     },
+     {
+      "lat": 38.643237,
+      "lon": -6.264074
+     },
+     {
+      "lat": 38.634193,
+      "lon": -6.206639
+     },
+     {
+      "lat": 38.607062,
+      "lon": -6.160692
+     },
+     {
+      "lat": 38.561844,
+      "lon": -6.149205
+     }
+    ]
+   },
+   {
+    "type": "way",
+    "ref": 9000002,
+    "role": "outer",
+    "geometry": [
+     {
+      "lat": 38.498538,
+      "lon": -6.298534
+     },
+     {
+      "lat": 38.471407,
+      "lon": -6.252587
+     },
+     {
+      "lat": 38.48045,
+      "lon": -6.195153
+     },
+     {
+      "lat": 38.516625,
+      "lon": -6.172179
+     },
+     {
+      "lat": 38.561844,
+      "lon": -6.149205
+     }
+    ]
+   },
+   {
+    "type": "way",
+    "ref": 9000003,
+    "role": "outer",
+    "geometry": [
+     {
+      "lat": 38.498538,
+      "lon": -6.298534
+     },
+     {
+      "lat": 38.543756,
+      "lon": -6.321508
+     },
+     {
+      "lat": 38.588975,
+      "lon": -6.321508
+     },
+     {
+      "lat": 38.62515,
+      "lon": -6.310021
+     }
+    ]
+   }
+  ]
+ },
+ "pueblo": {
+  "type": "node",
+  "id": 9000020,
+  "lat": 38.5528,
+  "lon": -6.2411,
+  "tags": {
+   "place": "village",
+   "name": "Ribera del Fresno"
+  }
+ },
+ "casco": [
+  {
+   "type": "way",
+   "id": 9000010,
+   "tags": {
+    "landuse": "residential"
+   },
+   "geometry": [
+    {
+     "lat": 38.549183,
+     "lon": -6.246843
+    },
+    {
+     "lat": 38.548278,
+     "lon": -6.235357
+    },
+    {
+     "lat": 38.556417,
+     "lon": -6.234208
+    },
+    {
+     "lat": 38.557322,
+     "lon": -6.245695
+    },
+    {
+     "lat": 38.549183,
+     "lon": -6.246843
+    }
+   ]
+  }
+ ],
+ "elementos": [
+  {
+   "type": "node",
+   "id": 9000020,
+   "lat": 38.5528,
+   "lon": -6.2411,
+   "tags": {
+    "place": "village",
+    "name": "Ribera del Fresno"
+   }
+  },
+  {
+   "type": "way",
+   "id": 9000030,
+   "tags": {
+    "highway": "secondary",
+    "ref": "XX-1"
+   },
+   "geometry": [
+    {
+     "lat": 38.525669,
+     "lon": -6.344482
+    },
+    {
+     "lat": 38.543756,
+     "lon": -6.275561
+    },
+    {
+     "lat": 38.5528,
+     "lon": -6.2411
+    },
+    {
+     "lat": 38.570887,
+     "lon": -6.195153
+    },
+    {
+     "lat": 38.588975,
+     "lon": -6.126231
+    }
+   ]
+  },
+  {
+   "type": "way",
+   "id": 9000031,
+   "tags": {
+    "highway": "tertiary",
+    "ref": "XX-2"
+   },
+   "geometry": [
+    {
+     "lat": 38.5528,
+     "lon": -6.2411
+    },
+    {
+     "lat": 38.507581,
+     "lon": -6.229613
+    },
+    {
+     "lat": 38.453319,
+     "lon": -6.218126
+    }
+   ]
+  },
+  {
+   "type": "way",
+   "id": 9000040,
+   "tags": {
+    "historic": "archaeological_site",
+    "name": "Oppidum de Hornachuelos"
+   },
+   "geometry": [
+    {
+     "lat": 38.598019,
+     "lon": -6.287047
+    },
+    {
+     "lat": 38.598019,
+     "lon": -6.282453
+    },
+    {
+     "lat": 38.601636,
+     "lon": -6.282453
+    },
+    {
+     "lat": 38.601636,
+     "lon": -6.287047
+    },
+    {
+     "lat": 38.598019,
+     "lon": -6.287047
+    }
+   ]
+  },
+  {
+   "type": "node",
+   "id": 9000041,
+   "lat": 38.521147,
+   "lon": -6.212383,
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Ermita de San Isidro"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9000042,
+   "lat": 38.553704,
+   "lon": -6.237654,
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Iglesia de Nuestra Señora de Gracia"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9000043,
+   "lat": 38.558226,
+   "lon": -6.250289,
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Ermita del Cristo"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9000044,
+   "lat": 38.534713,
+   "lon": -6.200896,
+   "tags": {
+    "man_made": "water_well",
+    "name": "Pozo de San Juan Macías"
+   }
+  },
+  {
+   "type": "node",
+   "id": 9000045,
+   "lat": 38.733674,
+   "lon": -6.011363,
+   "tags": {
+    "amenity": "place_of_worship",
+    "name": "Ermita de la Aurora"
+   }
+  },
+  {
+   "type": "relation",
+   "id": 9000050,
+   "tags": {
+    "route": "hiking",
+    "name": "Ruta de muestra"
+   },
+   "members": [
+    {
+     "type": "way",
+     "ref": 9000051,
+     "role": "",
+     "geometry": [
+      {
+       "lat": 38.5528,
+       "lon": -6.2411
+      },
+      {
+       "lat": 38.570887,
+       "lon": -6.25833
+      },
+      {
+       "lat": 38.599827,
+       "lon": -6.28475
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "fecha": "2026-10-03"
+}

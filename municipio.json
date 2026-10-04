@@ -11,12 +11,31 @@
     "fuente": "INE 2025"
   },
   "altitud_m": 399,
+  "_cifras_leeme": "v3b · «… en cifras» en la portada: 4 o 5 números con su fuente visible. valor (número o texto, p. ej. un año), unidad, etiqueta, fuente, fuente_url y anio (del dato). Solo datos con fuente: la distancia a Badajoz no se pone porque las fuentes no coinciden (82, 83 o 107,6 km; ver DATOS.md). Sin el campo, la banda no sale.",
+  "cifras": [
+    {"valor": 3130, "unidad": "habitantes", "etiqueta": "en el padrón municipal", "fuente": "INE, padrón (observatorio de la Diputación de Badajoz)", "fuente_url": "https://portalestadistico.com/municipioencifras/?pn=dip-badajoz&pc=WRC03&id_territorio=06113", "anio": 2025},
+    {"valor": 185.6, "unidad": "km²", "etiqueta": "de término municipal", "fuente": "Diputación de Badajoz, ficha del municipio", "fuente_url": "https://www.dip-badajoz.es/municipios/municipio_dinamico/inicio/index_inicio.php?codigo=128", "anio": null},
+    {"valor": 399, "unidad": "m", "etiqueta": "de altitud sobre el nivel del mar", "fuente": "Diputación de Badajoz, ficha del municipio", "fuente_url": "https://www.dip-badajoz.es/municipios/municipio_dinamico/inicio/index_inicio.php?codigo=128", "anio": null},
+    {"valor": "1257", "unidad": null, "etiqueta": "primera referencia escrita de la villa, repoblada por la Orden de Santiago", "fuente": "Diputación de Badajoz, historia del municipio", "fuente_url": "https://www.dip-badajoz.es/municipios/municipio_dinamico/inicio/index_inicio.php?codigo=128", "anio": null}
+  ],
   "lema": "Vive la Historia",
   "propuesta": true,
   "indexar": false,
   "url": "https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-web/",
   "fecha_datos": "2026-10-02",
   "web_actual": "https://riberadelfresno.es",
+  "propuesta_web": {
+    "_leeme": "Solo para propuesta.html (la página para el alcalde; se quita sola con \"propuesta\": false). problemas: lo que se puede comprobar en su web actual, con su fuente (DATOS.md). captura_antes: {archivo, alt} con una captura de su portada actual (si no, sale un hueco marcado PENDIENTE). contacto: {nombre, correo, telefono} de quien presenta la propuesta (si no, «responda al correo con el que le ha llegado»). revisada: AAAA-MM-DD de la revisión.",
+    "problemas": [
+      { "texto": "El icono de Instagram lleva a plus.google.com, una red que cerró en 2019; la cuenta de Instagram del Ayuntamiento (@aytoriberadelfresno) no está enlazada en ninguna parte.", "fuente": "DATOS.md, redes sociales" },
+      { "texto": "El teléfono que da para la Guardia Civil (924 53 60 11) es el del propio Ayuntamiento; el del puesto es el 924 536 013.", "fuente": "guardiacivil.es" },
+      { "texto": "Hay enlaces que no llevan a ningún sitio: el «Histórico del perfil» del contratante que enlaza la sede y la cita previa de la ITV.", "fuente": "comprobado en octubre de 2026" },
+      { "texto": "Sigue ofreciendo las inscripciones de la temporada deportiva 2023.", "fuente": "formularios enlazados desde la web" },
+      { "texto": "Arrastra erratas en nombres propios: «Vigilio» por Virgilio (la biblioteca), «Matrachel» por Matachel (la mancomunidad) y «Alcade» por Alcalde.", "fuente": "DATOS.md" }
+    ],
+    "captura_antes": null,
+    "contacto": null
+  },
   "contacto": {
     "direccion": "C/ Ayuntamiento, 1",
     "cp": "06225",
@@ -64,6 +83,56 @@
     "texto": "Las grabaciones de los plenos se publican en el Facebook del Ayuntamiento.",
     "url": "https://www.facebook.com/AyuntamientodeRiberadelFresno"
   },
+  "ine": "06113",
+  "plenos": [
+    {
+      "fecha": "2026-09-30",
+      "tipo": "ordinario",
+      "grabacion": "https://www.facebook.com/AyuntamientodeRiberadelFresno"
+    },
+    {
+      "fecha": "2026-12-29",
+      "hora": "20:00",
+      "tipo": "ordinario",
+      "lugar": "Salón de plenos del Ayuntamiento",
+      "ejemplo": true
+    }
+  ],
+  "farmacias": {
+    "lista": [
+      {
+        "id": "melendez-7",
+        "nombre": "Farmacia Meléndez Valdés 7",
+        "direccion": "C/ Meléndez Valdés, 7"
+      },
+      {
+        "id": "melendez-37",
+        "nombre": "Farmacia Meléndez Valdés 37",
+        "direccion": "C/ Meléndez Valdés, 37"
+      }
+    ],
+    "cambio": "09:30",
+    "rotacion": {
+      "inicio": "2026-01-05",
+      "dias": 7,
+      "orden": ["melendez-7", "melendez-37"]
+    },
+    "oficial": {
+      "nombre": "Colegio Oficial de Farmacéuticos de Badajoz",
+      "url": "https://cofbadajoz.com/farmacias-de-guardia/"
+    },
+    "ejemplo": true
+  },
+  "recogida": [
+    {
+      "id": "enseres",
+      "nombre": "Recogida de enseres",
+      "dias": [3],
+      "como": "Pídala el día antes en el Ayuntamiento",
+      "telefono": "924 536 011",
+      "ejemplo": true
+    }
+  ],
   "sede": {
     "tipo": "gestiona",
     "base": "https://riberadelfresno.sedelectronica.es",
@@ -78,6 +147,11 @@
       "avisos": "Avisos",
       "agenda": "Agenda",
       "noticias": "Noticias"
+    },
+    "formularios": {
+      "avisos": null,
+      "agenda": null,
+      "noticias": null
     }
   },
   "legal": {
@@ -365,6 +439,63 @@
       "telefono": "112"
     }
   ],
+  "incidencias": {
+    "correo": "ayuntamiento@riberadelfresno.es",
+    "categorias": [
+      { "nombre": "Alumbrado", "ayuda": "Una farola apagada, rota o que se queda encendida de día" },
+      { "nombre": "Agua", "ayuda": "Una fuga, una tapa de alcantarilla movida o falta de agua" },
+      { "nombre": "Limpieza", "ayuda": "Basura en la calle, un contenedor lleno o roto" },
+      { "nombre": "Vía pública", "ayuda": "Un bache, una acera rota, una señal caída" },
+      { "nombre": "Ruidos", "ayuda": "Ruidos que molestan de forma repetida" },
+      { "nombre": "Otro", "ayuda": "Cualquier otra cosa de la calle" }
+    ]
+  },
+  "_transparencia_leeme": "v3c · transparencia.html. Por apartado (organizacion, normativa, presupuestos, cuentas, contratos, convenios, subvenciones, retribuciones, acceso): «enlaces» [{texto, url, nota}] a donde está DE VERDAD en este municipio y, lo que no conste, «pendiente» (sale como hueco «Pendiente: …»). El portal de la sede, el perfil del contratante, «El Ayuntamiento» y la solicitud de acceso del catálogo se enlazan solos. Fuentes: DATOS.md §4 y su web (riberadelfresno.es/bop.php y la página de ordenanzas), leídas el 04/10/2026.",
+  "transparencia": {
+    "revisada": "2026-10-04",
+    "apartados": {
+      "organizacion": {
+        "pendiente": "un organigrama con el perfil y la trayectoria de cada responsable."
+      },
+      "normativa": {
+        "enlaces": [
+          { "texto": "Ordenanzas, en la web actual del Ayuntamiento", "url": "https://riberadelfresno.es/plantilla.php?enlace=ordenanzas", "nota": "Es la lista de su web; las aprobadas en 2026 están en los anuncios del BOP." },
+          { "texto": "Anuncios del Ayuntamiento en el Boletín Oficial de la Provincia", "url": "https://riberadelfresno.es/bop.php", "nota": "Aprobaciones iniciales y definitivas de ordenanzas y reglamentos." }
+        ]
+      },
+      "presupuestos": {
+        "enlaces": [
+          { "texto": "Presupuesto general de 2026: aprobación definitiva", "url": "https://www.dip-badajoz.es/bop/ventana_anuncio.php?id_anuncio=161058&FechaSolicitada=202602050000", "nota": "BOP del 5 de febrero de 2026, anuncio 344/2026." }
+        ],
+        "pendiente": "dónde se publica cómo va la ejecución del presupuesto."
+      },
+      "cuentas": {
+        "enlaces": [
+          { "texto": "Cuenta general de 2025: exposición pública", "url": "https://www.dip-badajoz.es/bop/ventana_anuncio.php?id_anuncio=164077&FechaSolicitada=202608240000", "nota": "BOP del 24 de agosto de 2026, anuncio 3352/2026." }
+        ],
+        "pendiente": "dónde se publican las cuentas ya aprobadas y los informes de control."
+      },
+      "contratos": {
+        "enlaces": [
+          { "texto": "Perfil del contratante en la sede electrónica", "url": "https://riberadelfresno.sedelectronica.es/contractor-profile-list", "nota": "Tiene dos expedientes, de 2023 y 2024." }
+        ],
+        "pendiente": "dónde se publican los contratos menores."
+      },
+      "convenios": {
+        "pendiente": "dónde se publican los convenios que firma el Ayuntamiento."
+      },
+      "subvenciones": {
+        "enlaces": [
+          { "texto": "Subvenciones a asociaciones y entidades de 2026: bases", "url": "https://www.dip-badajoz.es/bop/ventana_anuncio.php?id_anuncio=163548&FechaSolicitada=202607160000", "nota": "BOP del 16 de julio de 2026, anuncio 2828/2026." }
+        ],
+        "pendiente": "dónde se publican las subvenciones concedidas, con su importe y quién las recibe."
+      },
+      "retribuciones": {
+        "pendiente": "lo que cobra al año cada cargo y las declaraciones de bienes y actividades de los concejales."
+      }
+    }
+  },
+  "horizonte_agenda_dias": 60,
   "listin_corto": [
     "Emergencias",
     "Policía Local",
@@ -376,21 +507,25 @@
       {
         "nombre": "Empadronarme",
         "nota": "Alta o renovación en el padrón",
+        "icono": "padron",
         "id": "d120f65c-c936-4a95-bd50-e7ae970ca149"
       },
       {
         "nombre": "Domiciliar recibos",
         "nota": "Alta, baja o cambio de cuenta",
+        "icono": "recibo",
         "id": "a93cd417-195c-40c5-acf2-9a92b36c8809"
       },
       {
         "nombre": "Licencia de obra",
         "nota": "Licencia o autorización urbanística",
+        "icono": "obra",
         "id": "15fabacb-83b1-47d1-b435-508245672051"
       },
       {
         "nombre": "Ayudas a la natalidad",
         "nota": "Convocatoria 2026: bases y solicitud en el tablón",
+        "icono": "carrito",
         "url": "https://riberadelfresno.sedelectronica.es/preview-document/02af28b6-9fdb-4b29-968c-eee1a7582f0a",
         "tipo": "documento"
       }
@@ -586,6 +721,7 @@
       {
         "nombre": "Ha pasado algo en mi calle",
         "nota": "Un bache, una farola, un contenedor.",
+        "incidencia": true,
         "pasos": [
           {
             "texto": "Avisar de la incidencia",
@@ -1311,74 +1447,92 @@
     "patrimonio": [
       {
         "nombre": "Iglesia de Nuestra Señora de Gracia",
+        "grupo": "Iglesia y ermitas",
         "detalle": "Del siglo XIII-XIV, reedificada en 1745 y 1859. Dos torres gemelas, un retablo barroco de Alonso Rodríguez Lucas y un púlpito de mármol de Estremoz. C/ Iglesia, 2."
       },
       {
         "nombre": "Ermita del Cristo de la Misericordia",
+        "grupo": "Iglesia y ermitas",
         "detalle": "Del siglo XVIII, con atrio, arcada lateral y torre. Guarda la imagen del Cristo, que la tradición atribuye a Pedro Roldán."
       },
       {
         "nombre": "Ermita de la Aurora",
+        "grupo": "Iglesia y ermitas",
         "detalle": "En la calle Meléndez Valdés. Conserva la sillería de los Trece de la Orden de Santiago y piedras visigodas en el umbral."
       },
       {
         "nombre": "Ermita del Cristo Viejo",
+        "grupo": "Iglesia y ermitas",
         "detalle": "Del siglo XVI, hoy en ruinas, con cúpula y una torre de remate bulboso."
       },
       {
         "nombre": "Ermita de San Juan Macías",
+        "grupo": "Iglesia y ermitas",
         "detalle": "Levantada en 1985 en la casa natal del santo."
       },
       {
         "nombre": "Ermita de San Isidro",
+        "grupo": "Iglesia y ermitas",
         "detalle": "De 1998, a unos 4 km del pueblo."
       },
       {
         "nombre": "Casa natal de Juan Meléndez Valdés",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "En la calle Larga, con la placa que recuerda al poeta."
       },
       {
         "nombre": "Monumento a Meléndez Valdés",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "Busto de bronce de 1985, obra del escultor pacense Luis Martínez Giraldo."
       },
       {
         "nombre": "Casa de Vargas-Zúñiga",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "Casa-palacio de los siglos XVII y XVIII, con balcón, escudo con venera y rejas con la cruz de Santiago. Hoy es la Casa de la Cultura."
       },
       {
         "nombre": "Palacio de Quintanilla",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "En la calle Ayuntamiento, con fachada barroca."
       },
       {
         "nombre": "Casa de Bazo",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "Con un balcón bajo bóveda de venera."
       },
       {
         "nombre": "Casas de los Olea y de los Grajera",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "Casas de esquina con blasones, de los siglos XVII y XVIII."
       },
       {
         "nombre": "Antiguo convento de Jesús y María",
+        "grupo": "Casas, palacios y monumentos",
         "detalle": "Convento de clarisas fundado en 1535. Hoy es el Ayuntamiento."
       },
       {
         "nombre": "Oppidum de Hornachuelos",
+        "grupo": "Arqueología y campo",
         "detalle": "Poblado fortificado prerromano de unas cinco hectáreas, excavado entre 1986 y 1997. Tiene centro de interpretación en la Casa de la Cultura."
       },
       {
         "nombre": "Pozo de San Juan Macías",
+        "grupo": "Arqueología y campo",
         "detalle": "En la finca del Valle Garzón, a unos 4 km: el lugar del primer milagro del santo."
       },
       {
         "nombre": "Pilar del Caño",
+        "grupo": "Arqueología y campo",
         "detalle": "Pilar tradicional, a las afueras del pueblo."
       },
       {
         "nombre": "Los pozos rojos y blancos",
+        "grupo": "Arqueología y campo",
         "detalle": "Los pozos del término se pintan de rojo el cuerpo y de blanco el brocal."
       },
       {
         "nombre": "Ruinas del lavadero de lanas",
+        "grupo": "Arqueología y campo",
         "detalle": "Arcos de ladrillo junto al arroyo Valdemedel."
       }
     ],
@@ -1546,10 +1700,36 @@
     ]
   },
   "fotos": {
-    "hero": {
-      "archivo": "calle-torre",
-      "alt": "Avenida arbolada que lleva a una torre blanca con reloj",
-      "posicion": "58% 50%"
+    "_leeme": "hero: la foto del arco de la portada. hero_fotos (opcional): varias, y en cada visita sale una al azar; la primera es la de sin JavaScript y la de la imagen para compartir. Con hero_fotos, hero no hace falta.",
+    "hero_fotos": [
+      {
+        "archivo": "calle-torre",
+        "alt": "Avenida arbolada que lleva a una torre blanca con reloj",
+        "posicion": "60% 50%"
+      },
+      {
+        "archivo": "casa-cultura",
+        "alt": "Fachada encalada de la Casa de la Cultura, con rejas y balcones",
+        "posicion": "40% 50%"
+      },
+      {
+        "archivo": "monumento-melendez",
+        "alt": "Busto de bronce de Meléndez Valdés en la plaza, junto a una casa amarilla",
+        "posicion": "22% 50%"
+      },
+      {
+        "archivo": "pozo-tinajona",
+        "alt": "Pozo de cuerpo rojo y brocal blanco con su arco de hierro, en el campo",
+        "posicion": "56% 50%"
+      }
+    ]
+  },
+  "cabeceras": {
+    "_leeme": "Foto opcional en la cabecera de cada página interior (por id de página), recortada en arco. Sin foto, el arco de línea. «El pueblo» la pinta grande.",
+    "pueblo": {
+      "archivo": "iglesia-torres",
+      "alt": "Las dos torres blancas de la iglesia sobre los tejados del pueblo, con la sierra al fondo",
+      "posicion": "70% 55%"
     }
   }
 }

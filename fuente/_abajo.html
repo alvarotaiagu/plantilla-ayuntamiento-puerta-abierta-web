@@ -1,40 +1,68 @@
 <footer class="pie">
+  {{#perfil}}<div class="pie__perfil" data-perfil="{{nombre}}">{{{svg}}}</div>{{/perfil}}
   <section class="sede-franja" aria-labelledby="t-sede">
     <div class="contenedor">
       <h2 class="sede-franja__titulo" id="t-sede">Sede electrónica e información pública</h2>
       <ul class="sede-franja__lista">
         <li><a class="sede-franja__enlace" href="{{sede.inicio}}"><svg class="icono" aria-hidden="true"><use href="#i-sede"/></svg><span><b>Sede electrónica</b><span>Trámites con certificado o Cl@ve</span></span></a></li>
         <li><a class="sede-franja__enlace" href="{{sede.tablon}}"><svg class="icono" aria-hidden="true"><use href="#i-tablon"/></svg><span><b>Tablón de anuncios</b><span>Edictos y anuncios oficiales</span></span></a></li>
-        {{#sede.transparencia}}<li><a class="sede-franja__enlace" href="{{sede.transparencia}}"><svg class="icono" aria-hidden="true"><use href="#i-ojo"/></svg><span><b>Transparencia</b><span>Cuentas, contratos y acuerdos</span></span></a></li>{{/sede.transparencia}}
+        <!-- v3c · transparencia: a la página que explica cada apartado y lleva al portal (lo haya o no) -->
+        <li><a class="sede-franja__enlace" href="{{raiz}}transparencia.html"><svg class="icono" aria-hidden="true"><use href="#i-ojo"/></svg><span><b>Transparencia</b><span>Cuentas, contratos y acuerdos</span></span></a></li>
         {{#sede.perfil}}<li><a class="sede-franja__enlace" href="{{sede.perfil}}"><svg class="icono" aria-hidden="true"><use href="#i-contrato"/></svg><span><b>Perfil del contratante</b><span>Licitaciones del Ayuntamiento</span></span></a></li>{{/sede.perfil}}
       </ul>
-      <p class="sede-franja__nota">Estos enlaces le llevan a la sede electrónica o a la Plataforma de Contratación del Sector Público.</p>
+      <p class="sede-franja__nota">«Transparencia» le explica en esta web qué se publica y dónde; los demás enlaces le llevan a la sede electrónica{{#sede.perfil}} o a la Plataforma de Contratación del Sector Público{{/sede.perfil}}.</p>
     </div>
   </section>
   <div class="pie__cuerpo">
-    <div class="contenedor pie__rejilla">
-      <div class="pie__id">
+    <div class="contenedor pie__rejilla{{#plano}} pie__rejilla--plano{{/plano}}">
+      <div class="pie__col pie__id">
         <img class="pie__escudo" src="{{raiz}}marca/escudo-160.png" width="{{escudo.ancho160}}" height="160" alt="">
         <div>
-          <p class="pie__nombre">Ayuntamiento de {{nombre}}</p>
-          <p>{{contacto.direccion}} · {{contacto.cp}} {{nombre}} ({{provincia}})</p>
-          <p>Teléfono <a href="{{contacto.tel_href}}">{{contacto.telefono}}</a> · <a class="rompe" href="mailto:{{contacto.correo}}">{{contacto.correo}}</a></p>
-          <p{{#horario.ejemplo}} data-dato-ejemplo="horario"{{/horario.ejemplo}}>{{horario.texto}}{{#horario.ejemplo}} <span class="ejemplo">Ejemplo</span>{{/horario.ejemplo}}</p>
+          <h2 class="pie__nombre">Ayuntamiento de {{nombre}}</h2>
+          <p>{{contacto.direccion}}<br>{{contacto.cp}} {{nombre}} ({{provincia}})</p>
+          <p><span class="pie__etiqueta">Teléfono</span> <a href="{{contacto.tel_href}}">{{contacto.telefono}}</a></p>
+          <p><span class="pie__etiqueta">Correo</span> <a class="rompe" href="mailto:{{contacto.correo}}">{{contacto.correo}}</a></p>
+          <p{{#horario.ejemplo}} data-dato-ejemplo="horario"{{/horario.ejemplo}}><span class="pie__etiqueta">Horario</span> {{horario.texto}}{{#horario.ejemplo}} <span class="ejemplo">Ejemplo</span>{{/horario.ejemplo}}</p>
         </div>
       </div>
-      <nav class="pie__nav" aria-label="Información legal">
+      <nav class="pie__col pie__enlaces" aria-labelledby="t-pie-enlaces">
+        <h2 class="pie__titulo" id="t-pie-enlaces">Enlaces útiles</h2>
+        <ul class="pie__lista">
+          {{#pie_enlaces}}<li><a href="{{#interno}}{{raiz}}{{/interno}}{{href}}">{{texto}}{{#sr}}<span class="sr">{{sr}}</span>{{/sr}}</a></li>
+          {{/pie_enlaces}}
+        </ul>
+        {{#redes.length}}<p class="pie__subtitulo" id="t-pie-redes">En redes sociales</p>
+        <ul class="pie__redes" aria-labelledby="t-pie-redes">
+          {{#redes}}<li><a href="{{url}}">{{nombre}}<span class="sr">, se abre otra web</span></a></li>{{/redes}}
+        </ul>{{/redes.length}}
+      </nav>
+      {{#plano}}<div class="pie__col pie__plano">
+        <h2 class="pie__titulo" id="t-pie-plano">Cómo llegar</h2>
+        <figure class="pie__plano-figura">
+          <a class="pie__plano-enlace" href="{{raiz}}contacto.html#t-donde">{{{svg}}}<span class="sr">Plano de las calles alrededor del Ayuntamiento: ver la dirección y el mapa en Contacto</span></a>
+          <figcaption class="pie__plano-pie">El Ayuntamiento, en {{contacto.direccion}}.{{#calles}} En el plano: {{calles}}.{{/calles}} Datos del plano: <a href="{{atribucion_url}}">{{atribucion}}<span class="sr">, se abre otra web</span></a>.</figcaption>
+        </figure>
+        <a class="pie__llegar ver-todo" href="{{raiz}}contacto.html#t-donde">Dirección, horario y mapa<svg class="icono" aria-hidden="true"><use href="#i-flecha"/></svg></a>
+      </div>{{/plano}}
+      {{#canal_avisos}}<div class="pie__canal">
+        <p class="pie__canal-titulo"><svg class="icono" aria-hidden="true"><use href="#i-movil"/></svg>Avisos en el móvil</p>
+        <p>Reciba los avisos del Ayuntamiento en <a href="{{url}}">{{nombre}}<span class="sr">, se abre otra web</span></a> · <a href="{{raiz}}avisos.html#t-canal">Cómo apuntarse</a></p>
+      </div>{{/canal_avisos}}
+    </div>
+    <div class="contenedor pie__base">
+      <nav class="pie__legal" aria-label="Información legal">
         <ul>
-          <li><a href="{{raiz}}contacto.html">Contacto</a></li>
           <li><a href="{{raiz}}aviso-legal.html">Aviso legal</a></li>
           <li><a href="{{raiz}}privacidad.html">Privacidad</a></li>
           <li><a href="{{raiz}}cookies.html">Cookies</a></li>
           <li><a href="{{raiz}}accesibilidad.html">Declaración de accesibilidad</a></li>
+          <li><a href="{{raiz}}contacto.html">Contacto</a></li>
         </ul>
       </nav>
-      {{#redes.length}}<ul class="pie__redes" aria-label="Redes sociales del Ayuntamiento">
-        {{#redes}}<li><a href="{{url}}">{{nombre}}</a></li>{{/redes}}
-      </ul>{{/redes.length}}
+      <!-- v3c · guia: la página para quien publica, fuera del menú (noindex siempre) -->
+      <p class="pie__personal"><a href="{{raiz}}publicar.html">Personal del Ayuntamiento: publicar</a></p>
       <p class="pie__creditos">Escudo: {{escudo_credito.autor}}, {{escudo_credito.licencia}} (<a href="{{escudo_credito.url}}">Wikimedia Commons</a>).{{#hay_creditos_fotos}} Las fotos llevan su autor y licencia en <a href="{{raiz}}pueblo.html#creditos">El pueblo</a>.{{/hay_creditos_fotos}}</p>
+      <p class="pie__actualizada">Web actualizada el <time datetime="{{actualizada.iso}}">{{actualizada.texto}}</time>.</p>
       {{#propuesta}}<p class="pie__propuesta" data-propuesta>Propuesta de diseño para el Ayuntamiento de {{nombre}} · no es la web oficial.</p>{{/propuesta}}
     </div>
   </div>
@@ -42,7 +70,7 @@
 
 <div class="cookies" id="cookies" role="region" aria-label="Aviso de cookies" hidden>
   <div class="cookies__texto">
-    <p>Esta web no usa cookies. Solo guarda en su navegador que ha leído este aviso. El mapa de Google se carga únicamente si usted lo pide. <a href="{{raiz}}cookies.html">Más información</a>.</p>
+    <p>Esta web no usa cookies. <a href="{{raiz}}cookies.html">Más información</a></p>
     <!-- [MANDO DE MAQUETA] inicio -->
     <p class="cookies__revision">Durante la revisión de la propuesta también guarda la versión y el color que se estén probando.</p>
     <!-- [MANDO DE MAQUETA] fin -->
@@ -70,6 +98,8 @@
 <script type="application/json" id="datos-vivos">{{{datos_vivos}}}</script>
 <script src="{{raiz}}js/vivo.js?v={{v.vivo}}" defer></script>
 <script src="{{raiz}}js/main.js?v={{v.main}}" defer></script>
+<script src="{{raiz}}js/movimiento.js?v={{v.movimiento_js}}" defer></script>
+<script src="{{raiz}}js/identidad.js?v={{v.identidad}}" defer></script>
 {{#pagina.cortina}}<script src="{{raiz}}js/vendor/gsap.min.js?v=3.12.5" defer></script>
 <script src="{{raiz}}js/cortina.js?v={{v.cortina}}" defer></script>
 {{/pagina.cortina}}

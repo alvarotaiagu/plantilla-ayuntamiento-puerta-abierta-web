@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ayuntamiento de Ribera del Fresno//Agenda//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:fiesta-fiestas-del-emigrante-2027@ribera-del-fresno.agenda
+DTSTAMP:20261004T223502Z
+DTSTART;VALUE=DATE:20270815
+DTEND;VALUE=DATE:20270816
+SUMMARY:Fiestas del Emigrante
+URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
+ b/agenda.html#evento-fiesta-fiestas-del-emigrante-2027
+END:VEVENT
+END:VCALENDAR

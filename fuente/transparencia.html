@@ -1,0 +1,68 @@
+{{> documento_arriba}}
+<!-- v3c · transparencia (F22). Lo que la ley obliga a publicar, ordenado como la Ley 19/2013 (arts. 6, 7 y 8)
+     y dicho en una frase, y DÓNDE está en este municipio (municipio.json → transparencia; sin el campo, solo
+     lo que es real en cualquier sede). Lo que no consta: un hueco marcado como pendiente, nunca un enlace inventado.
+     Los apartados y sus artículos los pone scripts/aplicar.mjs (APARTADOS_TRANSPARENCIA). Los huecos «Pendiente»
+     solo viajan en la maqueta, como la banda de propuesta (dentro de la sección «propuesta»): en la web oficial ("propuesta": false)
+     el apartado se queda con su explicación y, si lo hay, el enlace general al portal o a pedirlo -->
+<section class="seccion seccion--primera" aria-labelledby="t-transparencia-que">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-transparencia-que">Qué tiene que publicar el Ayuntamiento</h2>
+    <p>La ley obliga al Ayuntamiento a publicar, sin que nadie lo pida, cómo se organiza, sus normas y en qué gasta el dinero. Tiene que hacerlo en su sede electrónica o en su web, de forma clara, gratis y al día (<a href="{{transparencia.art5}}">art. 5 de la Ley 19/2013<span class="sr">, se abre otra web</span></a>).</p>
+    {{#transparencia.portal}}<p>Casi todo está en su portal de transparencia. Debajo, cada apartado le dice qué es y le lleva a donde está.</p>
+    <p><a class="boton boton--marca" href="{{url}}"><svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg>{{nombre}}<span class="sr">{{sr}}</span></a></p>{{/transparencia.portal}}
+    {{^transparencia.portal}}<p>El Ayuntamiento no tiene, de momento, un portal de transparencia en su sede. Debajo, cada apartado le dice qué es y dónde está lo que ya se publica; lo que no encuentre, lo puede pedir.</p>{{/transparencia.portal}}
+    {{#transparencia.revisada_texto}}<p class="nota-fuente">Enlaces revisados el {{transparencia.revisada_texto}}.</p>{{/transparencia.revisada_texto}}
+  </div>
+</section>
+
+{{#transparencia.grupos}}<section class="seccion" aria-labelledby="t-{{id}}">
+  <div class="contenedor">
+    <h2 class="seccion__titulo" id="t-{{id}}">{{titulo}}</h2>
+    <p class="seccion__entradilla">{{entradilla}}</p>
+    <ul class="fichas transparencia">
+      {{#apartados}}<li class="ficha transparencia__apartado" id="{{ancla}}" data-apartado="{{id}}">
+        <h3 class="ficha__titulo">{{titulo}}</h3>
+        <p>{{que_es}}</p>
+        {{#enlaces.length}}<ul class="transparencia__enlaces">
+          {{#enlaces}}<li><a href="{{href}}">{{texto}}{{#sr}}<span class="sr">{{sr}}</span>{{/sr}}</a>{{#nota}}<span class="transparencia__nota">{{nota}}</span>{{/nota}}</li>
+          {{/enlaces}}
+        </ul>{{/enlaces.length}}
+        {{#sin_portal}}<p class="transparencia__sin">Búsquelo en el <a href="{{transparencia.portal.url}}">{{transparencia.portal.nombre}}<span class="sr">{{transparencia.portal.sr}}</span></a>.</p>{{/sin_portal}}
+        {{#sin_pedir}}<p class="transparencia__sin">Si no lo encuentra publicado, <a href="#t-transparencia-pedir">puede pedirlo</a>.</p>{{/sin_pedir}}
+        {{#propuesta}}{{#pendiente}}<p class="pendiente" data-pendiente="{{id}}"><b class="pendiente__marca">Pendiente:</b> {{pendiente}}</p>{{/pendiente}}{{/propuesta}}
+        <p class="transparencia__ley">Lo pide el {{#normas}}{{sep}}<a href="{{url}}">{{texto}}<span class="sr">, se abre otra web</span></a>{{/normas}}.</p>
+      </li>
+      {{/apartados}}
+    </ul>
+  </div>
+</section>
+{{/transparencia.grupos}}
+
+{{#transparencia.acceso}}<section class="seccion" aria-labelledby="t-transparencia-pedir">
+  <div class="contenedor texto-largo transparencia__acceso" id="{{ancla}}" data-apartado="{{id}}">
+    <h2 class="seccion__titulo" id="t-transparencia-pedir">Si no lo encuentra, pídalo</h2>
+    <p>{{que_es}} Es el derecho de acceso a la información pública.</p>
+    <ol class="transparencia__pasos">
+      <li>Diga quién es, qué información quiere y una dirección (mejor un correo) para contestarle. Si la prefiere en papel o en un archivo, dígalo también.</li>
+      <li>No tiene que explicar para qué la quiere.</li>
+      <li>El Ayuntamiento tiene un mes para contestar, ampliable a otro mes si es mucha o complicada. Si no contesta, la petición se entiende denegada.</li>
+      <li>Si se la deniegan, del todo o en parte, o no le contestan, puede reclamar en el plazo de un mes.</li>
+    </ol>
+    {{#enlaces.length}}<p class="transparencia__boton">{{#enlaces}}<a class="boton boton--marca" href="{{href}}"><svg class="icono" aria-hidden="true"><use href="#i-salida"/></svg>{{texto}}{{#sr}}<span class="sr">{{sr}}</span>{{/sr}}</a> {{/enlaces}}</p>{{/enlaces.length}}
+    <p>Con certificado digital o Cl@ve, en la sede electrónica: queda registrada con fecha y número. Sin ellos, en el registro del Ayuntamiento{{#legal.direccion_registro}}, en {{legal.direccion_registro}}{{/legal.direccion_registro}}.</p>
+    {{#propuesta}}{{#pendiente}}<p class="pendiente" data-pendiente="{{id}}"><b class="pendiente__marca">Pendiente:</b> {{pendiente}}</p>{{/pendiente}}{{/propuesta}}
+    <p class="transparencia__ley">Lo dicen el {{#normas}}{{sep}}<a href="{{url}}">{{texto}}<span class="sr">, se abre otra web</span></a>{{/normas}}.</p>
+  </div>
+</section>{{/transparencia.acceso}}
+
+<section class="seccion" aria-labelledby="t-transparencia-leyes">
+  <div class="contenedor texto-largo">
+    <h2 class="seccion__titulo" id="t-transparencia-leyes">Las leyes</h2>
+    <ul class="lista-enlaces lista-enlaces--grande">
+      {{#transparencia.leyes}}<li><a href="{{url}}">{{texto}}<span class="sr">, se abre otra web</span></a></li>{{/transparencia.leyes}}
+    </ul>
+    <p class="nota-fuente">Las dos, en su texto consolidado del Boletín Oficial del Estado. La de Extremadura se aplica también a los ayuntamientos de la comunidad (art. 2). Si alguna cosa de esta página no coincide con lo publicado, manda lo publicado.</p>
+  </div>
+</section>
+{{> documento_abajo}}

@@ -1,10 +1,14 @@
 {{> iconos}}
 <a class="saltar" href="#contenido">Saltar al contenido</a>
 <header class="cabecera">
-  {{#propuesta}}<div class="propuesta" data-propuesta>
-    <p class="contenedor"><b>Propuesta de diseño</b> para el Ayuntamiento de {{nombre}} · no es la web oficial</p>
-  </div>{{/propuesta}}
-  <div class="franja-urgente" data-vivo="franja"{{^vivo.franja}} hidden{{/vivo.franja}}>{{{vivo.franja}}}</div>
+  <!-- arriba, un solo bloque: la banda de propuesta (en todas las páginas) y la franja del aviso
+       destacado, que en escritorio comparten fila y en móvil se apilan sin recortar el texto -->
+  <div class="bandas{{#propuesta}} con-propuesta{{/propuesta}}">
+    {{#propuesta}}<div class="propuesta" data-propuesta>
+      <p class="propuesta__texto"><b>Propuesta de diseño</b><span class="propuesta__largo"> para el Ayuntamiento de {{nombre}}</span> · no es la web oficial</p>
+    </div>{{/propuesta}}
+    <div class="franja-urgente" data-vivo="franja"{{^vivo.franja}} hidden{{/vivo.franja}}>{{{vivo.franja}}}</div>
+  </div>
   <div class="cabecera__barra">
     <div class="contenedor cabecera__dentro">
       <a class="cabecera__marca" href="{{raiz}}index.html"{{#pagina.es_inicio}} aria-current="page"{{/pagina.es_inicio}}>
@@ -33,15 +37,15 @@
 
 <dialog class="buscador" id="buscador" aria-labelledby="buscador-titulo">
   <div class="buscador__cabeza">
-    <h2 class="buscador__titulo" id="buscador-titulo">Buscar un trámite</h2>
+    <h2 class="buscador__titulo" id="buscador-titulo">Buscar en la web</h2>
     <form method="dialog"><button class="boton-icono" type="submit"><svg class="icono" aria-hidden="true"><use href="#i-cerrar"/></svg><span class="sr">Cerrar el buscador</span></button></form>
   </div>
   <div class="campo" role="search">
     <label class="campo__etiqueta" for="buscador-campo">¿Qué necesita hacer?</label>
-    <input class="campo__entrada" id="buscador-campo" type="search" autocomplete="off" spellcheck="false" placeholder="Empadronarme, pagar un recibo, una obra…" aria-describedby="buscador-ayuda" data-buscador-campo>
+    <input class="campo__entrada" id="buscador-campo" type="search" autocomplete="off" spellcheck="false" placeholder="Padrón, recibos, obras…" aria-describedby="buscador-ayuda" data-buscador-campo>
   </div>
-  <p class="campo__ayuda" id="buscador-ayuda">Escríbalo con sus palabras. Cada resultado le lleva a su trámite en la sede electrónica.</p>
+  <p class="campo__ayuda" id="buscador-ayuda">Escríbalo con sus palabras: trámites (en la sede electrónica), avisos, noticias, teléfonos y lugares del pueblo.</p>
   <p class="buscador__cuenta" role="status" data-buscador-cuenta></p>
-  <ul class="resultados" data-buscador-resultados></ul>
+  <div class="resultados" data-buscador-resultados data-buscador-nivel="3"></div>
   <p class="buscador__pie"><a href="{{raiz}}tramites.html#todos">Ver la lista de todos los trámites</a></p>
 </dialog>

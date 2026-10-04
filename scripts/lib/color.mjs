@@ -146,9 +146,22 @@ export function derivarTokens(col) {
   t['--oro'] = col.oro;
   t['--alerta'] = oscurecerHasta(col.alerta, [BLANCO], 5.6);
   t['--sobre-alerta'] = BLANCO;
+  /* avisos programados o informativos (un corte de agua anunciado): el oro del escudo llevado al
+     ámbar (matiz 70 en OKLCH, con su luminosidad y su croma) y oscurecido hasta AA con texto
+     blanco. El rojo queda solo para lo urgente: un corte anunciado no puede parecer una alarma */
+  const oroOk = hexAOklch(col.oro);
+  t['--aviso'] = oscurecerHasta(oklchAHex({ L: oroOk.L, C: oroOk.C, H: 70 }), [BLANCO], 4.8);
+  t['--sobre-aviso'] = BLANCO;
   t['--foco'] = t['--marca'];
   t['--foco-claro'] = BLANCO;
   t['--cortina'] = mezclar(papel, tinta, 0.05);           /* cal en sombra: nunca el color de lo que destapa */
+  /* banda oscura de la portada («El año»): la tinta de fondo, la cal como texto,
+     un apagado medido y las tarjetas un punto más claras. El oro, solo de acento */
+  t['--oscuro'] = tinta;
+  t['--superficie-oscura'] = mezclar(tinta, papel, 0.07);
+  t['--sobre-oscuro'] = papel;
+  t['--sobre-oscuro-apagado'] = apagadoMaximo(papel, [t['--superficie-oscura'], tinta], 4.6);
+  t['--linea-oscura'] = mezclar(tinta, papel, 0.24);
 
   const informe = [
     ['texto', '--tinta', '--papel', 4.5],
@@ -165,13 +178,23 @@ export function derivarTokens(col) {
     ['botón', '--sobre-marca', '--marca-fuerte', 4.5],
     ['banda', '--sobre-marca-apagado', '--marca', 4.5],
     ['alerta', '--sobre-alerta', '--alerta', 4.5],
+    ['aviso', '--sobre-aviso', '--aviso', 4.5],
+    ['aviso', '--aviso', '--papel', 3],
+    ['foco', '--foco-claro', '--aviso', 3],
     ['borde', '--linea-fuerte', '--papel', 3],
     ['borde', '--linea-fuerte', '--superficie', 3],
     ['foco', '--foco', '--papel', 3],
     ['foco', '--foco', '--superficie', 3],
     ['foco', '--foco-claro', '--marca', 3],
     ['foco', '--foco-claro', '--alerta', 3],
-    ['cortina', '--marca', '--cortina', 3]
+    ['cortina', '--marca', '--cortina', 3],
+    ['oscura', '--sobre-oscuro', '--oscuro', 4.5],
+    ['oscura', '--sobre-oscuro', '--superficie-oscura', 4.5],
+    ['oscura', '--sobre-oscuro-apagado', '--oscuro', 4.5],
+    ['oscura', '--sobre-oscuro-apagado', '--superficie-oscura', 4.5],
+    ['oscura', '--tinta', '--oro', 4.5],
+    ['foco', '--foco-claro', '--oscuro', 3],
+    ['foco', '--foco-claro', '--superficie-oscura', 3]
   ].map(([uso, a, b, min]) => ({ uso, texto: a, fondo: b, ratio: +contraste(t[a], t[b]).toFixed(2), min }));
 
   return { tokens: t, informe };

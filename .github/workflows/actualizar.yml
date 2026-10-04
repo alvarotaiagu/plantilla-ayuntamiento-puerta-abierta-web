@@ -1,0 +1,104 @@
+# Actualizar la web (v3c · automatico, F14)
+#
+# La web se mantiene viva sola: dos veces al día lee el tablón de la sede (solo si el Ayuntamiento
+# lo ha autorizado) y la hoja de Google donde publica la secretaría, vuelve a montar la web y, si
+# hay algo que publicar, lo sube a la rama de GitHub Pages. Nadie tiene que regenerar nada a mano.
+# Cómo se activa, cómo se ve si ha fallado y cómo se lanza a mano: PUBLICAR.md, «La tarea diaria».
+#
+# Sin secretos: usa el token que GitHub da a cada ejecución (GITHUB_TOKEN), con permiso de escritura
+# en el repositorio. No instala nada de npm: aplicar.mjs y tablon.mjs solo usan Node; las capturas
+# (assets/og.jpg y assets/propuesta-portada.jpg, que piden Chromium) se quedan como están.
+
+name: Actualizar la web
+
+on:
+  schedule:
+    # cron va en hora UTC. Madrid es UTC+2 en verano (horario de verano) y UTC+1 en invierno:
+    #   05:23 UTC → 7:23 en verano, 6:23 en invierno: antes de abrir el Ayuntamiento (lo de ayer por la tarde)
+    #   13:23 UTC → 15:23 en verano, 14:23 en invierno: al cerrar (lo publicado por la mañana)
+    # Minuto 23 y no en punto: a las horas en punto GitHub va cargado y retrasa las tareas.
+    - cron: '23 5 * * *'
+    - cron: '23 13 * * *'
+  workflow_dispatch: {}   # el botón «Run workflow» de la pestaña Actions
+
+permissions:
+  contents: write   # subir la web regenerada
+  pages: write      # pedir a Pages que publique (por si el empujón del token no lo dispara)
+
+# una sola a la vez: si una tarda, la siguiente espera (no se pisan los commits)
+concurrency:
+  group: actualizar-web
+  cancel-in-progress: false
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TZ: Europe/Madrid   # las fechas del commit y de «hoy», en hora peninsular
+    steps:
+      - name: Traer el repositorio
+        uses: actions/checkout@v4
+
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Sin "tablon_autorizado": true en municipio.json no lee nada. Si la sede no responde, no toca
+      # contenido/tablon.json y sigue (sale con código 0).
+      - name: Tablón de la sede
+        run: node scripts/tablon.mjs
+
+      # Lee la hoja de Google (municipio.json → hoja.id) y monta la web. Si la hoja no contesta, usa la
+      # última copia buena (contenido/hoja.json). Si aplicar.mjs se niega (un dato mal), la tarea falla
+      # y GitHub manda un correo: no se publica nada a medias.
+      - name: Montar la web (con la hoja)
+        run: node scripts/aplicar.mjs --sin-capturas
+
+      # Se publica si:
+      #   - ha cambiado contenido/ (tablón nuevo o algo nuevo en la hoja), o
+      #   - es el primer montaje del día (que «Web actualizada el …», la agenda de hoy y lo que se ve
+      #     sin JavaScript sean del día; además, sin actividad en 60 días GitHub apaga la tarea), o
+      #   - alguien ha subido cambios a mano desde la última vez (para que la web los refleje), o
+      #   - se ha lanzado a mano.
+      # Si no, se descarta lo regenerado (solo cambiarían la hora del pie y los sellos de los .ics).
+      - name: Publicar si hay algo nuevo
+        id: publicar
+        run: |
+          set -eu
+          if [ -z "$(git status --porcelain)" ]; then echo "Nada que publicar."; exit 0; fi
+          hoy=$(date +%F); hora=$(date +%H:%M)
+          ultimo_autor=$(git log -1 --format=%an)
+          ultimo_dia=$(git log -1 --format=%cd --date=format-local:%F)
+          datos=$(git status --porcelain -- contenido)
+          if [ -n "$datos" ]; then motivo="avisos, agenda, noticias o tablón nuevos"
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ]; then motivo="lanzada a mano"
+          elif [ "$ultimo_dia" != "$hoy" ]; then motivo="repaso del día"
+          elif [ "$ultimo_autor" != "github-actions[bot]" ]; then motivo="cambios subidos a mano"
+          else
+            echo "Sin datos nuevos y ya se publicó hoy: no se sube nada."
+            git checkout -- . && git clean -fdq
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          {
+            echo "Web actualizada sola: $motivo"
+            echo
+            echo "Montada el $hoy a las $hora (hora peninsular) por la tarea diaria (.github/workflows/actualizar.yml)."
+            if [ -n "$datos" ]; then echo; echo "Datos que han cambiado:"; echo "$datos"; fi
+          } > "$RUNNER_TEMP/mensaje.txt"
+          git commit -q -F "$RUNNER_TEMP/mensaje.txt"
+          git push
+          echo "Publicado: $motivo."
+          echo "publicado=si" >> "$GITHUB_OUTPUT"
+
+      # Pages publica la rama al recibir el commit. Por si el commit del token de la tarea no lo
+      # dispara, se le pide también por la API (si falla, no pasa nada: el siguiente commit lo hará).
+      - name: Pedir a Pages que publique
+        if: steps.publicar.outputs.publicado == 'si'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api --method POST "repos/${{ github.repository }}/pages/builds" --silent || echo "Pages no ha aceptado la petición; publicará con el commit."

@@ -1,0 +1,16 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Ayuntamiento de Ribera del Fresno//Agenda//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:camino-pozo-san-juan@ribera-del-fresno.agenda
+DTSTAMP:20261004T223502Z
+DTSTART;VALUE=DATE:20261215
+DTEND;VALUE=DATE:20261216
+SUMMARY:Apertura del camino de peregrinación al Pozo de San Juan
+LOCATION:Prevista para finales de año\, Ribera del Fresno
+URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
+ b/agenda.html#evento-camino-pozo-san-juan
+END:VEVENT
+END:VCALENDAR

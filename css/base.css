@@ -5,8 +5,9 @@
 
    Accesibilidad (RD 1112/2018, WCAG 2.1 AA) por encima del PLIEGO:
    texto de 18 px, interlineado ≥ 1,5, medida ≤ 75 caracteres, zonas táctiles
-   de 44 px, scroll nativo, nada de texto apagado con opacity, y el único
-   movimiento de verdad es la cortina de la portada.
+   de 44 px, scroll nativo y nada de texto apagado con opacity. El movimiento
+   (cortina aparte) vive en css/movimiento.css y js/movimiento.js, siempre bajo
+   prefers-reduced-motion: no-preference y con el reposo como estado final.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -121,20 +122,56 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .nota-fuente { font-size: 1rem; color: var(--apagado); margin-top: 1.25rem; }
 
 /* ═══════════════ CABECERA ═══════════════ */
+/* Las bandas de arriba en un solo bloque: la de propuesta (tinta) y la franja del aviso destacado
+   (rojo si es urgente; ámbar si es programado o informativo). En escritorio comparten UNA fila
+   (la propuesta, corta, a la izquierda); en móvil se apilan: la propuesta en una línea fina y el
+   aviso en dos líneas como mucho, sin puntos suspensivos (para eso está `titulo_corto`).
+   El contenido se alinea con el .contenedor de la página aunque la fila vaya a sangre */
+.bandas { container-type: inline-size; --sangre: max(var(--margen), calc((100cqw - var(--ancho)) / 2)); }
 .propuesta { background: var(--tinta); color: var(--papel); font-size: .9375rem; line-height: 1.4; }
-.propuesta p { margin: 0 auto; padding-block: .5rem; text-align: center; max-width: none; }
+.propuesta__texto { margin: 0; padding: .45rem var(--sangre); text-align: center; max-width: none; }
 .propuesta b { font-weight: 600; }
 
-.franja-urgente { background: var(--alerta); color: var(--sobre-alerta); }
-.franja-urgente__dentro {
-  display: flex; align-items: flex-start; gap: .6rem; min-height: 44px; padding-block: .55rem;
-  color: var(--sobre-alerta); text-decoration: none; line-height: 1.4;
+.franja-urgente__fondo { background: var(--alerta); color: var(--sobre-alerta); }
+.franja-urgente__fondo.es-programado, .franja-urgente__fondo.es-informativo { background: var(--aviso); color: var(--sobre-aviso); }
+.franja-urgente__enlace { display: block; color: inherit; text-decoration: none; line-height: 1.4; }
+.franja-urgente__enlace:hover { color: inherit; }
+.franja-urgente__enlace:focus-visible { outline-offset: -5px; }
+.franja-urgente__dentro { display: flex; align-items: center; gap: .6rem; min-height: 44px; padding-block: .45rem; font-size: 1rem; }
+.franja-urgente__enlace:hover .franja-urgente__ver-texto { text-decoration-thickness: 2px; }
+.franja-urgente .icono { width: 1.35rem; height: 1.35rem; }
+.franja-urgente__texto { flex: 1 1 auto; min-width: 0; }
+.franja-urgente__texto b { font-weight: 600; }
+.franja-urgente__ver { flex: none; display: inline-flex; align-items: center; gap: .3rem; font-weight: 600; white-space: nowrap; }
+.franja-urgente__ver-texto { text-decoration: underline; text-underline-offset: .18em; }
+.franja-urgente__ver .icono { width: 1.1rem; height: 1.1rem; }
+.franja-urgente .ejemplo { border-color: currentColor; background: transparent; color: inherit; margin: 0 0 0 .35rem; vertical-align: .1em; }
+@media (min-width: 64em) {
+  /* una fila: la propuesta, a la izquierda y corta; el aviso ocupa el resto */
+  .bandas:has(.franja-urgente:not([hidden])) { display: flex; align-items: stretch; }
+  .bandas:has(.franja-urgente:not([hidden])) .propuesta { flex: none; display: flex; align-items: center; }
+  .bandas:has(.franja-urgente:not([hidden])) .propuesta__texto { padding-right: 1.25rem; text-align: left; }
+  .bandas:has(.franja-urgente:not([hidden])) .propuesta__largo { display: none; }
+  .bandas:has(.franja-urgente:not([hidden])) .franja-urgente { flex: 1 1 auto; min-width: 0; display: flex; }
+  .bandas:has(.franja-urgente:not([hidden])) .franja-urgente__fondo { flex: 1 1 auto; display: flex; }
+  .bandas:has(.franja-urgente:not([hidden])) .franja-urgente__enlace { flex: 1 1 auto; display: flex; }
+  .bandas:has(.franja-urgente:not([hidden])) .franja-urgente__dentro { max-width: none; margin: 0; padding-inline: 1.25rem var(--sangre); }
+  .bandas:not(.con-propuesta) .franja-urgente__dentro { padding-left: var(--sangre); }
 }
-.franja-urgente__dentro:hover { color: var(--sobre-alerta); }
-.franja-urgente__dentro:hover .franja-urgente__ver { text-decoration-thickness: 2px; }
-.franja-urgente .icono { width: 1.35rem; height: 1.35rem; margin-top: .05rem; }
-.franja-urgente__ver { font-weight: 600; text-decoration: underline; text-underline-offset: .18em; white-space: nowrap; margin-left: .35rem; }
-.franja-urgente .ejemplo { border-color: var(--sobre-alerta); }
+/* móvil y tableta: apiladas. La propuesta en una línea fina; el aviso en dos líneas: la palabra
+   («Urgente», «Aviso programado») la oye el lector y la dicen el icono y el color, y de «Ver aviso»
+   queda la flecha (el enlace es la franja entera) */
+@media (max-width: 63.99em) {
+  .propuesta { font-size: .8125rem; line-height: 1.3; }
+  .propuesta__texto { padding-block: .3rem; }
+  .propuesta__largo { display: none; }
+  .franja-urgente__dentro { gap: .5rem; padding-block: .35rem; font-size: .9375rem; line-height: 1.35; }
+  .franja-urgente .icono { width: 1.2rem; height: 1.2rem; }
+  .franja-urgente__texto b,
+  .franja-urgente__ver-texto { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .franja-urgente .ejemplo { padding: .1rem .3rem; font-size: .6875rem; }
+  .franja-urgente__ver .icono { width: 1.35rem; height: 1.35rem; }
+}
 
 .cabecera__barra { background: var(--papel); border-bottom: 3px solid var(--oro); }
 .cabecera__dentro {
@@ -265,10 +302,15 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .resultado__nombre { font-weight: 600; color: var(--marca); }
 .resultado__oficial { grid-column: 1; color: var(--apagado); font-size: .9375rem; }
 .resultados .icono { grid-row: 1 / span 2; grid-column: 2; color: var(--marca); }
-.resultados mark { background: var(--marca-tenue); color: inherit; border-radius: 2px; }
+/* lo encontrado (main.js): el fondo tenue de la marca y en negrita, para que no dependa solo del
+   color de fondo (un subrayado lo confundía con un enlace). El texto sigue en su color: --marca y --apagado pasan AA sobre --marca-tenue */
+.resultados mark { background: var(--marca-tenue); color: inherit; border-radius: 2px; padding-inline: .1em; font-weight: 700; }
 
-/* ═══════════════ PORTADA: HERO «HOY» ═══════════════ */
-.hero { padding-block: clamp(1rem, 2.5vw, 3rem) clamp(2.5rem, 5vw, 4.5rem); }
+/* ═══════════════ PORTADA: HERO ═══════════════
+   El arco con la foto, el nombre, el lema, el buscador y los botones. Nada más: «Hoy» va en su
+   tira, debajo. En escritorio, el arco tiene el alto del texto de al lado (4:5, centrados) y
+   nunca más del que deja la pantalla: el hero entero cabe en 1280 × 720 y en 1366 × 768 */
+.hero { padding-block: clamp(1rem, 2.5vw, 2rem) clamp(1.75rem, 3.5vw, 2.75rem); }
 .hero__rejilla { display: grid; gap: 1.25rem; align-items: center; }
 .puerta { position: relative; width: 100%; max-width: 22rem; margin-inline: auto; }
 .arco {
@@ -282,37 +324,135 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .arco--vacio img { width: 38%; height: auto; opacity: .22; filter: grayscale(1); object-fit: contain; }
 .puerta__arco { aspect-ratio: 5 / 3; width: 100%; }   /* alto ≥ ancho/2: medio punto entero */
 .puerta__umbral { display: block; height: 6px; margin-inline: -5%; background: var(--oro); border-radius: 2px; }
-.hero__ante {
-  margin: 0 0 .15rem; font: 600 .875rem/1.3 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; color: var(--marca);
-}
 .hero__titulo { font-size: clamp(2rem, 1.35rem + 3.4vw, 4.5rem); margin: 0; }
+/* cada palabra del nombre en su caja y sin partir: la entrada del hero las sube una a una
+   (memoria «char-reveal parte palabras»). Igual con movimiento o sin él: el corte de línea no cambia */
+.hero__palabra { display: inline-block; white-space: nowrap; }
 .hero__lema { margin: .35rem 0 0; font: italic 600 1.25rem/1.3 var(--f-titulo); color: var(--apagado); }
-/* pantallas bajas (375 × 667): el arco cede para que el panel «Hoy» asome sin bajar */
-@media (max-width: 55.99em) and (max-height: 760px) { .puerta { max-width: 18.5rem; } .hero { padding-top: .75rem; } .hoy { margin-top: 1rem; } }
-.hero__botones { list-style: none; padding: 0; margin: 1.25rem 0 0; display: flex; flex-wrap: wrap; gap: .65rem; }
+/* buscador de trámites a la vista: lo primero que se puede hacer */
+.hero__buscador { margin: 1.1rem 0 0; max-width: 36rem; }
+.hero__etiqueta { display: block; margin-bottom: .35rem; font-size: 1.125rem; }
+.hero__fila { display: flex; gap: .5rem; }
+.hero__fila .campo__entrada { flex: 1 1 10rem; min-width: 0; }
+.hero__buscar { flex: none; min-height: 52px; padding-inline: .9rem; }
+.hero__ayuda { margin: .45rem 0 0; color: var(--apagado); font-size: 1rem; line-height: 1.45; }
+.hero__cuenta { margin: .6rem 0 .25rem; color: var(--apagado); font-size: 1rem; }
+.hero__cuenta:empty { margin: 0; }
+.hero__resultados { background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); padding: 0 .85rem; }
+.hero__resultados:empty { display: none; }
+.hero__resultados li:last-child a { border-bottom: 0; }
+.hero__botones { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; flex-wrap: wrap; gap: .65rem; }
+/* móvil: la ayuda del buscador solo la oye el lector de pantalla (el ejemplo ya está en el campo),
+   para que el buscador quepa en la primera pantalla aun con el aviso de cookies */
+@media (max-width: 47.99em) {
+  .hero__ayuda { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .hero__buscador { margin-top: .8rem; }
+  .hero__lema { font-size: 1.125rem; }
+}
+/* móvil estrecho: «Buscar» se queda en la lupa (el nombre lo oye el lector) y el campo gana sitio */
+@media (max-width: 29.99em) {
+  .hero__buscar { padding-inline: .85rem; }
+  .hero__buscar-texto { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+}
+/* pantallas bajas (375 × 667): el arco cede para que el buscador no baje */
+@media (max-width: 55.99em) and (max-height: 760px) { .puerta { max-width: 14rem; } .hero { padding-top: .6rem; } .hero__rejilla { gap: .85rem; } }
 @media (min-width: 56em) {
-  .hero__rejilla { grid-template-columns: minmax(15rem, 5fr) 7fr; gap: clamp(2.5rem, 5vw, 5rem); }
-  .puerta { max-width: 28rem; }
+  .hero__rejilla { grid-template-columns: auto minmax(0, 1fr); gap: clamp(2.5rem, 5vw, 5rem); }
+  .puerta { width: clamp(15rem, min(26vw, (100svh - 17.5rem) * .8), 23rem); max-width: none; margin: 0; }
   .puerta__arco { aspect-ratio: 4 / 5; }
   .puerta__umbral { margin-inline: -8%; }
 }
 
+/* ═══════════════ PORTADA: «HOY EN …» ═══════════════
+   Una tira a todo lo ancho bajo el hero que se lee como un tablero: cuatro fichas en fila en
+   escritorio (2 × 2 en móvil), cada una con su icono, lo que es y el dato grande; «Más hoy»
+   debajo, en líneas cortas. Las rayas entre fichas son el fondo de la lista asomando por el gap
+   de 1 px: una ficha que falta no deja hueco ni raya suelta */
+.hoy-tira { padding-block: 0 clamp(2.25rem, 4vw, 3.25rem); }
 .hoy {
-  margin-top: 1.25rem; background: var(--superficie);
+  background: var(--superficie);
   border: 1px solid var(--linea); border-top: 3px solid var(--oro); border-radius: var(--radio);
-  padding: 1rem 1.25rem .25rem;
 }
-.hoy__titulo { display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .75rem; font-size: 1.375rem; margin: 0 0 .5rem; }
+.hoy__titulo {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .75rem;
+  margin: 0; padding: .85rem 1.25rem .8rem; border-bottom: 1px solid var(--linea); font-size: 1.375rem;
+}
 .hoy__fecha { font: 400 1rem/1.4 var(--f-texto); color: var(--apagado); }
-.hoy__lista { list-style: none; margin: 0; padding: 0; }
-.hoy__fila { display: grid; grid-template-columns: 1.4rem 1fr; gap: .75rem; padding: .8rem 0; border-top: 1px solid var(--linea); }
-.hoy__fila > .icono { margin-top: .2rem; color: var(--marca); width: 1.4rem; height: 1.4rem; }
-.hoy__fila p { margin: 0; }
-.hoy__etiqueta { font: 600 .8125rem/1.4 var(--f-texto); letter-spacing: .07em; text-transform: uppercase; color: var(--apagado); }
-.hoy__nota, .hoy__cuando { display: block; color: var(--apagado); font-size: 1rem; }
+.hoy__lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1px; background: var(--linea); }
+.hoy__fila { min-width: 0; max-width: none; padding: .95rem 1.25rem 1.1rem; background: var(--superficie); overflow-wrap: break-word; }
+.hoy__fila p { margin: 0; max-width: none; }
+.hoy__etiqueta {
+  display: flex; align-items: center; gap: .55rem; margin: 0 0 .6rem;
+  font: 600 .8125rem/1.3 var(--f-texto); letter-spacing: .07em; text-transform: uppercase; color: var(--apagado);
+}
+.hoy__fila .hoy__etiqueta { margin-bottom: .6rem; }
+.hoy__icono { flex: none; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--marca-tenue); color: var(--marca); }
+.hoy__icono .icono { width: 1.2rem; height: 1.2rem; vertical-align: 0; }
+.hoy__etiqueta-texto { min-width: 0; }
+.hoy__etiqueta-texto { overflow-wrap: normal; }
+.hoy__gravedad { margin: -.15rem 0 .45rem; }
+.hoy__gravedad .chip { font-size: .8125rem; }
+.hoy__valor { font: 700 1.25rem/1.25 var(--f-titulo); color: var(--tinta); }
+.hoy__valor b { font-weight: 700; }
+.hoy__valor--enlace { font-size: 1.125rem; line-height: 1.3; }
+.hoy__valor .ejemplo { vertical-align: .2em; }
+.hoy__fila .hoy__nota, .hoy__fila .hoy__cuando { margin-top: .3rem; }
+.hoy__nota, .hoy__cuando { display: block; color: var(--apagado); font-size: 1rem; line-height: 1.4; }
+.hoy__detalle { font: 400 1rem/1.4 var(--f-texto); color: var(--apagado); }
+/* cerrado no es una alarma: un aro en vez del punto rojo (el rojo, solo para lo urgente) */
+.hoy .esta-cerrado .estado__punto { background: transparent; box-shadow: inset 0 0 0 2px var(--apagado); }
 .hoy__eventos { list-style: none; margin: 0; padding: 0; }
-.hoy__evento + .hoy__evento { margin-top: .5rem; }
+.hoy__evento { max-width: none; }
+.hoy__evento + .hoy__evento { margin-top: .65rem; }
 .hoy a { font-weight: 600; }
+.hoy__valor a { font-weight: 700; }
+.hoy a[href^="tel:"] { white-space: nowrap; }   /* «900 000 / 003» partido no se lee como teléfono */
+/* 2 × 2 en cuanto caben dos (360 px); la última, si queda sola, a todo lo ancho */
+@media (min-width: 22.5em) {
+  .hoy__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hoy__fila:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (max-width: 47.99em) {
+  .hoy__titulo { padding-inline: 1rem; font-size: 1.25rem; }
+  .hoy__fila { padding: .8rem .85rem .95rem; }
+  .hoy__etiqueta { gap: .4rem; font-size: .75rem; letter-spacing: .02em; }
+  .hoy__icono { width: 1.6rem; height: 1.6rem; }
+  .hoy__icono .icono { width: 1.05rem; height: 1.05rem; }
+  .hoy__valor { font-size: 1.125rem; }
+  .hoy__valor--enlace { font-size: 1.0625rem; }
+  .hoy__nota, .hoy__cuando, .hoy__detalle { font-size: .9375rem; }
+}
+/* escritorio: todas en una fila, del mismo ancho, sean cuatro, tres o dos */
+@media (min-width: 64em) {
+  .hoy__lista { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); }
+  .hoy__fila:last-child:nth-child(odd) { grid-column: auto; }
+  .hoy__fila { padding: 1.1rem 1.35rem 1.25rem; }
+}
+/* «Más hoy»: el tiempo, el próximo pleno y la recogida, en líneas cortas */
+.hoy__pie { border-top: 1px solid var(--linea); }
+.hoy__mas-hoy { display: grid; gap: .55rem 1.75rem; padding: .9rem 1.25rem 1rem; }
+.hoy__etiqueta--mas { margin: 0; }
+.hoy__etiqueta--mas .icono { color: var(--marca); width: 1.3rem; height: 1.3rem; }
+.hoy__breves { list-style: none; margin: 0; padding: 0; display: grid; gap: .6rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)); }
+.hoy__breve { max-width: none; font-size: 1rem; line-height: 1.45; }
+.hoy__breve b { font-weight: 600; }
+.hoy__breve .hoy__nota { margin-top: .15rem; font-size: .9375rem; }
+.hoy__breve .ejemplo { margin-inline-start: .35rem; }
+@media (min-width: 64em) { .hoy__mas-hoy { grid-template-columns: auto minmax(0, 1fr); align-items: start; } .hoy__etiqueta--mas { padding-top: .1rem; } }
+/* el dato de la sede (solo en la sobria), al pie. El canal de avisos va en el lado del tablón */
+.hoy__sede { display: flex; align-items: flex-start; gap: .75rem; max-width: none; margin: 0; padding: .8rem 1.25rem; border-top: 1px solid var(--linea); }
+.hoy__pie > :first-child { border-top: 0; }
+.hoy__sede > span { max-width: 40em; }
+.hoy__sede .icono { flex: none; width: 1.4rem; height: 1.4rem; margin-top: .15rem; color: var(--marca); }
+.chip--programado, .chip--informativo { background: var(--aviso); color: var(--sobre-aviso); }
+/* «Añadir a mi calendario» dentro de una frase: un botón (eventos de la hoja) que parece enlace */
+.enlace-ics { font-weight: 600; }
+button.enlace-ics, button.evento__ics {
+  padding: 0; border: 0; background: none; color: var(--marca); cursor: pointer; text-align: left;
+  text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .18em;
+}
+button.enlace-ics:hover, button.evento__ics:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
+.evento__ics-tipo { font-weight: 400; }
 .estado__punto { display: inline-block; width: .7rem; height: .7rem; border-radius: 50%; margin-right: .45rem; vertical-align: .05em; }
 .esta-abierto .estado__punto { background: var(--marca); }
 .esta-cerrado .estado__punto { background: var(--alerta); }
@@ -343,20 +483,53 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 }
 
 /* ── atajos y temas de trámites ── */
-.atajos { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); }
+/* v3: atajos compactos y todos del mismo alto (la rejilla estira cada fila). Dos columnas en móvil
+   y, en escritorio, las que calcula aplicar.mjs (--atajos-columnas: 4 como mucho, sin dejar una fila
+   casi vacía). En móvil, si sobra uno, ocupa la fila entera */
+.atajos { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.atajos > li { max-width: none; min-width: 0; }
+@media (max-width: 63.99em) { .atajos > li:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+@media (min-width: 64em) { .atajos { grid-template-columns: repeat(var(--atajos-columnas, 4), minmax(0, 1fr)); } }
+/* icono a la izquierda; nombre y nota a su lado (el nombre deja sitio a la esquina; la nota usa
+   todo el ancho). En la esquina, la flecha de salida o, si el
+   destino no es la sede, un documento; el destino entero lo dice el texto oculto */
 .atajo {
-  display: flex; flex-direction: column; gap: .2rem; height: 100%;
-  padding: 1.05rem 1.2rem; color: var(--tinta); text-decoration: none;
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-content: center; align-items: center;
+  column-gap: .85rem; row-gap: .1rem; height: 100%; min-height: 6rem;
+  padding: .75rem .9rem; color: var(--tinta); text-decoration: none;
   transition: border-color .15s, background-color .15s;
 }
 .atajo:hover { border-color: var(--marca); background: var(--marca-tenue); color: var(--tinta); }
-.atajo__nombre { font: 700 1.3rem/1.2 var(--f-titulo); color: var(--marca); }
+.atajo__icono {
+  grid-row: 1 / span 2; align-self: center;
+  box-sizing: content-box; width: 1.45rem; height: 1.45rem; padding: .55rem;
+  border-radius: 50%; background: var(--marca-tenue); color: var(--marca); stroke-width: 1.6;
+}
+.atajo:hover .atajo__icono { background: var(--superficie); }
+.atajo__flecha { position: absolute; top: .75rem; right: .75rem; width: 1.1rem; height: 1.1rem; color: var(--marca); }
+.atajo__nombre { grid-column: 2; align-self: end; padding-right: 1.5rem; font: 700 1.1rem/1.2 var(--f-titulo); color: var(--marca); overflow-wrap: break-word; hyphens: auto; }
 .atajo:hover .atajo__nombre { text-decoration: underline; }
-.atajo__nota { color: var(--apagado); font-size: 1rem; line-height: 1.45; }
-.atajo__destino { margin-top: auto; padding-top: .7rem; display: flex; align-items: center; gap: .4rem; font-size: .875rem; color: var(--apagado); }
+.atajo__nota { grid-column: 2; align-self: start; color: var(--apagado); font-size: .9375rem; line-height: 1.35; }
+/* pantallas estrechas: dos atajos por fila sin sitio para el icono al lado; va encima, más pequeño */
+@media (max-width: 29.99em) {
+  .atajo { grid-template-columns: minmax(0, 1fr); align-content: start; padding: .8rem .8rem .9rem; }
+  .atajo__icono { grid-row: auto; width: 1.3rem; height: 1.3rem; padding: .5rem; margin-bottom: .4rem; justify-self: start; }
+  .atajo__nombre, .atajo__nota { grid-column: 1; align-self: start; }
+  .atajo__nombre { font-size: 1rem; padding-right: 0; }
+}
 
+/* temas: dos columnas que se apilan cada una por su cuenta. Todos cerrados de entrada; al abrir
+   uno, solo baja su columna (con una rejilla de filas, la columna de al lado quedaba con un hueco).
+   v3: con un número impar, el último va debajo a todo el ancho (aplicar.mjs → temas_columnas), así
+   no queda un hueco al final de una columna; abierto, sus trámites van en dos columnas */
 .temas { display: grid; gap: .75rem; align-items: start; }
-@media (min-width: 64em) { .temas { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 64em) {
+  .temas { grid-template-columns: 1fr 1fr; }
+  .temas__columna--ancha { grid-column: 1 / -1; }
+  .temas__columna--ancha .tema__lista { columns: 2; column-gap: 2.5rem; }
+  .temas__columna--ancha .tema__lista li { break-inside: avoid; }
+}
+.temas__columna { display: grid; gap: .75rem; align-content: start; min-width: 0; }
 .tema__resumen {
   display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center;
   min-height: 48px; padding: 1rem 1.2rem; cursor: pointer; list-style: none;
@@ -390,23 +563,70 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .filtro[aria-pressed="true"] { background: var(--marca); border-color: var(--marca); color: var(--sobre-marca); }
 .tablon__cuenta { margin: 0 0 .5rem; color: var(--apagado); font-size: 1rem; }
 .tablon__lista { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linea); }
-.tablon__fila { border-bottom: 1px solid var(--linea); }
+.tablon__fila { border-bottom: 1px solid var(--linea); max-width: none; }
+/* v3: en la portada, el tablón a dos tercios con el canal de avisos y el próximo pleno al lado.
+   Sin ninguno (el bloque vacío no se ve), el tablón ocupa el ancho y, si cabe, en dos columnas */
+.tablon-rejilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem 3rem; align-items: start; }
+.tablon-lado:empty { display: none; }
+@media (min-width: 64em) {
+  .tablon-rejilla:has(> .tablon-lado:not(:empty)) { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  /* acompaña al tablón mientras se lee (la sección no recorta: nada de overflow que lo rompa) */
+  .tablon-lado { position: sticky; top: 1.5rem; }
+}
+@media (min-width: 80em) {
+  .tablon-rejilla:not(:has(> .tablon-lado:not(:empty))) .tablon__lista { columns: 2; column-gap: 3rem; border-top: 0; }
+  .tablon-rejilla:not(:has(> .tablon-lado:not(:empty))) .tablon__fila { break-inside: avoid; border-top: 1px solid var(--linea); border-bottom: 0; }
+}
+.tablon-lado { display: grid; gap: 1rem; }
+.lado__bloque {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr); column-gap: .75rem; align-items: start;
+  padding: 1.1rem 1.25rem .35rem; background: var(--papel); border: 1px solid var(--linea); border-top: 3px solid var(--oro); border-radius: var(--radio);
+}
+.lado__bloque > .icono { grid-row: 1; margin-top: .15rem; width: 1.4rem; height: 1.4rem; color: var(--marca); }
+.lado__bloque > :not(.icono) { grid-column: 2; }
+.lado__titulo { font-size: 1.2rem; margin: 0 0 .45rem; }
+.lado__texto, .lado__fecha { font-size: 1rem; line-height: 1.5; margin: 0 0 .6rem; }
+.lado__fecha { font-weight: 600; font-size: 1.125rem; }
+.lado__fecha .ejemplo { margin-inline-start: .35rem; }
+.lado__subtitulo { margin: .2rem 0 .3rem; font: 600 .8125rem/1.4 var(--f-texto); letter-spacing: .07em; text-transform: uppercase; color: var(--apagado); }
+.lado__pasos { margin: 0 0 .75rem; padding-left: 1.2rem; font-size: 1rem; line-height: 1.45; }
+.lado__pasos li + li { margin-top: .3rem; }
+.lado__accion { margin: -.35rem 0 .3rem; }
 .tablon__enlace {
-  display: grid; grid-template-columns: 1fr auto; gap: .3rem 1rem; align-items: center;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .3rem 1rem; align-items: center;
   padding: .95rem .25rem; color: var(--tinta); text-decoration: none;
 }
-.tablon__meta { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .75rem; font-size: .9375rem; color: var(--apagado); }
-.tablon__titulo { grid-column: 1; font-weight: 600; font-size: 1.125rem; line-height: 1.4; }
+/* la fecha en bloque, con la letra de titulares: «02» sobre «OCT» (el año solo si no es este) */
+.tablon__dia {
+  grid-column: 1; grid-row: 1 / span 2; align-self: start;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 3.75rem; min-height: 3.75rem; padding: .35rem .2rem;
+  background: var(--papel); border: 1px solid var(--linea); border-radius: var(--radio);
+  font-family: var(--f-titulo); color: var(--tinta); line-height: 1;
+}
+.tablon__dia b { font-size: 1.55rem; font-weight: 700; }
+.tablon__dia b::after { content: ""; display: block; width: 1.1rem; height: 2px; margin: .3rem auto .25rem; background: var(--oro); }
+.tablon__dia span { font-size: .8125rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.tablon__dia .tablon__anio { margin-top: .15rem; font-size: .75rem; letter-spacing: .02em; color: var(--apagado); }
+.tablon__meta { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .75rem; font-size: .9375rem; color: var(--apagado); }
+.tablon__titulo { grid-column: 2; font-weight: 600; font-size: 1.125rem; line-height: 1.4; }
 .tablon__enlace:hover .tablon__titulo { color: var(--marca); text-decoration: underline; }
-.tablon__flecha { grid-column: 2; grid-row: 1 / span 2; color: var(--marca); }
-.tablon__fila > .ejemplo { margin: -.4rem 0 .85rem .25rem; }
+.tablon__enlace:hover .tablon__dia { border-color: var(--marca); }
+.tablon__flecha { grid-column: 3; grid-row: 1 / span 2; color: var(--marca); }
+.tablon__fila > .ejemplo { margin: -.4rem 0 .85rem calc(3.75rem + 1.25rem); }
 
 /* ── lo que viene y lo que pasó ── */
 /* minmax(0, …): sin él, la columna crece hasta lo que pida la tarjeta más rígida y la portada
    desborda a 320 px (una miniatura más una palabra larga en el título) */
 .linea-rejilla { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; }
 @media (min-width: 64em) { .linea-rejilla { grid-template-columns: minmax(0, 1fr) 22rem; align-items: start; gap: 4rem; } }
-.linea { list-style: none; margin: 1.25rem 0 .5rem; padding: 0; position: relative; }
+/* «Hoy» arriba; debajo, «Lo que viene» y «Lo que pasó» (en dos columnas cuando hay sitio) */
+.linea__bloques { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.75rem 2.5rem; }
+@media (min-width: 80em) { .linea__bloques { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+.linea__subtitulo { font-size: 1.3rem; margin: 0; }
+.linea__vacio { margin-top: .9rem; padding: 1rem 1.15rem .1rem; background: var(--superficie); border: 1px dashed var(--linea-fuerte); border-radius: var(--radio); }
+.linea__vacio p { margin-bottom: .9rem; }
+.linea { list-style: none; margin: 1rem 0 .5rem; padding: 0; position: relative; }
 .linea::before { content: ""; position: absolute; left: .7rem; top: .6rem; bottom: 1rem; width: 2px; background: var(--linea-fuerte); }
 .linea__item { position: relative; padding: 0 0 1.4rem 2.6rem; }
 .linea__item::before {
@@ -414,17 +634,23 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
   background: var(--papel); border: 2px solid var(--marca);
 }
 .linea__item--noticia::before { background: var(--linea-fuerte); border-color: var(--linea-fuerte); }
+/* v3: «Más adelante», lo que la agenda tiene pasado el plazo, cuando en él hay poco: la línea sigue,
+   discontinua, y los puntos van huecos */
+.linea__despues { position: relative; margin: .25rem 0 0; padding-left: 2.6rem; font: 600 .8125rem/1.4 var(--f-texto); letter-spacing: .07em; text-transform: uppercase; color: var(--apagado); }
+.linea--despues { margin-top: .6rem; }
+.linea--despues::before { background: none; border-left: 2px dashed var(--linea-fuerte); width: 0; }
+.linea--despues .linea__item::before { border-color: var(--linea-fuerte); }
 .linea__cuando { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .6rem; margin: 0 0 .45rem; color: var(--apagado); font-size: 1rem; }
 .linea__cuando time { font-weight: 600; color: var(--tinta); }
 .chip--noticia { background: var(--superficie-2); color: var(--tinta); }
 .linea__tarjeta { display: flex; gap: 1rem; align-items: flex-start; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); padding: 1rem 1.15rem; }
-.linea__titulo { margin: 0; font-size: 1.2rem; line-height: 1.3; }
+.linea__titulo { margin: 0; font: 700 1.2rem/1.3 var(--f-titulo); color: var(--tinta); text-wrap: balance; }
 .linea__titulo a { color: var(--tinta); text-decoration: none; }
 .linea__titulo a:hover { color: var(--marca); text-decoration: underline; }
 .linea__lugar { margin: .3rem 0 0; color: var(--apagado); font-size: 1rem; }
 .linea__foto { flex: 0 0 5.5rem; height: 7rem; margin: 0; overflow: hidden; }
 .linea__foto img { width: 100%; height: 100%; object-fit: cover; }
-.linea__hoy { position: relative; display: flex; align-items: center; gap: .75rem; padding: .2rem 0 1.6rem 2.6rem; }
+.linea__hoy { position: relative; display: flex; align-items: center; gap: .75rem; max-width: none; margin: 1.25rem 0 1.5rem; padding: .2rem 0 .2rem 2.6rem; }
 .linea__hoy::after { content: ""; flex: 1; height: 2px; background: var(--oro); }
 .linea__marca {
   position: absolute; left: -.05rem; top: -.1rem; width: 1.65rem; height: 1.65rem; border-radius: 50%;
@@ -463,18 +689,158 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
   display: grid; place-items: center; background: var(--marca-tenue); color: var(--marca); font-weight: 600; font-size: 1rem;
 }
 .quien__cargo { display: block; color: var(--apagado); font-size: 1rem; line-height: 1.4; }
+/* v3, portada: una cuadrícula de fichas que llena el ancho (2 × 2 en escritorio, una columna en
+   móvil). Con un número impar, la última ocupa la fila entera */
+.quien--portada { display: grid; gap: .75rem; grid-template-columns: minmax(0, 1fr); border-top: 0; }
+@media (min-width: 48em) {
+  .quien--portada { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .quien--portada > .quien__fila:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+.quien--portada .quien__fila {
+  grid-template-columns: minmax(0, 1fr); align-content: start; gap: .75rem; max-width: none;
+  padding: 1.1rem 1.25rem 1.2rem; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio);
+}
+.quien--portada .quien__tema { padding-bottom: .7rem; border-bottom: 1px solid var(--linea); }
+.banda--tenue .quien--portada .quien__iniciales { background: var(--marca-tenue); }
 
 /* ── el año ── */
-.anio { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10.5rem), 1fr)); }
-.mes { padding: .85rem 1rem; min-height: 7rem; }
-.mes.es-mes-actual { border: 3px solid var(--oro); padding: calc(.85rem - 2px) calc(1rem - 2px); }
-.mes__nombre { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .3rem .5rem; margin: 0 0 .45rem; font: 700 1.15rem/1.3 var(--f-titulo); }
+/* Una tira de 12 meses. En móvil, una fila por mes (los vacíos, finos); en escritorio, dos tiras
+   de seis (enero–junio y julio–diciembre) donde los meses con fiesta se despliegan y los vacíos
+   se quedan en la abreviatura. Sigue siendo UNA lista ordenada: el salto entre las dos tiras es
+   un ::after con order, y los meses no cambian de orden */
+.anio { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+.mes { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: .3rem 1rem; align-items: baseline; padding: .75rem 1rem; }
+.mes.es-vacio { padding-block: .35rem; }
+.mes.es-mes-actual { border: 3px solid var(--oro); padding-inline: calc(1rem - 2px); }
+.mes__nombre { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem .5rem; margin: 0; font: 700 1.15rem/1.3 var(--f-titulo); }
+.mes__corto { display: none; }
 .mes__ahora { padding: .15rem .45rem; border-radius: 4px; background: var(--tinta); color: var(--papel); font: 600 .75rem/1.3 var(--f-texto); letter-spacing: .06em; text-transform: uppercase; }
 .mes__fiestas { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.mes__fiestas li { max-width: none; }
 .mes__fiestas b { display: block; font-size: 1rem; line-height: 1.3; }
 .mes__fiestas span:not(.chip) { display: block; color: var(--apagado); font-size: .9375rem; line-height: 1.35; }
 .mes__fiestas .chip { margin-block: .2rem; font-size: .75rem; }
-.mes__vacio { margin: 0; color: var(--apagado); font-size: .9375rem; }
+.mes__vacio { margin: 0; color: var(--apagado); font-size: .9375rem; align-self: center; }
+.mes__raya { display: inline-block; width: 1.75rem; height: 2px; vertical-align: middle; background: var(--linea-fuerte); }
+/* «Sin fiestas señaladas»: a la vista solo en el mes en curso; en los demás, la raya (y el texto oculto) */
+.mes:not(.es-mes-actual) .mes__vacio-texto, .mes.es-mes-actual .mes__raya {
+  position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+@media (min-width: 64em) {
+  .anio { display: flex; flex-wrap: wrap; column-gap: .5rem; row-gap: 0; }
+  .anio::after { content: ""; order: 2; flex-basis: 100%; height: 0; }
+  .mes { order: 1; display: block; flex: 3 1 12rem; min-width: 0; margin-bottom: .5rem; padding: .85rem 1rem; }
+  .mes:nth-child(n+7) { order: 3; }
+  .mes__nombre { margin-bottom: .45rem; }
+  .mes.es-vacio { flex: 0 0 4.75rem; display: flex; flex-direction: column; align-items: center; gap: .6rem; padding: .85rem .25rem; text-align: center; }
+  .mes.es-vacio .mes__nombre { margin: 0; }
+  .mes.es-vacio:not(.es-mes-actual) .mes__largo { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .mes.es-vacio:not(.es-mes-actual) .mes__corto { display: block; text-transform: capitalize; }
+  .mes.es-vacio.es-mes-actual { flex: 1.6 1 11rem; align-items: flex-start; text-align: left; padding-inline: calc(1rem - 2px); }
+  .mes.es-mes-actual { padding-block: calc(.85rem - 2px); }
+}
+/* v3: el mes en curso sin fiestas dice cuál es la siguiente («Lo siguiente: …, noviembre»); el
+   «Sin fiestas señaladas» queda para el lector de pantalla */
+.mes__siguiente { margin: 0; font-size: .9375rem; line-height: 1.4; max-width: none; }
+.mes__siguiente b { font-weight: 600; }
+.mes.es-mes-actual:has(.mes__siguiente) .mes__vacio-texto { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.mes.es-vacio.es-mes-actual { position: relative; }
+@media (min-width: 64em) {
+  .mes.es-vacio.es-mes-actual { gap: .35rem; }
+}
+/* v3, portada en móvil y tableta: una tira que se desliza de lado, con un mes por parada, que
+   llega colocada en el mes en curso (lo hace el script de debajo de la lista, antes de pintar).
+   Recorrible con el teclado (main.js le da tabindex si desborda) y con el lector de pantalla:
+   sigue siendo la lista ordenada de 12 meses */
+@media (max-width: 63.99em) {
+  .anio--tira {
+    /* relative: el texto oculto de los meses (position: absolute) tiene que quedarse DENTRO del
+       carril; si no, su caja contenedora es la banda y alarga la página a lo ancho */
+    position: relative; display: flex; gap: .5rem; align-items: flex-start;
+    overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--margen)); padding: .25rem var(--margen) 1rem; scroll-padding-inline: var(--margen);
+  }
+  .anio--tira .mes { flex: 0 0 min(15rem, 70vw); display: block; scroll-snap-align: start; padding: .85rem 1rem; }
+  .anio--tira .mes__nombre { margin-bottom: .45rem; }
+  .anio--tira .mes.es-vacio:not(.es-mes-actual) { flex-basis: 5.25rem; display: flex; flex-direction: column; align-items: center; gap: .6rem; padding: .85rem .25rem; text-align: center; }
+  .anio--tira .mes.es-vacio:not(.es-mes-actual) .mes__nombre { margin: 0; }
+  .anio--tira .mes.es-vacio:not(.es-mes-actual) .mes__largo { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .anio--tira .mes.es-vacio:not(.es-mes-actual) .mes__corto { display: block; text-transform: capitalize; }
+  .anio--tira .mes.es-mes-actual { padding: calc(.85rem - 2px) calc(1rem - 2px); }
+}
+
+/* ═══════════════ BANDAS DE LA PORTADA ═══════════════
+   Ritmo por bandas a todo lo ancho, todo con tokens: el tablón sobre la hoja, «Quién se ocupa»
+   sobre el tenue de la marca y «El año» en banda oscura (tinta) con el oro de acento. */
+.banda { border-top: 0; }
+.banda--superficie { background: var(--superficie); border-block: 1px solid var(--linea); }
+.banda--superficie + .seccion { border-top: 0; }
+.banda--tenue { background: var(--marca-tenue); }
+.banda--tenue .quien__iniciales { background: var(--superficie); }
+.banda--oscura { background: var(--oscuro); color: var(--sobre-oscuro); }
+.banda--oscura .seccion__titulo, .banda--oscura h2, .banda--oscura h3 { color: var(--sobre-oscuro); }
+.banda--oscura a, .banda--oscura a:hover { color: var(--sobre-oscuro); }
+.banda--oscura .ver-todo { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .2em; }
+.banda--oscura .ver-todo:hover { text-decoration-thickness: 2px; }
+.banda--oscura :focus-visible { outline-color: var(--foco-claro); }
+.banda--oscura .mes { background: var(--superficie-oscura); border-color: var(--linea-oscura); color: var(--sobre-oscuro); }
+.banda--oscura .mes.es-mes-actual { border-color: var(--oro); }
+.banda--oscura .mes__fiestas span:not(.chip), .banda--oscura .mes__vacio, .banda--oscura .mes__corto { color: var(--sobre-oscuro-apagado); }
+.banda--oscura .mes__raya { background: var(--linea-oscura); }
+.banda--oscura .chip--mayor, .banda--oscura .mes__ahora { background: var(--oro); color: var(--tinta); }
+/* respiro: sin «Quién se ocupa» detrás, la banda oscura no se pega a la franja verde de la sede */
+main > .banda--oscura:last-child { margin-bottom: var(--seccion); }
+/* v3: el cambio de banda entra por una puerta. Sobre el borde de arriba de la banda se alza un arco
+   de medio punto DE LÍNEA en la marca (la puerta de las cabeceras interiores), con el borde de la
+   banda por umbral, alineado con el borde del texto (donde empieza la raya de oro del título).
+   Mide 0,7 del relleno de abajo de la sección anterior: nunca pisa su contenido. Un arco macizo del
+   color de la banda se leía como una mancha. Es un pseudo-elemento: no lo lee nadie. Quieto, está
+   arriba del todo; css/movimiento.css lo hace subir al llegar con el scroll. Una puerta por banda,
+   en dos bandas: nunca una arcada */
+.banda--puerta { position: relative; isolation: isolate; }
+.banda--puerta::before {
+  content: ""; position: absolute; z-index: -1; bottom: 100%;
+  left: max(var(--margen), calc((100% - var(--ancho)) / 2));
+  width: calc(var(--seccion) * .9); height: calc(var(--seccion) * .7);
+  box-sizing: border-box; border: 2px solid var(--marca); border-bottom: 0;
+  border-radius: 9999px 9999px 0 0;
+  pointer-events: none;
+}
+.densidad-sobria .banda--puerta::before { display: none; }
+
+/* ═══════════════ «CONOCER …» (portada) ═══════════════
+   De 3 a 5 lugares de «Qué ver» en arco. En escritorio, en fila y el primero más grande: los arcos
+   de distinto tamaño, de pie sobre la misma línea, como puertas de una calle (no una arcada de
+   arcos iguales). Rejilla con subgrid para que fotos, nombres y créditos vayan alineados.
+   En móvil, un carril que se desliza con el siguiente asomando (y en el DOM, en orden). */
+.conocer__carril { min-width: 0; }
+.conocer__lista { list-style: none; margin: 0; padding: 0; }
+.conocer__lugar { max-width: none; min-width: 0; }
+.conocer__enlace { display: block; color: var(--tinta); text-decoration: none; }
+.conocer__marco { display: block; aspect-ratio: 3 / 4; overflow: hidden; background: var(--superficie-2); }
+.conocer__marco img { width: 100%; height: 100%; object-fit: cover; }
+.conocer__nombre { display: block; margin-top: .8rem; font: 700 1.15rem/1.3 var(--f-titulo); color: var(--marca); text-wrap: balance; }
+.conocer__enlace:hover .conocer__nombre { text-decoration: underline; }
+.conocer__enlace:hover .conocer__marco { border-color: var(--marca-fuerte); }
+.conocer__credito { margin-top: .25rem; font-size: .8125rem; line-height: 1.4; }
+@media (max-width: 55.99em) {
+  .conocer__carril {
+    position: relative; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
+    margin-inline: calc(-1 * var(--margen)); padding: .25rem var(--margen) 1rem; scroll-padding-inline: var(--margen);
+  }
+  .conocer__lista { display: flex; gap: 1rem; width: max-content; }
+  .conocer__lugar { width: min(15rem, 68vw); scroll-snap-align: start; }
+}
+@media (min-width: 56em) {
+  .conocer__lista {
+    display: grid; grid-auto-flow: column; grid-template-columns: 1.45fr; grid-auto-columns: 1fr;
+    grid-template-rows: auto auto auto; column-gap: clamp(1rem, 2.2vw, 2rem);
+  }
+  .conocer__lugar { grid-row: 1 / span 3; display: grid; grid-template-rows: subgrid; }
+  .conocer__enlace { grid-row: 1 / span 2; display: grid; grid-template-rows: subgrid; }
+  .conocer__marco { align-self: end; }
+  .conocer__credito { grid-row: 3; }
+}
 
 /* ═══════════════ PIE ═══════════════ */
 .sede-franja { background: var(--marca); color: var(--sobre-marca); padding-block: clamp(2.25rem, 5vw, 3.5rem); }
@@ -492,36 +858,181 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .sede-franja__enlace span span { display: block; color: var(--sobre-marca-apagado); font-size: .9375rem; line-height: 1.4; }
 .sede-franja__nota { margin: 1rem 0 0; color: var(--sobre-marca-apagado); font-size: .9375rem; }
 
-.pie__cuerpo { background: var(--superficie-2); padding-block: 2.25rem 2.75rem; font-size: 1rem; }
-.pie__cuerpo p { margin: 0 0 .3rem; }
-.pie__rejilla { display: grid; gap: 1.5rem 3rem; }
-@media (min-width: 64em) { .pie__rejilla { grid-template-columns: 1.3fr 1fr; } }
+/* ── el perfil del pueblo (v3): el borde de arriba del pie ──
+   El pueblo dibujado a línea (marca/perfil.svg o el genérico), de pie sobre la franja de la sede.
+   El lienzo es de 1600 × 180: el alto sigue al ancho (11,25vw) y nunca baja de 88 px. Por debajo
+   de ~780 px se recorta por los lados (preserveAspectRatio slice), nunca se estira: lo que importa
+   (la iglesia) va en el centro. El trazo se ajusta a la escala para quedarse en ~1,3 px. */
+.pie__perfil { height: max(5.5rem, 11.25vw); margin-top: clamp(1rem, 3vw, 2.5rem); color: var(--marca); overflow: clip; }
+.pie__perfil-dibujo {
+  display: block; width: 100%; height: 100%; max-width: none;
+  fill: none; stroke: currentColor; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round;
+}
+.pie__perfil-dibujo .lejos { stroke: var(--linea-fuerte); stroke-width: 1.5; }
+@media (min-width: 48.875em) { .pie__perfil-dibujo { stroke-width: 1.7; } .pie__perfil-dibujo .lejos { stroke-width: 1; } }
+@media (min-width: 120em) { .pie__perfil-dibujo { stroke-width: 1.3; } }
+
+/* ── el cuerpo del pie (v3): el Ayuntamiento, enlaces útiles y el plano; abajo, lo legal ──
+   Tres columnas en escritorio; sin plano (marca/plano.svg), dos. En tableta, el plano baja a
+   una fila propia con su texto al lado; en móvil, todo en una columna. */
+.pie__cuerpo { background: var(--superficie-2); padding-block: clamp(2.25rem, 4vw, 3rem) 2rem; font-size: 1rem; }
+.pie__cuerpo p { margin: 0 0 .4rem; }
+.pie__rejilla { display: grid; gap: 2rem 3rem; }
+.pie__col { min-width: 0; }
+@media (min-width: 48em) {
+  .pie__rejilla { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .pie__plano { grid-column: 1 / -1; }
+}
+@media (min-width: 64em) {
+  .pie__rejilla--plano { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 1.05fr); }
+  .pie__rejilla--plano .pie__plano { grid-column: auto; }
+}
 .pie__id { display: flex; gap: 1rem; align-items: flex-start; }
 .pie__escudo { height: 4.5rem; width: auto; flex: none; }
-.pie__nombre { font: 700 1.2rem/1.3 var(--f-titulo); }
-.pie__nav ul, .pie__redes { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
-.pie__nav a, .pie__redes a { display: inline-flex; align-items: center; min-height: 44px; }
-.pie__redes { grid-column: 1 / -1; }
-.pie__creditos, .pie__propuesta { grid-column: 1 / -1; color: var(--apagado); font-size: .9375rem; }
+.pie__nombre, .pie__titulo { font: 700 1.2rem/1.3 var(--f-titulo); margin: 0 0 .6rem; }
+.pie__etiqueta { display: block; color: var(--apagado); font-size: .875rem; font-weight: 600; line-height: 1.3; }
+.pie__lista { list-style: none; margin: 0; padding: 0; columns: 2 9rem; column-gap: 1.5rem; }
+.pie__lista li { break-inside: avoid; }
+.pie__lista a, .pie__redes a, .pie__legal a { display: inline-flex; align-items: center; min-height: 44px; }
+.pie__cuerpo .pie__subtitulo { margin: 1rem 0 0; color: var(--apagado); font-size: .875rem; font-weight: 600; }
+.pie__redes, .pie__legal ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 1.25rem; }
+/* el plano: dibujo propio desde OpenStreetMap, sin peticiones. Enlaza a «Contacto» (el mapa de Google, bajo clic) */
+.pie__plano-figura { margin: 0; }
+.pie__plano-enlace { display: block; max-width: 24rem; background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--radio); overflow: hidden; }
+.pie__plano-enlace:hover { border-color: var(--marca); }
+.pie__plano-dibujo { display: block; width: 100%; height: auto; }
+.pie__cuerpo .pie__plano-pie { max-width: 24rem; margin: .6rem 0 .1rem; color: var(--apagado); font-size: .9375rem; line-height: 1.45; }
+@media (min-width: 48em) and (max-width: 63.99em) {
+  .pie__plano-figura { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 0 2rem; align-items: end; }
+  .pie__cuerpo .pie__plano-pie { margin: 0; }
+}
+.plano-fondo { fill: var(--superficie); }
+.plano-plaza { fill: var(--marca-tenue); }
+.plano-calle { fill: none; stroke: var(--linea-fuerte); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.plano-calle--principal { stroke: var(--apagado); stroke-width: 3; }
+.plano-hito { fill: var(--superficie-2); stroke: var(--linea-fuerte); stroke-width: 1; }
+.plano-ayto { fill: var(--marca); stroke: var(--marca-fuerte); stroke-width: 1; }
+.plano-aro { fill: none; stroke: var(--marca); stroke-width: 1.6; }
+.plano-punto { fill: var(--marca); }
+.plano-escala { fill: none; stroke: var(--tinta); stroke-width: 1.2; }
+.plano-rotulo { font: 500 11.5px var(--f-texto); fill: var(--tinta); paint-order: stroke; stroke: var(--superficie); stroke-width: 3.5px; stroke-linejoin: round; }
+.plano-rotulo--ayto { font-size: 12.5px; font-weight: 700; fill: var(--marca); }
+.plano-rotulo--escala { font-size: 10px; }
+.pie__canal { grid-column: 1 / -1; padding: .9rem 1.1rem; background: var(--superficie); border: 1px solid var(--linea); border-left: 3px solid var(--marca); border-radius: var(--radio); }
+.pie__canal-titulo { display: flex; align-items: center; gap: .5rem; font-weight: 600; }
+.pie__canal-titulo .icono { color: var(--marca); }
+.canal-avisos__como { margin-top: 1.5rem; }
+.canal-avisos__pasos { margin: 0; padding-left: 1.4rem; }
+.canal-avisos__pasos li + li { margin-top: .35rem; }
+.pie__base { display: grid; gap: .5rem; margin-top: 2rem; }
+.pie__legal { padding-top: .5rem; border-top: 1px solid var(--linea-fuerte); }
+.pie__creditos, .pie__propuesta { color: var(--apagado); font-size: .9375rem; }
 .pie__propuesta { color: var(--tinta); font-weight: 600; }
+/* v3c · guia: «Personal del Ayuntamiento: publicar», discreto y con su zona táctil */
+.pie__personal { margin: 0; font-size: .9375rem; }
+.pie__personal a { display: inline-flex; align-items: center; min-height: 44px; }
 
 /* ── aviso de cookies: :not([hidden]) o el botón «no hace nada» ── */
+/* compacto: una o dos líneas con el botón al lado, también en escritorio, para no tapar el
+   buscador del hero (a 375 × 667 el campo se ve entero con el aviso puesto: verificar → v3pliegue) */
 .cookies {
-  position: fixed; left: 1rem; right: 1rem; bottom: 1rem; z-index: 80;
-  max-width: 46rem; margin-inline: auto; padding: 1rem 1.25rem;
+  position: fixed; left: .75rem; right: .75rem; bottom: .75rem; z-index: 80;
+  max-width: 40rem; margin-inline: auto; padding: .5rem .5rem .5rem 1.1rem;
   background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--radio);
   box-shadow: var(--sombra-alta);
 }
-.cookies:not([hidden]) { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.25rem; }
-.cookies__texto { flex: 1 1 20rem; font-size: 1rem; }
-.cookies__texto p { margin: 0; }
-.cookies__texto p + p { margin-top: .35rem; color: var(--apagado); }
-@media (max-width: 36em) { .cookies { left: .5rem; right: .5rem; bottom: .5rem; padding: .85rem 1rem; } .cookies__texto { font-size: .9375rem; } }
+.cookies:not([hidden]) { display: flex; align-items: center; gap: .5rem 1rem; }
+.cookies__texto { flex: 1 1 auto; min-width: 0; font-size: .9375rem; line-height: 1.4; }
+.cookies__texto p { margin: 0; max-width: none; }
+.cookies__texto p + p { margin-top: .25rem; color: var(--apagado); }
+.cookies .boton { flex: none; min-height: 44px; padding: .45rem 1rem; }
+@media (max-width: 36em) {
+  .cookies { left: .5rem; right: .5rem; bottom: .5rem; padding: .4rem .4rem .4rem .8rem; gap: .6rem; }
+  .cookies .boton { padding-inline: .8rem; font-size: 1rem; }
+}
 
 /* ═══════════════ PÁGINAS INTERIORES ═══════════════ */
-.cabeza-pagina { padding-block: 1rem clamp(1.5rem, 3vw, 2.25rem); border-bottom: 1px solid var(--linea); }
-.cabeza-pagina__titulo { font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem); margin-bottom: .25rem; }
+/* Cabecera de página: migas, h1 y entradilla con la puerta a la derecha.
+   - Sin foto: un arco de línea en la marca con su umbral de oro, de pie sobre el filete de abajo
+     (en el móvil, pequeño junto al título).
+   - Con foto (municipio.json → cabeceras): la foto recortada en arco, como la del hero.
+   - «El pueblo» con foto: grande, a media pantalla.
+   - Versión sobria: el arco solo va en el hero; aquí la foto es un rectángulo y no hay arco de línea.
+   Una rejilla plana (sin envoltorio del texto) para poder mover la puerta entre filas. */
+.cabeza-pagina { --cabeza-pie: clamp(1.5rem, 3vw, 2.25rem); padding-block: 1rem var(--cabeza-pie); border-bottom: 1px solid var(--linea); }
+.cabeza-pagina__rejilla {
+  display: grid; grid-template-columns: minmax(0, 1fr); column-gap: clamp(1rem, 4vw, 3.5rem);
+  grid-template-areas: "migas" "titulo" "entradilla" "puerta";
+}
+.cabeza-pagina .migas { grid-area: migas; min-width: 0; }
+.cabeza-pagina__titulo { grid-area: titulo; font-size: clamp(2.25rem, 1.6rem + 2.6vw, 3.5rem); margin-bottom: .25rem; min-width: 0; overflow-wrap: break-word; }
+/* a 320 px con barra de desplazamiento clásica quedan 273 px: «Ayuntamiento» a 36 px no cabe */
+@media (max-width: 23.99em) { .cabeza-pagina__titulo { font-size: 2rem; } }
+.cabeza-pagina .entradilla { grid-area: entradilla; }
 .entradilla { font-size: 1.25rem; line-height: 1.5; margin: .5rem 0 0; max-width: 44rem; }
+.cabeza-pagina__puerta { grid-area: puerta; position: relative; margin: 0; }
+.cabeza-pagina__arco { display: block; overflow: hidden; background: var(--superficie-2); }
+.cabeza-pagina__arco img { width: 100%; height: 100%; object-fit: cover; }
+.cabeza-pagina__arco--linea { aspect-ratio: 4 / 5; background: var(--marca-tenue); border: 2px solid var(--marca); border-bottom: 0; border-radius: 9999px 9999px 0 0; }
+.cabeza-pagina__umbral { display: block; height: 6px; margin-inline: max(-6%, calc(4px - var(--margen))); background: var(--oro); border-radius: 2px; }
+.cabeza-pagina__puerta .credito { margin-top: .5rem; }
+
+/* sin foto: el arco de línea, de pie sobre el filete de la cabecera (el umbral tapa la línea de
+   abajo). En el móvil, pequeño y junto a la entradilla, nunca junto al título: le quitaría ancho
+   y partiría palabras largas («Ayuntamiento», a 320 px) */
+.cabeza-pagina--arco .cabeza-pagina__rejilla {
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: "migas migas" "titulo titulo" "entradilla puerta";
+}
+.cabeza-pagina__puerta--linea { width: 4.25rem; align-self: end; justify-self: end; margin-bottom: calc(-1 * var(--cabeza-pie) - 1px); }
+/* v3 · el arco ya no está vacío: lleva el pictograma de la página (fuente/_pictogramas.html), un
+   dibujo de línea en la marca con el trazo de los iconos. Va en la parte recta de la puerta,
+   centrado, y el grosor se da en unidades de la rejilla de 24 para que salga ≈ 1,6-2 px */
+.cabeza-pagina__arco--linea { position: relative; }
+.cabeza-pagina__picto {
+  position: absolute; left: 19%; top: 37%; width: 62%; height: auto; aspect-ratio: 1; overflow: visible;
+  fill: none; stroke: var(--marca); stroke-width: 1.05; stroke-linecap: round; stroke-linejoin: round;
+}
+@media (min-width: 48em) { .cabeza-pagina__picto { stroke-width: .72; } }
+.cabeza-pagina__puerta--linea .cabeza-pagina__umbral { height: 4px; margin-inline: -14%; }
+@media (min-width: 48em) {
+  .cabeza-pagina--arco .cabeza-pagina__rejilla {
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: "migas puerta" "titulo puerta" "entradilla puerta";
+  }
+  .cabeza-pagina__puerta--linea { width: clamp(5.5rem, 8vw, 7.5rem); }
+  .cabeza-pagina__puerta--linea .cabeza-pagina__umbral { height: 6px; margin-inline: -10%; }
+}
+
+/* con foto: debajo del texto en el móvil (el ancho limitado por el alto: con el zoom al 200 %
+   el arco cabe en la pantalla y sigue siendo de medio punto); a la derecha desde 48em */
+.cabeza-pagina--foto .cabeza-pagina__puerta { margin-top: 1.25rem; width: min(100%, 34rem, 96vh); }
+.cabeza-pagina--foto .cabeza-pagina__arco { aspect-ratio: 16 / 10; }
+@media (min-width: 48em) {
+  .cabeza-pagina--foto:not(.cabeza-pagina--grande) .cabeza-pagina__rejilla {
+    grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto 1fr;
+    grid-template-areas: "migas puerta" "titulo puerta" "entradilla puerta";
+  }
+  .cabeza-pagina--foto:not(.cabeza-pagina--grande) .cabeza-pagina__puerta { width: clamp(12rem, 22vw, 17rem); margin-top: .5rem; }
+  .cabeza-pagina--foto:not(.cabeza-pagina--grande) .cabeza-pagina__arco { aspect-ratio: 4 / 5; }
+}
+/* «El pueblo»: la página turística abre con la foto grande */
+.cabeza-pagina--grande .cabeza-pagina__puerta { width: min(100%, 44rem, 80vh); }
+.cabeza-pagina--grande .cabeza-pagina__arco { aspect-ratio: 4 / 3; }
+@media (min-width: 64em) {
+  .cabeza-pagina--grande { padding-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .cabeza-pagina--grande .cabeza-pagina__rejilla {
+    grid-template-columns: minmax(0, 1fr) minmax(20rem, 34rem); grid-template-rows: auto 1fr auto auto 1.4fr;
+    grid-template-areas: "migas puerta" ". puerta" "titulo puerta" "entradilla puerta" ". puerta";
+  }
+  .cabeza-pagina--grande .cabeza-pagina__puerta { width: 100%; margin-top: .5rem; }
+  .cabeza-pagina--grande .cabeza-pagina__arco { aspect-ratio: 5 / 4; }
+  .cabeza-pagina--grande .cabeza-pagina__titulo { font-size: clamp(3rem, 1.6rem + 3.4vw, 4.75rem); }
+  .cabeza-pagina--grande .entradilla { font-size: 1.375rem; }
+}
+.densidad-sobria .cabeza-pagina__puerta--linea,
+.densidad-sobria .cabeza-pagina__umbral { display: none; }
+.densidad-sobria .cabeza-pagina--arco .cabeza-pagina__rejilla { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "migas" "titulo" "entradilla"; }
 .migas ol { list-style: none; margin: 0 0 .25rem; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0 .5rem; font-size: 1rem; }
 .migas li + li::before { content: "/"; color: var(--apagado); margin-right: .5rem; }
 .migas a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; padding-inline: .2rem; }
@@ -543,8 +1054,32 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .pasos a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
 
 .campo--filtro { margin: 1.25rem 0 0; }
-.todos { list-style: none; margin: 1.25rem 0 0; padding: 0; columns: 2 24rem; column-gap: 2.5rem; }
-.todos li { break-inside: avoid; }
+/* v3 · «Todos los trámites» por iniciales y el índice A–Z, fijo arriba al bajar por la lista (la
+   sección no recorta: un overflow:hidden por encima lo despegaría). En el móvil, una fila que se
+   desplaza de lado; las letras sin trámites, apagadas y fuera del orden de tabulación */
+.az { position: sticky; top: 0; z-index: 3; margin: 1.25rem 0 0; padding: .4rem 0; background: var(--papel); border-bottom: 1px solid var(--linea-fuerte); }
+.az__lista { list-style: none; margin: 0; padding: 0; display: flex; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: thin; }
+.az__lista li { flex: 1 0 2.75rem; max-width: none; }
+@media (min-width: 64em) { .az__lista li { flex-basis: 2.25rem; } }
+.az__letra {
+  display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: var(--radio);
+  font: 700 1.125rem/1 var(--f-titulo); color: var(--marca); text-decoration: none;
+}
+.az__letra[href]:hover { background: var(--marca-tenue); text-decoration: underline; }
+.az__letra:not([href]) { color: var(--apagado); font-weight: 400; }
+.az__lista:focus-visible { outline-offset: -3px; }
+.todos { margin: 0; }
+.todos__grupo { display: grid; grid-template-columns: minmax(0, 1fr); padding-top: .75rem; border-bottom: 1px solid var(--linea); }
+.todos__inicial { margin: 0; scroll-margin-top: 4.5rem; font-size: 1.75rem; color: var(--marca); }
+.todos__lista { list-style: none; margin: 0; padding: 0; columns: 2 22rem; column-gap: 2.5rem; }
+.todos__lista li { break-inside: avoid; }
+.todos__lista li:first-child .enlace-tramite { border-top: 0; }
+@media (min-width: 48em) {
+  .todos__grupo { grid-template-columns: 4rem minmax(0, 1fr); padding-block: .5rem; }
+  .todos__inicial { padding-top: .35rem; font-size: 2rem; }
+  .todos__lista li .enlace-tramite { border-top: 0; border-bottom: 1px solid var(--linea); }
+  .todos__lista li:last-child .enlace-tramite { border-bottom: 0; }
+}
 
 .avisos { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 .aviso { background: var(--superficie); border: 1px solid var(--linea); border-left: 4px solid var(--marca); border-radius: var(--radio); padding: 1.1rem 1.25rem .4rem; }
@@ -554,10 +1089,38 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .aviso__titulo { font-size: 1.3rem; margin-bottom: .35rem; }
 .aviso:target { outline: 3px solid var(--oro); outline-offset: 2px; }
 
+/* v3 · noticias: cada tarjeta lleva arriba su foto o, sin foto, la fecha grande en un arco del mismo
+   tamaño, así la cuadrícula queda pareja con 0, 1 o todas las fotos. En el móvil, una fila por
+   noticia con el arco pequeño a la izquierda (seis arcos de ancho completo eran media pantalla cada
+   uno). Una sola noticia: tarjeta apaisada a todo el ancho, no un tercio con dos huecos al lado */
 .noticias { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr)); }
-.noticia { padding: 1rem 1.1rem .5rem; display: flex; flex-direction: column; }
-.noticia__foto { margin: 0 0 .9rem; aspect-ratio: 4 / 3; overflow: hidden; }
+.noticia { padding: 1rem 1.1rem .5rem; display: flex; flex-direction: column; max-width: none; }
+.noticia__foto, .noticia__fecha { margin: 0 0 .9rem; aspect-ratio: 3 / 2; overflow: hidden; }
 .noticia__foto img { width: 100%; height: 100%; object-fit: cover; }
+.noticia__fecha {
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: .1rem;
+  padding-bottom: 12%; background: var(--marca-tenue); color: var(--marca); line-height: 1;
+}
+.densidad-puerta .noticia__fecha { border-color: var(--marca); }
+.noticia__dia { font: 700 clamp(3.25rem, 2.4rem + 2.4vw, 4.5rem)/.95 var(--f-titulo); }
+.noticia__mes { font: 700 1.125rem/1.1 var(--f-titulo); letter-spacing: .12em; text-transform: uppercase; }
+.noticia__anio { margin-top: .2rem; color: var(--apagado); font-size: .9375rem; font-weight: 600; }
+.noticia--sin-foto .noticia__meta:not(:has(.ejemplo)) { margin: 0; }
+@media (max-width: 47.99em) {
+  .noticia { flex-direction: row; align-items: flex-start; gap: 1rem; padding: .9rem 1rem .4rem; }
+  .noticia__foto, .noticia__fecha { flex: none; width: 5.5rem; aspect-ratio: 4 / 5; margin: 0 0 .5rem; }
+  .noticia__fecha { padding-bottom: .55rem; }
+  .noticia__dia { font-size: 2.25rem; }
+  .noticia__mes { font-size: .875rem; }
+  .noticia__anio { font-size: .8125rem; }
+  .noticia__texto { min-width: 0; }
+  .noticia__titulo { font-size: 1.15rem; }
+}
+@media (min-width: 48em) {
+  .noticias:has(> .noticia:only-child) { grid-template-columns: minmax(0, 1fr); }
+  .noticia:only-child { display: grid; grid-template-columns: minmax(16rem, 2fr) 3fr; gap: 0 2rem; align-items: center; padding: 1.25rem; }
+  .noticia:only-child :is(.noticia__foto, .noticia__fecha) { margin: 0; }
+}
 .noticia__meta { display: flex; flex-wrap: wrap; gap: .4rem; align-items: center; margin: 0 0 .3rem; color: var(--apagado); font-size: 1rem; }
 .noticia__titulo { font-size: 1.3rem; line-height: 1.3; }
 .noticia__titulo a { color: var(--tinta); text-decoration: none; }
@@ -565,9 +1128,50 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .noticia__resumen { color: var(--apagado); font-size: 1rem; }
 .articulo { max-width: calc(46rem + 2 * var(--margen)); margin-inline: 0; }
 .articulo__meta { color: var(--apagado); font-size: 1rem; }
+.articulo__lectura { white-space: nowrap; }
+/* v3b · M10: la barra de progreso de lectura solo existe en css/movimiento.css (con soporte y con movimiento) */
+.lectura-progreso { display: none; }
 .articulo__foto { margin: 0 0 1.5rem; aspect-ratio: 3 / 2; overflow: hidden; }
 .articulo__foto img { width: 100%; height: 100%; object-fit: cover; }
 .articulo__fuente { color: var(--apagado); font-size: 1rem; border-top: 1px solid var(--linea); padding-top: 1rem; margin-top: 1.5rem; }
+
+/* v3 · agenda a dos columnas: el calendario del mes (fijo al bajar) a la izquierda y la lista a la
+   derecha; en el móvil, el calendario arriba y compacto */
+.agenda { display: grid; gap: 2rem 3.5rem; align-items: start; }
+.agenda__lista { min-width: 0; }
+.agenda__lista .evento { max-width: 46rem; }
+.agenda__calendario { min-width: 0; max-width: 26rem; }
+@media (min-width: 64em) {
+  .agenda { grid-template-columns: minmax(19rem, 25rem) minmax(0, 1fr); }
+  .agenda__calendario { position: sticky; top: 1rem; max-width: none; }
+}
+.calendario { position: relative; padding: .6rem .4rem .4rem; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); }
+.calendario__nav:not([hidden]) { position: absolute; top: .5rem; left: .5rem; right: .5rem; display: flex; justify-content: space-between; pointer-events: none; }
+.calendario__paso {
+  pointer-events: auto; display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 0;
+  border: 1px solid var(--linea-fuerte); border-radius: var(--radio); background: var(--superficie); color: var(--marca); cursor: pointer;
+}
+.calendario__paso:hover { border-color: var(--marca); background: var(--marca-tenue); }
+.calendario__paso[aria-disabled="true"] { color: var(--apagado); border-color: var(--linea); background: var(--superficie); cursor: default; }
+.calendario__tabla { width: 100%; table-layout: fixed; border-collapse: separate; border-spacing: 2px; }
+@media (min-width: 48em) { .calendario { padding: .75rem .75rem .5rem; } .calendario__tabla { border-spacing: 3px; } }
+.calendario__caption { min-height: 44px; padding: .35rem 3.25rem .6rem; font: 700 1.3rem/1.2 var(--f-titulo); text-align: center; }
+.calendario__tabla th { padding: 0 0 .25rem; color: var(--apagado); font-size: .8125rem; font-weight: 600; text-align: center; }
+.calendario__tabla td { padding: 0; text-align: center; }
+.calendario__dia {
+  display: flex; align-items: center; justify-content: center; min-height: 44px; border-radius: var(--radio);
+  font-size: 1rem; font-variant-numeric: tabular-nums; color: var(--tinta);
+}
+a.calendario__dia { background: var(--marca-tenue); color: var(--marca); font-weight: 700; text-decoration: underline; text-underline-offset: .2em; }
+a.calendario__dia:hover { background: var(--marca); color: var(--sobre-marca); }
+a.calendario__dia:focus-visible { outline-offset: 1px; }
+.ya-paso a.calendario__dia { background: var(--superficie-2); color: var(--apagado); }
+.es-hoy .calendario__dia { box-shadow: inset 0 0 0 3px var(--oro); font-weight: 700; }
+.calendario__leyenda { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; margin: .5rem .25rem .25rem; color: var(--apagado); font-size: .875rem; }
+.calendario__muestra { display: inline-block; width: 1rem; height: 1rem; border-radius: 3px; }
+.calendario__leyenda .calendario__muestra:not(:first-child) { margin-left: .75rem; }
+.calendario__muestra--acto { background: var(--marca-tenue); border: 1px solid var(--marca); }
+.calendario__muestra--hoy { box-shadow: inset 0 0 0 3px var(--oro); }
 
 .eventos { list-style: none; margin: 0 0 2.5rem; padding: 0; display: grid; gap: .75rem; }
 .evento { padding: 1rem 1.2rem .35rem; }
@@ -577,19 +1181,37 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .evento__lugar, .evento__nota { color: var(--apagado); font-size: 1rem; margin-bottom: .6rem; }
 .eventos--pasados .evento__fecha { color: var(--apagado); }
 .evento:target { outline: 3px solid var(--oro); outline-offset: 2px; }
+.evento__acciones { display: flex; flex-wrap: wrap; gap: 0 1.5rem; margin: -.2rem 0 .35rem; }
+.evento__ics, .evento__enlace { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; font-weight: 600; font-size: 1rem; }
+.evento__ics .icono { width: 1.25rem; height: 1.25rem; }
 
 .listin-completo { display: grid; gap: 2rem 3rem; }
 .listin-completo > * { min-width: 0; }
 @media (min-width: 64em) { .listin-completo { grid-template-columns: 1fr 1fr; align-items: start; } }
 .listin-grupo__titulo { font-size: 1.3rem; padding-bottom: .5rem; border-bottom: 2px solid var(--tinta); margin-bottom: 0; }
 .listin-completo .listin__fila { padding-block: .45rem; }
+/* F1 (v3): «Imprimir los teléfonos» (solo con JS) y lo que solo sale en el papel (css/imprimir.css) */
+.nevera-accion { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin: 0 0 2rem; }
+.nevera-accion[hidden] { display: none; }
+.nevera-accion p { margin: 0; color: var(--apagado); font-size: 1rem; }
+.nevera-cabeza, .nevera-pie { display: none; }
 
 .alcaldia { display: grid; gap: 2rem; align-items: center; }
 @media (min-width: 56em) { .alcaldia { grid-template-columns: 15rem 1fr; gap: 3rem; } }
 .retrato { margin: 0; max-width: 15rem; }
-.retrato__hueco { aspect-ratio: 3 / 4; display: grid; place-items: center; background: var(--superficie-2); border: 2px dashed var(--linea-fuerte); }
-.retrato__escudo { width: 42%; opacity: .2; filter: grayscale(1); }
-.retrato__pie { margin-top: .6rem; text-align: center; color: var(--apagado); font-size: .9375rem; }
+/* el retrato que falta: un hueco diseñado (marco interior, escudo apagado y umbral), no una caja
+   discontinua que parece un error. El pie sigue diciendo que ahí irá el retrato oficial */
+.retrato__hueco { position: relative; aspect-ratio: 3 / 4; background: var(--superficie-2); border: 1px solid var(--linea-fuerte); overflow: hidden; }
+.retrato__marco {
+  position: absolute; inset: .6rem .6rem 0; display: grid; place-items: center;
+  border: 1px solid var(--linea-fuerte); border-bottom: 0; border-radius: inherit;
+}
+.densidad-sobria .retrato__marco { inset: .6rem; border-bottom: 1px solid var(--linea-fuerte); }
+.retrato__escudo { width: 40%; opacity: .2; filter: grayscale(1); }
+.retrato__umbral { display: block; height: 6px; margin-inline: -4%; background: var(--oro); border-radius: 2px; }
+.densidad-sobria .retrato__umbral { display: none; }
+.retrato__pie { margin-top: .75rem; text-align: center; color: var(--apagado); font-size: .9375rem; line-height: 1.45; }
+.retrato__pie b { display: block; color: var(--tinta); font: 700 1rem/1.3 var(--f-titulo); letter-spacing: .02em; }
 .saluda { margin: 0 0 1rem; padding-left: 1.25rem; border-left: 3px solid var(--oro); font-size: 1.25rem; line-height: 1.55; }
 .saluda p { margin: 0; }
 .saluda__firma b { display: block; font: 700 1.15rem/1.3 var(--f-titulo); }
@@ -605,6 +1227,20 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .pleno__leyenda li { display: flex; align-items: center; gap: .75rem; }
 .pleno__muestra { width: 1.75rem; height: 1.75rem; flex: none; }
 .pleno__papel { display: block; color: var(--apagado); font-size: .9375rem; }
+/* M4 (v3): cada grupo de la leyenda pasa a ser un botón (js/identidad.js) que resalta sus escaños.
+   El botón ocupa lo mismo que la fila (márgenes negativos): no hay salto al convertirla.
+   Resaltado = los escaños de los demás se atenúan y el centro dice cuántos son; además, la fila
+   y la tarjeta del grupo se enmarcan. Pulsado (aria-pressed), se queda; Esc lo suelta. */
+.pleno__boton {
+  display: flex; align-items: center; gap: .75rem; width: calc(100% + 1.2rem); min-height: 48px;
+  margin: -.35rem -.6rem; padding: .35rem .6rem; text-align: left; line-height: inherit;
+  background: none; border: 1px solid transparent; border-radius: var(--radio); cursor: pointer;
+}
+.pleno__leyenda li.es-resaltado .pleno__boton { background: var(--superficie); border-color: var(--linea-fuerte); }
+.pleno__boton[aria-pressed="true"] { background: var(--marca-tenue); border-color: var(--marca); box-shadow: inset 4px 0 0 var(--marca); }
+.pleno__ayuda { margin: 1.1rem 0 0; color: var(--apagado); font-size: .9375rem; }
+.pleno[data-resalta] .hemiciclo circle:not(.es-resaltado) { opacity: .2; }
+.grupo.es-resaltado { border-color: var(--marca); box-shadow: inset 0 3px 0 var(--marca); }
 .grupos { display: grid; gap: 1rem; margin-top: 2rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); }
 .grupo { padding: 1.1rem 1.25rem .5rem; }
 .grupo__titulo { display: flex; align-items: center; gap: .6rem; font-size: 1.1rem; }
@@ -619,6 +1255,15 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .ficha__titulo { font-size: 1.15rem; line-height: 1.3; }
 .ficha__persona b { display: block; }
 .ficha__persona span, .ficha__fechas { color: var(--apagado); font-size: 1rem; }
+
+/* «¿Quién se ocupa de qué?» del Ayuntamiento: asunto y delegación oficial a un lado, persona,
+   cargo y grupo (con la muestra del hemiciclo) al otro. Sustituye a la antigua «Concejalías» */
+.quien--ayto .quien__fila { align-items: start; max-width: none; }
+.quien__asunto { min-width: 0; }
+.quien__delegacion { margin: .3rem 0 0; color: var(--apagado); font-size: 1rem; line-height: 1.45; }
+.quien--ayto .quien__persona { align-items: flex-start; }
+.quien__grupo { display: inline-flex; align-items: center; gap: .4rem; margin-top: .35rem; font-size: .9375rem; font-weight: 600; line-height: 1.3; }
+.quien__grupo .pleno__muestra { width: 1.05rem; height: 1.05rem; }
 
 .horario-ayto, .contacto { display: grid; gap: 2rem; align-items: start; }
 @media (min-width: 56em) { .horario-ayto, .contacto { grid-template-columns: 1fr 1fr; gap: 3rem; } }
@@ -664,20 +1309,86 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .placa__pie { margin-top: 1.25rem; color: var(--apagado); font-size: 1rem; }
 .placa__nota { color: var(--apagado); }
 
-.patrimonio { list-style: none; margin: 0; padding: 0; columns: 2 22rem; column-gap: 2.5rem; }
-.patrimonio li { break-inside: avoid; padding: .75rem 0; border-top: 1px solid var(--linea); }
-.patrimonio b { display: block; font: 700 1.125rem/1.35 var(--f-titulo); }
-.patrimonio span { display: block; color: var(--apagado); font-size: 1rem; line-height: 1.5; }
+/* patrimonio por grupos (campo opcional `grupo`): una columna con título por grupo, que se
+   colocan lado a lado en escritorio. Sin grupos, la lista de siempre en dos columnas */
+.patrimonio-grupos { display: grid; gap: 2rem 2.5rem; align-items: start; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
+.patrimonio-grupo { min-width: 0; }
+.patrimonio-grupo__titulo { font-size: 1.3rem; margin: 0; padding-bottom: .5rem; border-bottom: 2px solid var(--tinta); }
+.patrimonio { list-style: none; margin: 0; padding: 0; }
+.patrimonio-grupo:only-child .patrimonio { columns: 2 22rem; column-gap: 2.5rem; }
+.patrimonio__fila { break-inside: avoid; padding: .75rem 0; border-bottom: 1px solid var(--linea); }
+.patrimonio-grupo:only-child .patrimonio__fila { border-bottom: 0; border-top: 1px solid var(--linea); }
+.patrimonio__nombre { display: block; font: 700 1.125rem/1.35 var(--f-titulo); }
+.patrimonio__detalle { display: block; color: var(--apagado); font-size: 1rem; line-height: 1.5; margin-top: .15rem; }
 
 .gastronomia { display: grid; gap: 2rem; align-items: start; }
-@media (min-width: 56em) { .gastronomia { grid-template-columns: 1.3fr 1fr; gap: 3rem; } }
+@media (min-width: 56em) { .gastronomia--con-foto { grid-template-columns: 1.3fr 1fr; gap: 3rem; } }
 .gastronomia__listas { display: grid; gap: 1.25rem; }
+/* sin foto, las listas ocupan el ancho en columnas: que no quede un hueco a la derecha */
+.gastronomia:not(.gastronomia--con-foto) .gastronomia__listas { grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1.25rem 2.5rem; }
 .gastronomia__titulo { font-size: 1.15rem; margin-bottom: .3rem; }
 .lista-coma { list-style: none; margin: 0; padding: 0; }
 .lista-coma li { display: inline; }
 .lista-coma li:not(:last-child)::after { content: " · "; color: var(--apagado); }
 .gastronomia__foto { margin: 0; }
-.gastronomia__foto img { border-radius: var(--radio); width: 100%; }
+.gastronomia__marco { aspect-ratio: 4 / 3; overflow: hidden; background: var(--superficie-2); }
+.gastronomia__marco img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── v3b · V16. El término en un mapa: SVG propio desde OpenStreetMap (scripts/termino.mjs), sin
+   peticiones. El mapa es de adorno para el lector de pantalla (aria-hidden): lo mismo está en la
+   leyenda, en texto y con enlaces. Los puntos se pulsan con el ratón; con el teclado, la lista.
+   Escala uniforme (width 100 %, height auto) y sin max-width en el <svg>: lo limita la figura ── */
+.termino { display: grid; gap: 1.5rem 3rem; align-items: start; }
+@media (min-width: 56em) { .termino { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); } .termino .seccion__titulo { grid-column: 1 / -1; } }
+.termino__figura { margin: 0; min-width: 0; max-width: 36rem; }
+.termino__mapa { display: block; width: 100%; height: auto; background: var(--superficie); border: 1px solid var(--linea-fuerte); border-radius: var(--radio); }
+.termino__pie { margin-top: .6rem; color: var(--apagado); font-size: .9375rem; line-height: 1.45; }
+.termino__leyenda { min-width: 0; }
+.termino__titulo { font-size: 1.15rem; margin: 0 0 .5rem; }
+.termino__titulo:not(:first-child) { margin-top: 1.5rem; }
+.termino__lugares, .termino__claves { list-style: none; margin: 0; padding: 0; }
+.termino__lugares a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; }
+.termino__num { flex: none; display: inline-grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 50%;
+  background: var(--marca); color: var(--sobre-marca); font: 700 .875rem/1 var(--f-texto); text-decoration: none; }
+.termino__claves li { display: flex; align-items: center; gap: .6rem; padding: .3rem 0; font-size: 1rem; line-height: 1.45; }
+.termino__clave { flex: none; width: 2rem; height: 1rem; }
+.termino-fondo { fill: var(--superficie); }
+.termino-area { fill: var(--superficie-2); }
+.termino-casco { fill: var(--marca-tenue); stroke: var(--marca); stroke-width: 1; }
+.termino-limite { fill: none; stroke: var(--tinta); stroke-width: 1.6; stroke-dasharray: 7 4; stroke-linejoin: round; }
+.termino-carretera { fill: none; stroke: var(--apagado); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.termino-ruta { fill: none; stroke: var(--marca); stroke-width: 2; stroke-dasharray: 1 4; stroke-linecap: round; }
+.termino-ref rect { fill: var(--superficie); stroke: var(--apagado); stroke-width: 1; }
+.termino-ref text { font: 700 11px var(--f-texto); fill: var(--tinta); }
+.termino-escala { fill: none; stroke: var(--tinta); stroke-width: 1.4; }
+.termino-escala-texto { font: 500 12px var(--f-texto); fill: var(--tinta); }
+.termino-punto circle, .termino-punto-clave { fill: var(--marca); stroke: var(--superficie); stroke-width: 2; }
+.termino-punto text { font-family: var(--f-texto); font-weight: 700; fill: var(--sobre-marca); pointer-events: none; }
+.termino-punto:hover circle { fill: var(--marca-fuerte); }
+/* ── v3c · F25. El pueblo ampliado en un recuadro, la zona que amplía y las rayas finas de los
+   círculos apartados (scripts/termino.mjs). Con la figura estrecha (un móvil), los círculos y los
+   rótulos de carretera crecen ×1,6 sobre su centro: termino.mjs ya los reparte con ese tamaño para
+   que tampoco entonces se pisen ── */
+.termino__figura { container-type: inline-size; }
+.termino-zona, .termino-marco { fill: none; stroke: var(--tinta); stroke-width: 1.6; }
+.termino-guia { fill: none; stroke: var(--tinta); stroke-width: 1; }
+.termino-sitio { fill: var(--tinta); }
+.termino-recuadro .termino-escala-texto { paint-order: stroke; stroke: var(--superficie); stroke-width: 4px; stroke-linejoin: round; }
+.termino-calle { fill: none; stroke: var(--apagado); stroke-width: .9; stroke-linecap: round; stroke-linejoin: round; }
+@container (max-width: 26rem) {
+  .termino-punto, .termino-ref { transform-box: fill-box; transform-origin: center; transform: scale(1.6); }
+  .termino-escala-texto { font-size: 22px; }
+}
+/* al llegar desde el mapa, la ficha se marca (sin animación) */
+.lugar:target .lugar__nombre, .patrimonio__fila:target .patrimonio__nombre { text-decoration: underline 3px var(--oro); text-underline-offset: .2em; }
+
+/* ── v3b · F12. Idiomas de «El pueblo»: solo en esta página y sus traducciones ── */
+.idiomas { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem 1.25rem; padding-top: 1rem; }
+.idiomas__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0 .25rem; }
+.idiomas__enlace { display: inline-flex; align-items: center; min-height: 44px; padding: 0 .75rem; border: 1px solid var(--linea-fuerte); border-radius: var(--radio); text-decoration: none; }
+.idiomas__enlace[aria-current] { background: var(--marca); border-color: var(--marca); color: var(--sobre-marca); font-weight: 700; }
+.idiomas__enlace:not([aria-current]):hover { border-color: var(--marca); }
+.idiomas__aviso { margin: 0; color: var(--apagado); font-size: 1rem; }
 
 .rutas { list-style: none; margin: 0; padding: 0; display: grid; gap: 0 2.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
 .ruta { padding: .9rem 0 .2rem; border-top: 1px solid var(--linea); }
@@ -698,6 +1409,38 @@ a:hover { text-decoration-thickness: 2px; color: var(--marca-fuerte); }
 .creditos { font-size: 1rem; padding-left: 1.1rem; }
 .creditos li { margin-bottom: .4rem; }
 
+/* ── v3 · índice «En esta página» de las páginas largas ──
+   Escritorio: una columna a la izquierda, fija al bajar, con la sección que se está leyendo marcada
+   (aria-current, con el filete de oro). Móvil: un desplegable arriba, plegado. Las secciones del
+   cuerpo pierden su propio margen lateral: ya lo pone la rejilla */
+.con-indice { display: grid; grid-template-columns: minmax(0, 1fr); }
+.con-indice__cuerpo { min-width: 0; }
+.con-indice__cuerpo .contenedor { padding-inline: 0; max-width: none; }
+.con-indice__cuerpo .texto-largo, .con-indice__cuerpo .articulo { max-width: 46rem; }
+.con-indice__cuerpo .placa-rejilla { max-width: 52rem; margin-inline: 0; }
+.con-indice__cuerpo .carril { margin-inline: 0; padding-inline: 0; scroll-padding-inline: 0; }
+.con-indice__cuerpo > .seccion:first-child { border-top: 0; padding-top: clamp(1.75rem, 3.5vw, 2.75rem); }
+.indice__lista { list-style: none; margin: 0; padding: 0; }
+.indice__lista a { display: flex; align-items: center; min-height: 44px; padding: .3rem .75rem; border-left: 3px solid var(--linea); color: var(--tinta); font-size: 1rem; line-height: 1.3; text-decoration: none; }
+.indice__lista a:hover { color: var(--marca); text-decoration: underline; }
+.indice__lista a[aria-current] { border-left-color: var(--oro); color: var(--marca); font-weight: 700; }
+.indice--lateral { display: none; }
+.indice--movil { margin-top: 1.25rem; }
+.indice__plegable { background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio); }
+.indice__resumen { display: flex; align-items: center; min-height: 48px; padding: .5rem 1rem; font-weight: 600; cursor: pointer; }
+.indice__plegable[open] .indice__resumen { border-bottom: 1px solid var(--linea); }
+.indice__resumen::-webkit-details-marker { display: none; }
+/* con display:flex el triángulo de <summary> desaparece: un galón que dice que se despliega */
+.indice__resumen::after { content: ""; width: .5rem; height: .5rem; margin: 0 .25rem 0 auto; border-right: 2px solid var(--marca); border-bottom: 2px solid var(--marca); rotate: 45deg; translate: 0 -.15rem; }
+.indice__plegable[open] .indice__resumen::after { rotate: -135deg; translate: 0 .15rem; }
+.indice__plegable .indice__lista { padding: .5rem 1rem .75rem; }
+@media (min-width: 64em) {
+  .con-indice { grid-template-columns: 13.5rem minmax(0, 1fr); column-gap: clamp(2rem, 4vw, 4rem); }
+  .indice--movil { display: none; }
+  .indice--lateral { display: block; position: sticky; top: 1.5rem; align-self: start; max-height: calc(100vh - 3rem); overflow-y: auto; margin-top: clamp(1.75rem, 3.5vw, 2.75rem); padding: 0 .25rem .25rem 0; }
+  .indice__titulo { margin: 0 0 .6rem; color: var(--apagado); font-size: .8125rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; }
+}
+
 /* ── legal y 404 ── */
 .legal { overflow-wrap: break-word; }
 .legal h2 { font-size: 1.5rem; margin-top: 2.25rem; }
@@ -714,6 +1457,24 @@ code { font-size: .9em; overflow-wrap: anywhere; }
 @media (min-width: 48em) { .no-encontrada { grid-template-columns: 11rem 1fr; } }
 .no-encontrada__arco { width: 11rem; aspect-ratio: 3 / 4; }
 
+/* ═══════════════ TEXTURA DE CAL ═══════════════
+   Grano muy fino y unas manchas suaves sobre --papel, como una pared encalada. Vale para
+   cualquier pueblo: no lleva color, solo transparencia de negro (los números de feColorMatrix
+   y la tabla de feComponentTransfer), y se pinta sobre el --papel de cada marca.
+   - Contraste: la tabla tope deja cada píxel en ≤ 2 % + 1 % de negro, nunca más oscuro que
+     --superficie-2 (papel con un 3,5 % de tinta), que ya está medido contra el texto, el
+     apagado y la marca en scripts/lib/color.mjs. Se cumple mientras la tinta tenga canales
+     ≤ papel / 7 (cualquier tinta casi negra).
+   - Coste: dos imágenes que se rasterizan una vez y se repiten; se desplazan con la página
+     (nada de background-attachment: fixed ni filtros por fotograma).
+   - Las tarjetas (--superficie) y la cabecera quedan lisas: la hoja sobre la pared. */
+body {
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 .003 .008 .014 .02'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='720' height='720'%3E%3Cfilter id='m' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0 .003 .007 .01'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+  background-size: 220px 220px, 720px 720px;
+}
+
 /* ═══════════════ DENSIDAD ═══════════════
    «Puerta abierta»: el arco enmarca también las fotos del carril, de las
    noticias y el retrato vacío; la marca de «hoy» lleva un arquito.
@@ -728,6 +1489,126 @@ code { font-size: .9em; overflow-wrap: anywhere; }
 .densidad-puerta .hoy__mas,
 .densidad-sobria .solo-puerta,
 .densidad-sobria .linea__arquito { display: none; }
+
+/* ═══════════════ v3b · INTERIORES: incidencias (F9) ═══════════════
+   «Avisar de un problema»: el aviso de urgencias arriba, el formulario por pasos (fieldset con su
+   pregunta numerada), los errores en texto de tinta con una barra de alerta (el rojo solo como
+   decoración: el texto rojo no tiene pareja medida) y el «listo» con el enlace y el texto para copiar */
+.incidencia-urgente {
+  display: flex; gap: 1rem; align-items: flex-start; max-width: 46rem;
+  padding: 1rem 1.25rem; background: var(--superficie); border: 1px solid var(--linea); border-left: 6px solid var(--alerta); border-radius: var(--radio);
+}
+.incidencia-urgente p { margin: .35rem 0 0; }
+.incidencia-urgente__icono { width: 1.6rem; height: 1.6rem; color: var(--alerta); margin-top: .15rem; }
+.incidencia-urgente__titulo { font-size: 1.25rem; margin: 0; }
+.incidencia-urgente__tel { font-weight: 700; white-space: nowrap; }
+.incidencia { display: grid; gap: 1.75rem; max-width: 46rem; margin-top: 1.5rem; }
+.incidencia__grupo { margin: 0; padding: 0; border: 0; min-width: 0; display: grid; gap: .9rem; }
+.incidencia__pregunta { padding: 0; margin-bottom: .6rem; font: 700 1.3rem/var(--interlineado-titulos) var(--f-titulo); color: var(--tinta); }
+.incidencia__opcional { font: 400 1rem var(--f-texto); color: var(--apagado); }
+.incidencia__opciones { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); }
+.incidencia__opcion {
+  display: flex; gap: .7rem; align-items: flex-start; min-height: 48px; padding: .75rem .9rem; cursor: pointer;
+  background: var(--superficie); border: 2px solid var(--linea-fuerte); border-radius: var(--radio);
+}
+.incidencia__opcion:hover { border-color: var(--marca); }
+.incidencia__opcion:has(input:checked) { border-color: var(--marca); background: var(--marca-tenue); box-shadow: inset 4px 0 0 var(--marca); }
+/* la zona táctil es la tarjeta entera (≥ 44 px): el control nativo la cubre, sin aspecto propio (y con
+   el foco alrededor de la tarjeta); el círculo o la casilla que se ven son .incidencia__marca */
+.incidencia__opcion, .incidencia__casilla { position: relative; }
+.incidencia__opcion input, .incidencia__casilla input {
+  appearance: none; position: absolute; inset: -2px; width: auto; height: auto; margin: 0;
+  background: none; border: 0; border-radius: var(--radio); cursor: pointer;
+}
+.incidencia__marca {
+  flex: none; display: grid; place-items: center; width: 1.4rem; height: 1.4rem; margin-top: .1rem;
+  background: var(--superficie); border: 2px solid var(--linea-fuerte); border-radius: 50%;
+}
+.incidencia__marca--casilla { border-radius: 4px; }
+input:checked + .incidencia__marca { border-color: var(--marca); }
+input:checked + .incidencia__marca::after { content: ""; width: .7rem; height: .7rem; border-radius: 50%; background: var(--marca); }
+input:checked + .incidencia__marca--casilla { background: var(--marca); }
+input:checked + .incidencia__marca--casilla::after {
+  width: .4rem; height: .75rem; margin-top: -.15rem; border-radius: 0; background: none;
+  border: solid var(--sobre-marca); border-width: 0 3px 3px 0; transform: rotate(45deg);
+}
+.incidencia__casilla { display: flex; gap: .7rem; align-items: flex-start; min-height: 48px; padding: .75rem .9rem; font-weight: 600; background: var(--superficie); border: 2px solid var(--linea-fuerte); border-radius: var(--radio); cursor: pointer; }
+.incidencia__casilla:hover { border-color: var(--marca); }
+.incidencia__casilla:has(input:checked) { border-color: var(--marca); background: var(--marca-tenue); }
+.incidencia__ayuda { display: block; color: var(--apagado); font-size: .9375rem; line-height: 1.35; }
+.incidencia__opcion:has(input:checked) .incidencia__ayuda { color: var(--tinta); }
+.incidencia textarea.campo__entrada { min-height: 6rem; resize: vertical; line-height: 1.5; }
+.incidencia textarea.incidencia__texto--corto { min-height: 3.5rem; }
+.campo__ayuda--arriba { margin: 0; }
+.incidencia__ubicacion { display: grid; gap: .5rem; justify-items: start; }
+.incidencia__ubicacion .campo__ayuda { margin: 0; }
+.incidencia__estado { margin: 0; min-height: 1.6em; font-size: 1rem; }
+.incidencia__foto { display: grid; gap: .5rem; justify-items: start; }
+.incidencia__foto .campo__ayuda { margin: 0; }
+.incidencia__datos { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
+.incidencia__enviar .campo__ayuda { margin-top: .75rem; }
+.campo__error { margin: 0; padding-left: .75rem; border-left: 4px solid var(--alerta); font-weight: 600; color: var(--tinta); }
+.campo__entrada[aria-invalid="true"], fieldset[aria-invalid="true"] .incidencia__opcion { border-color: var(--alerta); }
+.incidencia-errores, .incidencia-listo {
+  max-width: 46rem; margin-top: 1.5rem; padding: 1.1rem 1.25rem;
+  background: var(--superficie); border: 2px solid var(--linea-fuerte); border-radius: var(--radio);
+}
+.incidencia-errores { border-color: var(--alerta); border-left-width: 6px; }
+.incidencia-listo { border-color: var(--marca); border-left-width: 6px; }
+.incidencia-errores__titulo, .incidencia-listo__titulo { font-size: 1.25rem; margin: 0 0 .5rem; }
+.incidencia-errores__lista { margin: 0; padding-left: 1.25rem; }
+.incidencia-errores__lista li + li { margin-top: .35rem; }
+.incidencia-listo__foto { font-weight: 600; }
+.incidencia-listo__texto { font-size: 1rem; line-height: 1.45; min-height: 12rem; white-space: pre-wrap; }
+.incidencia-listo__acciones { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+/* «Por momentos» → «Ha pasado algo en mi calle»: el enlace al formulario */
+.momento__accion { margin: .25rem 0 .9rem; display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; }
+
+/* ═══════════════ v3b · INTERIORES: lectura fácil (F10) ═══════════════
+   Pautas de Lectura Fácil (UNE 153101 EX): letra grande (1,25 rem, más que el texto base),
+   interlineado amplio, una frase por línea, alineado a la izquierda, sin cursivas ni mayúsculas
+   seguidas, pasos numerados con su número grande y su pictograma, y mucho aire entre bloques */
+.facil { max-width: calc(44rem + 2 * var(--margen)); margin-inline: 0; font-size: 1.25rem; line-height: 1.65; }
+.facil__frase { margin: 0 0 .7rem; max-width: 40rem; }
+.facil-lista { list-style: none; margin: 1.5rem 0 0; padding: 0; display: grid; gap: .75rem; }
+.facil-lista__enlace {
+  display: flex; align-items: center; gap: 1rem; min-height: 64px; padding: .7rem 1rem;
+  background: var(--superficie); border: 2px solid var(--linea-fuerte); border-radius: var(--radio);
+  font-weight: 600; text-decoration: none; color: var(--marca);
+}
+.facil-lista__enlace:hover { border-color: var(--marca); background: var(--marca-tenue); text-decoration: underline; }
+.facil-lista__picto { width: 2.25rem; height: 2.25rem; color: var(--marca); }
+.facil-tramite { border-top: 1px solid var(--linea); }
+.facil__titulo { display: flex; align-items: center; gap: 1rem; font-size: clamp(1.6rem, 1.3rem + 1.5vw, 2.1rem); margin: 0 0 1.25rem; }
+.facil__picto-grande { width: 3.5rem; height: 3.5rem; flex: none; padding: .55rem; color: var(--marca); background: var(--marca-tenue); border-radius: 50%; stroke-width: 1.5; }
+.facil__subtitulo { font-size: 1.4rem; margin: 2rem 0 .8rem; }
+.facil__pasos { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+.facil__paso {
+  display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 1rem; align-items: center;
+  padding: .9rem 1rem; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio);
+}
+.facil__pasos--sin .facil__paso { grid-template-columns: auto minmax(0, 1fr); }
+.facil__paso .facil__frase { margin: 0; }
+.facil__linea { display: block; }
+.facil__numero {
+  display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%;
+  background: var(--marca); color: var(--sobre-marca); font: 700 1.4rem/1 var(--f-titulo);
+}
+.facil__picto { width: 2.75rem; height: 2.75rem; color: var(--tinta); stroke-width: 1.5; }
+@media (max-width: 30em) {
+  .facil__paso { grid-template-columns: auto minmax(0, 1fr); }
+  .facil__paso .facil__picto { grid-row: 1; grid-column: 2; justify-self: start; }
+  .facil__paso .facil__frase { grid-column: 1 / -1; }
+  .facil__pasos--sin .facil__paso .facil__picto { grid-column: 1; }
+}
+.facil__accion { margin: 1.5rem 0 0; }
+.facil__boton { font-size: 1.15rem; min-height: 56px; }
+.facil__arriba { margin: 1.5rem 0 0; font-size: 1.0625rem; }
+.facil__nota { margin: 0; padding: 1rem 1.25rem; border-left: 4px solid var(--oro); background: var(--superficie); font-size: 1.125rem; }
+/* «Los más pedidos» en Trámites: bajo cada atajo, su «Explicado fácil» */
+.atajos--facil > li { display: grid; grid-template-rows: 1fr auto; gap: .35rem; }
+.atajo__facil { display: inline-flex; align-items: center; gap: .45rem; min-height: 44px; padding: .2rem .25rem; font-weight: 600; }
+.atajo__facil .icono { width: 1.2rem; height: 1.2rem; }
 
 /* ═══════════════ CORTINA (solo portada) ═══════════════
    La capa no tiene fondo. El velo es un div provisional hasta que cortina.js
@@ -754,6 +1635,148 @@ html.con-cortina { overflow: hidden; background: var(--cortina); }   /* también
      eso animaba TODO un fotograma y el estilo computado llegaba tarde */
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* ═══════════════ v3b · TABLÓN, PLAZOS, PORTADA Y BUSCADOR ═══════════════
+   Un solo bloque (rama v3b-tablon): el chip del plazo, el punto «Nuevo», la franja de gravedad de
+   las filas, «Plazos abiertos», «… en cifras», el lema y el pie de la foto del hero, y los grupos
+   del buscador. Todo con tokens; lo que es estado lo dice también una palabra, no solo el color */
+
+/* ── el chip del plazo: icono de reloj + la palabra («Quedan 12 días», «Último día», «Plazo
+   cerrado», «Abre el …»). Cada estado con su forma además del color: borde, relleno o apagado ── */
+.plazo {
+  display: inline-flex; align-items: center; gap: .3rem; padding: .1rem .55rem .1rem .45rem;
+  border: 1px solid var(--marca); border-radius: 999px; background: var(--marca-tenue); color: var(--marca);
+  font-size: .875rem; font-weight: 600; line-height: 1.45; white-space: nowrap;
+}
+.plazo__icono { width: 1em; height: 1em; flex: none; }
+.plazo .ejemplo { margin-inline-start: .3rem; padding: .05rem .3rem; font-size: .6875rem; vertical-align: 0; }
+.plazo--ultimo { background: var(--aviso); border-color: var(--aviso); color: var(--sobre-aviso); font-weight: 700; }
+.plazo--ultimo .ejemplo { border-color: currentColor; background: transparent; color: inherit; }
+.plazo--abre { background: var(--superficie); border-color: var(--linea-fuerte); border-style: dashed; color: var(--tinta); }
+.plazo--cerrado { background: var(--superficie-2); border-color: var(--linea); color: var(--apagado); }
+.aviso__plazo { display: contents; }
+
+/* ── «Nuevo»: lo publicado en las últimas 48 horas. Un punto de oro con su palabra ── */
+.nuevo { display: inline-flex; align-items: center; gap: .35rem; font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--tinta); }
+.nuevo__punto { width: .6rem; height: .6rem; border-radius: 50%; background: var(--oro); box-shadow: 0 0 0 2px var(--marca-tenue); }
+
+/* ── filas del tablón: franja a la izquierda con la gravedad del aviso propio (rojo, solo lo
+   urgente; ámbar, lo programado). La palabra va en su chip de la meta. Lo de plazo cerrado,
+   detrás de todo y con la fecha apagada ── */
+.tablon__fila.es-urgente, .tablon__fila.es-programado { box-shadow: inset 4px 0 0 var(--alerta); }
+.tablon__fila.es-programado { box-shadow: inset 4px 0 0 var(--aviso); }
+.tablon__fila.es-urgente .tablon__enlace, .tablon__fila.es-programado .tablon__enlace { padding-left: 1rem; }
+.tablon__fila.es-urgente > .ejemplo, .tablon__fila.es-programado > .ejemplo { margin-left: calc(3.75rem + 2rem); }
+.tablon__fila.es-cerrado .tablon__dia { background: var(--superficie-2); }
+.tablon__meta .chip--urgente, .tablon__meta .chip--programado { font-size: .8125rem; }
+.aviso--programado { border-left-color: var(--aviso); }
+
+/* ── «Plazos abiertos» (portada), bajo la tira «Hoy»: una fila de fichas, lo que cierra antes
+   primero. Sin plazos, la sección lleva hidden y no ocupa nada ── */
+.plazos-tira { padding-block: 0 clamp(2rem, 3.5vw, 3rem); }
+.plazos-tira[hidden] { display: none; }
+.plazos__titulo { display: flex; align-items: center; gap: .6rem; margin: 0 0 .85rem; font-size: 1.375rem; }
+.plazos__titulo::before { content: ""; width: 1.6rem; height: 3px; background: var(--oro); border-radius: 2px; }
+.plazos__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: .75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+.plazos__item {
+  display: grid; gap: .45rem; align-content: start; max-width: none; min-width: 0;
+  padding: .9rem 1.1rem 1rem; background: var(--superficie); border: 1px solid var(--linea); border-radius: var(--radio);
+  overflow-wrap: break-word;
+}
+.plazos__item--ultimo { border-color: var(--aviso); box-shadow: inset 0 3px 0 var(--aviso); }
+.plazos__item .plazo { justify-self: start; }
+.plazos__nombre { margin: 0; max-width: none; font: 700 1.125rem/1.3 var(--f-titulo); }
+.plazos__enlace { color: var(--tinta); }
+.plazos__enlace:hover { color: var(--marca); }
+.plazos__nota { margin: 0; color: var(--apagado); font-size: .9375rem; line-height: 1.4; }
+/* ── «… en cifras» (portada): números grandes en la letra de titulares, con una raya de oro
+   encima (decoración) y la fuente en pequeño. 2 por fila en el móvil, en fila en escritorio ── */
+.cifras .seccion__titulo { margin-bottom: clamp(1.5rem, 3vw, 2.25rem); }
+.cifras__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.75rem 2rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 12.5rem), 1fr)); }
+.cifra { max-width: none; min-width: 0; display: flex; flex-direction: column; padding-top: .9rem; border-top: 1px solid var(--linea); position: relative; }
+.cifra::before { content: ""; position: absolute; top: -2px; left: 0; width: 2.5rem; height: 3px; background: var(--oro); border-radius: 2px; }
+.cifra p { margin: 0; max-width: none; }
+.cifra__numero { font-family: var(--f-titulo); color: var(--marca); line-height: 1; overflow-wrap: anywhere; }
+.cifra__valor { font-size: clamp(2.6rem, 1.9rem + 2.6vw, 4rem); font-weight: 700; letter-spacing: -.01em; font-variant-numeric: lining-nums; }
+.cifra__unidad { font-size: clamp(1.25rem, 1.05rem + .7vw, 1.6rem); font-weight: 600; }
+.cifra__etiqueta { margin-top: .45rem !important; font-size: 1.0625rem; line-height: 1.4; color: var(--tinta); }
+.cifra__fuente { margin-top: auto !important; padding-top: .6rem; font-size: .875rem; line-height: 1.4; color: var(--apagado); }
+.cifra__fuente a { color: var(--apagado); }
+@media (max-width: 29.99em) { .cifras__lista { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 1rem; } }
+/* ── V17 · el lema con presencia: en la letra de titulares, cursiva y en la marca, con su raya de
+   oro delante (decoración). Cabe en el hero de 1280 × 720 (v3Pliegue) ── */
+.hero__lema { display: flex; align-items: center; gap: .7rem; margin: .5rem 0 0; font: italic 600 clamp(1.4rem, 1.05rem + 1.25vw, 2.1rem)/1.15 var(--f-titulo); color: var(--marca); letter-spacing: .005em; }
+.hero__lema-raya { flex: none; width: clamp(1.5rem, 3vw, 2.5rem); height: 3px; background: var(--oro); border-radius: 2px; }
+@media (max-width: 47.99em) { .hero__lema { font-size: 1.375rem; } }
+/* ── el pie de la foto del arco: diminuto, sobre el pie del arco y encima del umbral. Absoluto: no
+   cambia ninguna medida (sin CLS). Vacío (una foto sin lugar), no se ve ── */
+.puerta__pie {
+  position: absolute; left: 50%; bottom: calc(6px + .55rem); translate: -50% 0; z-index: 1;
+  max-width: calc(100% - 1.5rem); margin: 0; padding: .15rem .6rem;
+  background: var(--superficie); border: 1px solid var(--linea); border-radius: 999px;
+  font-size: .8125rem; font-weight: 600; line-height: 1.4; color: var(--tinta);
+  width: max-content; text-align: center; text-wrap: balance;
+}
+.puerta__pie:empty { display: none; }
+.puerta__pie a { color: var(--marca); }
+/* ── F8 · el buscador global: un título por grupo (Trámites, Avisos y anuncios, Noticias,
+   Teléfonos, El pueblo), en versalitas pequeñas, y «Ver los N resultados» al pie en la portada ── */
+.resultados__lista { list-style: none; margin: 0; padding: 0; }
+.resultados__titulo {
+  margin: 1rem 0 0; padding: 0 .25rem .35rem; border-bottom: 2px solid var(--oro);
+  font: 600 .8125rem/1.3 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; color: var(--apagado);
+}
+.resultados__titulo:first-child { margin-top: .35rem; }
+.hero__resultados .resultados__titulo:first-child { margin-top: .75rem; }
+.resultados__lista li:last-child a { border-bottom: 0; }
+.resultados__todos { margin: 0; padding: .7rem .25rem .8rem; border-top: 1px solid var(--linea); font-weight: 600; }
+.resultados .resultados__todos a { display: inline; padding: 0; border: 0; color: var(--marca); text-decoration: underline; }
+/* ═══════════════ fin v3b ═══════════════ */
+
+/* ═══════════════ v3c · automatico ═══════════════ */
+/* F17: la fecha del último montaje en el pie, discreta (como los créditos) */
+.pie__actualizada { color: var(--apagado); font-size: .9375rem; }
+/* ═══════════════ fin v3c · automatico ═══════════════ */
+
+/* ═══════════════ v3c · transparencia: transparencia.html, empleo y «Escríbanos» ═══════════════ */
+/* F22 · cada apartado en una ficha: qué es, dónde está (enlaces de 44 px), el hueco «Pendiente» si no
+   consta y, al pie y en pequeño, el artículo que lo pide */
+.transparencia { margin-top: 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); }
+.transparencia__apartado { display: flex; flex-direction: column; gap: .65rem; padding-bottom: 1.1rem; }
+.transparencia__apartado > * { margin: 0; }
+.transparencia__enlaces { list-style: none; margin: 0; padding: 0; display: grid; gap: .15rem; }
+.transparencia__enlaces a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 600; }
+.transparencia__nota { display: block; margin-top: -.3rem; color: var(--apagado); font-size: .9375rem; line-height: 1.4; }
+.transparencia__sin a { font-weight: 600; }
+.transparencia__ley { margin-top: auto !important; padding-top: .65rem; border-top: 1px solid var(--linea); color: var(--apagado); font-size: .9375rem; line-height: 1.45; }
+.transparencia__acceso > p, .transparencia__pasos { margin-block: 0 1rem; }
+.transparencia__pasos { padding-left: 1.4rem; }
+.transparencia__pasos li + li { margin-top: .45rem; }
+.transparencia__boton { display: flex; flex-wrap: wrap; gap: .75rem; }
+.transparencia__acceso .transparencia__ley { border-top: 0; padding-top: 0; }
+/* lo que no consta: un hueco a la vista, con borde discontinuo como «Ejemplo» pero con su palabra */
+.pendiente {
+  padding: .55rem .75rem; border: 1.5px dashed var(--tinta); border-radius: var(--radio);
+  background: var(--superficie); color: var(--tinta); font-size: 1rem; line-height: 1.45;
+}
+.pendiente__marca { font-size: .8125rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+/* F23 · empleo: el chip lleva el maletín y borde (no solo otro color); la ficha de «Hoy», como las demás */
+.chip--empleo { display: inline-flex; align-items: center; gap: .3rem; background: var(--superficie); color: var(--marca); box-shadow: inset 0 0 0 1.5px var(--marca); }
+.chip--empleo .icono { width: 1em; height: 1em; }
+.hoy__fila--empleo .hoy__nota a { font-weight: 600; }
+/* en una ficha estrecha (móvil, cinco fichas en fila) el chip del plazo y su «Ejemplo» bajan de línea */
+.hoy__fila--empleo .plazo { flex-wrap: wrap; max-width: 100%; white-space: normal; border-radius: .9rem; }
+/* F24 · «Escríbanos»: el formulario usa las piezas de «Avisar de un problema» (.incidencia…); arriba, el
+   aviso de que el correo no es un registro, como el de urgencias pero en la marca (no es una alarma) */
+.escribanos-registro {
+  display: flex; gap: .9rem; align-items: flex-start; max-width: 46rem; padding: 1rem 1.25rem;
+  border: 1px solid var(--marca); border-left-width: 6px; border-radius: var(--radio); background: var(--superficie);
+}
+.escribanos-registro p { margin: .35rem 0 0; }
+.escribanos-registro .lista-enlaces { margin-top: .35rem; }
+.escribanos-registro__icono { flex: none; width: 1.6rem; height: 1.6rem; margin-top: .15rem; color: var(--marca); }
+.escribanos-registro__titulo { margin: 0; font-size: 1.25rem; }
+/* ═══════════════ fin v3c · transparencia ═══════════════ */
 
 /* [MANDO DE MAQUETA] inicio */
 /* Mando de la reunión (?revision). Lo borra scripts/quitar_mandos.py. */

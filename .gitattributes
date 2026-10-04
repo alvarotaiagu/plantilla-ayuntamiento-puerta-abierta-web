@@ -1,0 +1,2 @@
+# Los .ics van con CRLF (RFC 5545): git no los toca al subirlos, o Pages los serviría con LF
+*.ics -text
