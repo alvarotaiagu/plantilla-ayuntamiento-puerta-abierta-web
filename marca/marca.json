@@ -10,6 +10,7 @@
     -100
   ],
   "densidad": "puerta",
+  "cortina": "escudo",
   "colores": {
     "papel": "#FAF9F5",
     "superficie": "#FFFFFF",
