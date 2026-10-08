@@ -2,7 +2,7 @@
    El listín de teléfonos sin cobertura: precarga telefonos.html y lo que necesita para verse
    (CSS, JS, letras y escudo) y lo sirve red primero, con lo guardado de respaldo, SOLO en esas
    rutas. Nada más pasa por aquí. Versión = huella de esos archivos. */
-var CACHE = "ribera-del-fresno-telefonos-4eff3ca57f";
+var CACHE = "ribera-del-fresno-telefonos-628a43edf7";
 var PREFIJO = "ribera-del-fresno-telefonos-";
 var RUTAS = ["telefonos.html","css/base.css?v=e6e45b5b","css/fuentes.css?v=03f84dac","css/imprimir.css?v=81f92fc4","css/marca.css?v=5abdee72","css/movimiento.css?v=6f3573ca","favicon.png","favicon.svg","fonts/besley-600-latin-ext.woff2","fonts/besley-600-latin.woff2","fonts/besley-600i-latin-ext.woff2","fonts/besley-600i-latin.woff2","fonts/besley-700-latin-ext.woff2","fonts/besley-700-latin.woff2","fonts/libre-franklin-400-latin-ext.woff2","fonts/libre-franklin-400-latin.woff2","fonts/libre-franklin-600-latin-ext.woff2","fonts/libre-franklin-600-latin.woff2","js/identidad.js?v=fcdf24c0","js/main.js?v=4737b8db","js/movimiento.js?v=f5805715","js/vivo.js?v=11a1482f","marca/escudo-160.png"];
 var BASE = new URL('./', self.location).href;
