@@ -26,7 +26,7 @@ END:STANDARD
 END:VTIMEZONE
 BEGIN:VEVENT
 UID:fiesta-san-isidro-2026@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20260515
 DTEND;VALUE=DATE:20260516
 SUMMARY:San Isidro
@@ -35,7 +35,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-fiestas-del-emigrante-2026@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20260815
 DTEND;VALUE=DATE:20260816
 SUMMARY:Fiestas del Emigrante
@@ -44,7 +44,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-dia-de-extremadura-2026@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20260908
 DTEND;VALUE=DATE:20260909
 SUMMARY:Día de Extremadura
@@ -54,7 +54,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-ferias-y-fiestas-del-cristo-de-la-misericordia-2026@ribera-del-f
  resno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20260914
 DTEND;VALUE=DATE:20260915
 SUMMARY:Ferias y Fiestas del Cristo de la Misericordia
@@ -65,7 +65,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:pleno-2026-09-30@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20260930
 DTEND;VALUE=DATE:20261001
 SUMMARY:Pleno ordinario
@@ -74,7 +74,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:reunion-feria-comercio@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;TZID=Europe/Madrid:20261002T203000
 DTEND;TZID=Europe/Madrid:20261002T213000
 SUMMARY:Reunión de la V Feria del Comercio
@@ -84,7 +84,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:feavir-2026@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20261112
 DTEND;VALUE=DATE:20261113
 SUMMARY:EJEMPLO: FEAVIR\, Feria Avícola
@@ -96,7 +96,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:camino-pozo-san-juan@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20261215
 DTEND;VALUE=DATE:20261216
 SUMMARY:EJEMPLO: Apertura del camino de peregrinación al Pozo de San Juan
@@ -108,7 +108,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:pleno-2026-12-29@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;TZID=Europe/Madrid:20261229T200000
 DTEND;TZID=Europe/Madrid:20261229T210000
 SUMMARY:EJEMPLO: Pleno ordinario
@@ -120,7 +120,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-san-isidro-2027@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20270515
 DTEND;VALUE=DATE:20270516
 SUMMARY:San Isidro
@@ -129,7 +129,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-fiestas-del-emigrante-2027@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20270815
 DTEND;VALUE=DATE:20270816
 SUMMARY:Fiestas del Emigrante
@@ -138,7 +138,7 @@ URL:https://alvarotaiagu.github.io/plantilla-ayuntamiento-puerta-abierta-we
 END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-dia-de-extremadura-2027@ribera-del-fresno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20270908
 DTEND;VALUE=DATE:20270909
 SUMMARY:Día de Extremadura
@@ -148,7 +148,7 @@ END:VEVENT
 BEGIN:VEVENT
 UID:fiesta-ferias-y-fiestas-del-cristo-de-la-misericordia-2027@ribera-del-f
  resno.agenda
-DTSTAMP:20261008T120616Z
+DTSTAMP:20261009T115809Z
 DTSTART;VALUE=DATE:20270914
 DTEND;VALUE=DATE:20270915
 SUMMARY:Ferias y Fiestas del Cristo de la Misericordia
